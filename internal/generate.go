@@ -104,6 +104,10 @@ func run() error {
 	}
 	defer os.RemoveAll(docsDir)
 
+	err = clearGeneratedFiles()
+	if err != nil {
+		return fmt.Errorf("error clearing previously generated files: %w", err)
+	}
 	fetchZip(dockerDocsZip, docsDir)
 
 	tmpl, err := template.New("").Parse(cmdTemplate)
@@ -129,6 +133,29 @@ func run() error {
 		return fmt.Errorf("error gathering cli data: %w", err)
 	}
 
+	return nil
+}
+
+func clearGeneratedFiles() error {
+	files, err := os.ReadDir(".")
+	if err != nil {
+		return fmt.Errorf("error reading files in directory: %w", err)
+	}
+	for _, f := range files {
+		if f.IsDir() {
+			continue
+		}
+		if !strings.HasSuffix(f.Name(), ".go") {
+			continue
+		}
+		if f.Name() == "main.go" {
+			continue
+		}
+		err := os.Remove(f.Name())
+		if err != nil {
+			return fmt.Errorf("failed to remove file: %w", err)
+		}
+	}
 	return nil
 }
 
