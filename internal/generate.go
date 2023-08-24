@@ -34,7 +34,7 @@ type ctrCliCmd struct {
 	Swarm            bool
 	Subcommand       []string
 	Options          []*ctrCliOpt
-	InheritedOptions []*ctrCliOpt
+	InheritedOptions []*ctrCliOpt `yaml:"inherited_options"`
 	Arguments        []*ctrCliArg
 }
 
@@ -46,7 +46,7 @@ type ctrCliArg struct {
 
 type ctrCliOpt struct {
 	Option          string
-	ValueType       string
+	ValueType       string `yaml:"value_type"`
 	Description     string
 	Deprecated      bool
 	Hidden          bool
@@ -54,7 +54,7 @@ type ctrCliOpt struct {
 	Experimentalcli bool
 	Kubernetes      bool
 	Swarm           bool
-	DefaultValue    string
+	DefaultValue    string `yaml:"default_value"`
 }
 
 var cmdOverrides = map[string]*ctrCliCmd{
