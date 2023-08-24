@@ -2,7 +2,7 @@ package ctrctl
 
 type VolumeRmOpts struct {
 	// Force the removal of one or more volumes.
-	Force string
+	Force bool
 }
 
 // Remove one or more volumes.

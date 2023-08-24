@@ -5,7 +5,7 @@ type NetworkPruneOpts struct {
 	Filter string
 
 	// Do not prompt for confirmation.
-	Force string
+	Force bool
 }
 
 // Remove all unused networks.

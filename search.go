@@ -8,10 +8,10 @@ type SearchOpts struct {
 	Format string
 
 	// Max number of search results.
-	Limit string
+	Limit *int
 
 	// Don't truncate output.
-	NoTrunc string
+	NoTrunc bool
 }
 
 // Search Docker Hub for images.

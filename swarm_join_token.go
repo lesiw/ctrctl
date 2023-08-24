@@ -2,10 +2,10 @@ package ctrctl
 
 type SwarmJoinTokenOpts struct {
 	// Only display token.
-	Quiet string
+	Quiet bool
 
 	// Rotate join token.
-	Rotate string
+	Rotate bool
 }
 
 // Manage join tokens.

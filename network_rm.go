@@ -2,7 +2,7 @@ package ctrctl
 
 type NetworkRmOpts struct {
 	// Do not error if the network does not exist.
-	Force string
+	Force bool
 }
 
 // Remove one or more networks.

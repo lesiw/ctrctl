@@ -2,10 +2,10 @@ package ctrctl
 
 type ServiceRollbackOpts struct {
 	// Exit immediately instead of waiting for the service to converge.
-	Detach string
+	Detach bool
 
 	// Suppress progress output.
-	Quiet string
+	Quiet bool
 }
 
 // Revert changes to a service's configuration.

@@ -2,7 +2,7 @@ package ctrctl
 
 type PluginDisableOpts struct {
 	// Force the disable of an active plugin.
-	Force string
+	Force bool
 }
 
 // Disable a plugin.

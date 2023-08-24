@@ -2,7 +2,7 @@ package ctrctl
 
 type PluginRmOpts struct {
 	// Force the removal of an active plugin.
-	Force string
+	Force bool
 }
 
 // Remove one or more plugins.

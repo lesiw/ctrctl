@@ -13,10 +13,10 @@ type NetworkLsOpts struct {
 	Format string
 
 	// Do not truncate the output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only display network IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List networks.

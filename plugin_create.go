@@ -2,7 +2,7 @@ package ctrctl
 
 type PluginCreateOpts struct {
 	// Compress the context using gzip.
-	Compress string
+	Compress bool
 }
 
 // Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.

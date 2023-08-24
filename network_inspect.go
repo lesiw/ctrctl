@@ -8,7 +8,7 @@ type NetworkInspectOpts struct {
 	Format string
 
 	// Verbose output for diagnostics.
-	Verbose string
+	Verbose bool
 }
 
 // Display detailed information on one or more networks.

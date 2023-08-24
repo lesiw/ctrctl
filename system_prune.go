@@ -2,16 +2,16 @@ package ctrctl
 
 type SystemPruneOpts struct {
 	// Remove all unused images not just dangling ones.
-	All string
+	All bool
 
 	// Provide filter values (e.g. `label=<key>=<value>`).
 	Filter string
 
 	// Do not prompt for confirmation.
-	Force string
+	Force bool
 
 	// Prune volumes.
-	Volumes string
+	Volumes bool
 }
 
 // Remove unused data.

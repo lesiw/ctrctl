@@ -13,7 +13,7 @@ type StackServicesOpts struct {
 	Format string
 
 	// Only display IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List the services in the stack.

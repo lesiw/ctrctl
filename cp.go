@@ -2,13 +2,13 @@ package ctrctl
 
 type CpOpts struct {
 	// Archive mode (copy all uid/gid information).
-	Archive string
+	Archive bool
 
 	// Always follow symbol link in SRC_PATH.
-	FollowLink string
+	FollowLink bool
 
 	// Suppress progress output during copy. Progress output is automatically suppressed if no terminal is attached.
-	Quiet string
+	Quiet bool
 }
 
 // Copy files/folders between a container and the local filesystem.

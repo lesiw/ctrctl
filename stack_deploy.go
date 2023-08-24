@@ -5,13 +5,13 @@ type StackDeployOpts struct {
 	ComposeFile string
 
 	// Prune services that are no longer referenced.
-	Prune string
+	Prune bool
 
 	// Query the registry to resolve image digest and supported platforms (`always`, `changed`, `never`).
 	ResolveImage string
 
 	// Send registry authentication details to Swarm agents.
-	WithRegistryAuth string
+	WithRegistryAuth bool
 }
 
 // Deploy a new stack or update an existing stack.

@@ -2,13 +2,13 @@ package ctrctl
 
 type ImagePruneOpts struct {
 	// Remove all unused images, not just dangling ones.
-	All string
+	All bool
 
 	// Provide filter values (e.g. `until=<timestamp>`).
 	Filter string
 
 	// Do not prompt for confirmation.
-	Force string
+	Force bool
 }
 
 // Remove unused images.

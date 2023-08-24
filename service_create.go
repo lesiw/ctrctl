@@ -20,7 +20,7 @@ type ServiceCreateOpts struct {
 	CredentialSpec string
 
 	// Exit immediately instead of waiting for the service to converge.
-	Detach string
+	Detach bool
 
 	// Set custom DNS servers.
 	Dns string
@@ -56,7 +56,7 @@ type ServiceCreateOpts struct {
 	HealthInterval string
 
 	// Consecutive failures needed to report unhealthy.
-	HealthRetries string
+	HealthRetries *int
 
 	// Start period for the container to initialize before counting retries towards unstable (ms|s|m|h).
 	HealthStartPeriod string
@@ -71,7 +71,7 @@ type ServiceCreateOpts struct {
 	Hostname string
 
 	// Use an init inside each service container to forward signals and reap processes.
-	Init string
+	Init bool
 
 	// Service container isolation mode.
 	Isolation string
@@ -110,10 +110,10 @@ type ServiceCreateOpts struct {
 	Network string
 
 	// Disable any container-specified HEALTHCHECK.
-	NoHealthcheck string
+	NoHealthcheck bool
 
 	// Do not query the registry to resolve image digest and supported platforms.
-	NoResolveImage string
+	NoResolveImage bool
 
 	// Add a placement preference.
 	PlacementPref string
@@ -122,10 +122,10 @@ type ServiceCreateOpts struct {
 	Publish string
 
 	// Suppress progress output.
-	Quiet string
+	Quiet bool
 
 	// Mount the container's root filesystem as read only.
-	ReadOnly string
+	ReadOnly bool
 
 	// Number of tasks.
 	Replicas string
@@ -182,7 +182,7 @@ type ServiceCreateOpts struct {
 	Sysctl string
 
 	// Allocate a pseudo-TTY.
-	Tty string
+	Tty bool
 
 	// Ulimit options.
 	Ulimit string
@@ -209,7 +209,7 @@ type ServiceCreateOpts struct {
 	User string
 
 	// Send registry authentication details to swarm agents.
-	WithRegistryAuth string
+	WithRegistryAuth bool
 
 	// Working directory inside the container.
 	Workdir string

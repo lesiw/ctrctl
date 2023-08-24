@@ -2,13 +2,13 @@ package ctrctl
 
 type VolumePruneOpts struct {
 	// Remove all unused volumes, not just anonymous ones.
-	All string
+	All bool
 
 	// Provide filter values (e.g. `label=<label>`).
 	Filter string
 
 	// Do not prompt for confirmation.
-	Force string
+	Force bool
 }
 
 // Remove all unused local volumes.

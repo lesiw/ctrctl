@@ -8,13 +8,13 @@ type NodePsOpts struct {
 	Format string
 
 	// Do not map IDs to Names.
-	NoResolve string
+	NoResolve bool
 
 	// Do not truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only display task IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List tasks running on one or more nodes, defaults to current node.

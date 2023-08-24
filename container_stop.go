@@ -5,7 +5,7 @@ type ContainerStopOpts struct {
 	Signal string
 
 	// Seconds to wait before killing the container.
-	Time string
+	Time *int
 }
 
 // Stop one or more running containers.

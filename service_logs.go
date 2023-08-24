@@ -2,22 +2,22 @@ package ctrctl
 
 type ServiceLogsOpts struct {
 	// Show extra details provided to logs.
-	Details string
+	Details bool
 
 	// Follow log output.
-	Follow string
+	Follow bool
 
 	// Do not map IDs to Names in output.
-	NoResolve string
+	NoResolve bool
 
 	// Do not include task IDs in output.
-	NoTaskIds string
+	NoTaskIds bool
 
 	// Do not truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Do not neatly format logs.
-	Raw string
+	Raw bool
 
 	// Show logs since timestamp (e.g. `2013-01-02T13:23:37Z`) or relative (e.g. `42m` for 42 minutes).
 	Since string
@@ -26,7 +26,7 @@ type ServiceLogsOpts struct {
 	Tail string
 
 	// Show timestamps.
-	Timestamps string
+	Timestamps bool
 }
 
 // Fetch the logs of a service or task.

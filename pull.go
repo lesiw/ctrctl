@@ -2,16 +2,16 @@ package ctrctl
 
 type PullOpts struct {
 	// Download all tagged images in the repository.
-	AllTags string
+	AllTags bool
 
 	// Skip image verification.
-	DisableContentTrust string
+	DisableContentTrust bool
 
 	// Set platform if server is multi-platform capable.
 	Platform string
 
 	// Suppress verbose output.
-	Quiet string
+	Quiet bool
 }
 
 // Download an image from a registry.

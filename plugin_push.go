@@ -2,7 +2,7 @@ package ctrctl
 
 type PluginPushOpts struct {
 	// Skip image signing.
-	DisableContentTrust string
+	DisableContentTrust bool
 }
 
 // Push a plugin to a registry.

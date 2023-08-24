@@ -5,7 +5,7 @@ type CheckpointCreateOpts struct {
 	CheckpointDir string
 
 	// Leave the container running after checkpoint.
-	LeaveRunning string
+	LeaveRunning bool
 }
 
 // Create a checkpoint from a running container.

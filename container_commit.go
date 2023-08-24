@@ -11,7 +11,7 @@ type ContainerCommitOpts struct {
 	Message string
 
 	// Pause container during commit.
-	Pause string
+	Pause bool
 }
 
 // Create a new image from a container's changes.

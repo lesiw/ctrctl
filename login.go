@@ -5,7 +5,7 @@ type LoginOpts struct {
 	Password string
 
 	// Take the password from stdin.
-	PasswordStdin string
+	PasswordStdin bool
 
 	// Username.
 	Username string

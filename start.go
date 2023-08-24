@@ -2,7 +2,7 @@ package ctrctl
 
 type StartOpts struct {
 	// Attach STDOUT/STDERR and forward signals.
-	Attach string
+	Attach bool
 
 	// Restore from this checkpoint.
 	Checkpoint string
@@ -14,7 +14,7 @@ type StartOpts struct {
 	DetachKeys string
 
 	// Attach container's STDIN.
-	Interactive string
+	Interactive bool
 }
 
 // Start one or more stopped containers.

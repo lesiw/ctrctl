@@ -2,10 +2,10 @@ package ctrctl
 
 type ManifestPushOpts struct {
 	// Allow push to an insecure registry.
-	Insecure string
+	Insecure bool
 
 	// Remove the local manifest list after push.
-	Purge string
+	Purge bool
 }
 
 // Push a manifest list to a repository.

@@ -5,7 +5,7 @@ type ContainerPruneOpts struct {
 	Filter string
 
 	// Do not prompt for confirmation.
-	Force string
+	Force bool
 }
 
 // Remove all stopped containers.

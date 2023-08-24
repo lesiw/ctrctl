@@ -405,7 +405,7 @@ func (cmd *ctrCliCmd) optsStruct() string {
 			}
 			s.WriteString(fmt.Sprintf("\t// %s\n", ensureDot(line)))
 		}
-		s.WriteString(fmt.Sprintf("\t%s string\n\n", capitalize(opt.Option)))
+		s.WriteString(fmt.Sprintf("\t%s %s\n\n", capitalize(opt.Option), opt.structType()))
 	}
 	return strings.TrimRight(s.String(), "\n")
 }
@@ -471,6 +471,17 @@ func (c *ctrCliCmd) subcommandSlice() string {
 
 func (a *ctrCliArg) isOpts() bool {
 	return a.Name == "options"
+}
+
+func (o *ctrCliOpt) structType() string {
+	switch o.ValueType {
+	case "bool":
+		return "bool"
+	case "int":
+		return "*int"
+	default:
+		return "string"
+	}
 }
 
 func capitalize(s string) string {

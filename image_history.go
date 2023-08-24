@@ -10,13 +10,13 @@ type ImageHistoryOpts struct {
 	Format string
 
 	// Print sizes and dates in human readable format.
-	Human string
+	Human bool
 
 	// Don't truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only show image IDs.
-	Quiet string
+	Quiet bool
 }
 
 // Show the history of an image.

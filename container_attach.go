@@ -5,10 +5,10 @@ type ContainerAttachOpts struct {
 	DetachKeys string
 
 	// Do not attach STDIN.
-	NoStdin string
+	NoStdin bool
 
 	// Proxy all received signals to the process.
-	SigProxy string
+	SigProxy bool
 }
 
 // Attach local standard input, output, and error streams to a running container.

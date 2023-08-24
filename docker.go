@@ -8,10 +8,10 @@ type DockerOpts struct {
 	Context string
 
 	// Enable debug mode.
-	Debug string
+	Debug bool
 
 	// Print usage.
-	Help string
+	Help bool
 
 	// Daemon socket to connect to.
 	Host string
@@ -20,7 +20,7 @@ type DockerOpts struct {
 	LogLevel string
 
 	// Use TLS; implied by --tlsverify.
-	Tls string
+	Tls bool
 
 	// Trust certs signed only by this CA.
 	Tlscacert string
@@ -32,7 +32,7 @@ type DockerOpts struct {
 	Tlskey string
 
 	// Use TLS and verify the remote.
-	Tlsverify string
+	Tlsverify bool
 }
 
 // The base command for the Docker CLI.

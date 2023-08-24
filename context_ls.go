@@ -10,7 +10,7 @@ type ContextLsOpts struct {
 	Format string
 
 	// Only show context names.
-	Quiet string
+	Quiet bool
 }
 
 // List contexts.

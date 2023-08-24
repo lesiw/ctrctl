@@ -10,7 +10,7 @@ type SystemDfOpts struct {
 	Format string
 
 	// Show detailed information on space usage.
-	Verbose string
+	Verbose bool
 }
 
 // Show docker disk usage.

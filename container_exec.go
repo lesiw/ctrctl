@@ -2,7 +2,7 @@ package ctrctl
 
 type ContainerExecOpts struct {
 	// Detached mode: run command in the background.
-	Detach string
+	Detach bool
 
 	// Override the key sequence for detaching a container.
 	DetachKeys string
@@ -14,13 +14,13 @@ type ContainerExecOpts struct {
 	EnvFile string
 
 	// Keep STDIN open even if not attached.
-	Interactive string
+	Interactive bool
 
 	// Give extended privileges to the command.
-	Privileged string
+	Privileged bool
 
 	// Allocate a pseudo-TTY.
-	Tty string
+	Tty bool
 
 	// Username or UID (format: `<name|uid>[:<group|gid>]`).
 	User string

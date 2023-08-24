@@ -2,7 +2,7 @@ package ctrctl
 
 type TrustSignOpts struct {
 	// Sign a locally tagged image.
-	Local string
+	Local bool
 }
 
 // Sign an image.

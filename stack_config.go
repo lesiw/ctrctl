@@ -5,7 +5,7 @@ type StackConfigOpts struct {
 	ComposeFile string
 
 	// Skip interpolation and output only merged config.
-	SkipInterpolation string
+	SkipInterpolation bool
 }
 
 // Outputs the final config file, after doing merges and interpolations.

@@ -2,7 +2,7 @@ package ctrctl
 
 type NetworkCreateOpts struct {
 	// Enable manual container attachment.
-	Attachable string
+	Attachable bool
 
 	// Auxiliary IPv4 or IPv6 addresses used by Network driver.
 	AuxAddress string
@@ -11,7 +11,7 @@ type NetworkCreateOpts struct {
 	ConfigFrom string
 
 	// Create a configuration only network.
-	ConfigOnly string
+	ConfigOnly bool
 
 	// Driver to manage the Network.
 	Driver string
@@ -20,10 +20,10 @@ type NetworkCreateOpts struct {
 	Gateway string
 
 	// Create swarm routing-mesh network.
-	Ingress string
+	Ingress bool
 
 	// Restrict external access to the network.
-	Internal string
+	Internal bool
 
 	// Allocate container ip from a sub-range.
 	IpRange string
@@ -35,7 +35,7 @@ type NetworkCreateOpts struct {
 	IpamOpt string
 
 	// Enable IPv6 networking.
-	Ipv6 string
+	Ipv6 bool
 
 	// Set metadata on a network.
 	Label string

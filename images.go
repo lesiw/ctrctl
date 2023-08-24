@@ -2,10 +2,10 @@ package ctrctl
 
 type ImagesOpts struct {
 	// Show all images (default hides intermediate images).
-	All string
+	All bool
 
 	// Show digests.
-	Digests string
+	Digests bool
 
 	// Filter output based on conditions provided.
 	Filter string
@@ -19,10 +19,10 @@ type ImagesOpts struct {
 	Format string
 
 	// Don't truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only show image IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List images.

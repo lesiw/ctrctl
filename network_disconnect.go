@@ -2,7 +2,7 @@ package ctrctl
 
 type NetworkDisconnectOpts struct {
 	// Force the container to disconnect from a network.
-	Force string
+	Force bool
 }
 
 // Disconnect a container from a network.

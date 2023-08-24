@@ -13,10 +13,10 @@ type PluginLsOpts struct {
 	Format string
 
 	// Don't truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only display plugin IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List plugins.

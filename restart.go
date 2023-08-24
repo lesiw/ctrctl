@@ -5,7 +5,7 @@ type RestartOpts struct {
 	Signal string
 
 	// Seconds to wait before killing the container.
-	Time string
+	Time *int
 }
 
 // Restart one or more containers.

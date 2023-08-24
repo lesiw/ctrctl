@@ -2,7 +2,7 @@ package ctrctl
 
 type ContainerLsOpts struct {
 	// Show all containers (default shows just running).
-	All string
+	All bool
 
 	// Filter output based on conditions provided.
 	Filter string
@@ -16,19 +16,19 @@ type ContainerLsOpts struct {
 	Format string
 
 	// Show n last created containers (includes all states).
-	Last string
+	Last *int
 
 	// Show the latest created container (includes all states).
-	Latest string
+	Latest bool
 
 	// Don't truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only display container IDs.
-	Quiet string
+	Quiet bool
 
 	// Display total file sizes.
-	Size string
+	Size bool
 }
 
 // List containers.

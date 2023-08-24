@@ -2,13 +2,13 @@ package ctrctl
 
 type RmOpts struct {
 	// Force the removal of a running container (uses SIGKILL).
-	Force string
+	Force bool
 
 	// Remove the specified link.
-	Link string
+	Link bool
 
 	// Remove anonymous volumes associated with the container.
-	Volumes string
+	Volumes bool
 }
 
 // Remove one or more containers.

@@ -8,7 +8,7 @@ type SecretInspectOpts struct {
 	Format string
 
 	// Print the information in a human friendly format.
-	Pretty string
+	Pretty bool
 }
 
 // Display detailed information on one or more secrets.

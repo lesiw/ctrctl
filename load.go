@@ -5,7 +5,7 @@ type LoadOpts struct {
 	Input string
 
 	// Suppress the load output.
-	Quiet string
+	Quiet bool
 }
 
 // Load an image from a tar archive or STDIN.

@@ -2,7 +2,7 @@ package ctrctl
 
 type VolumeLsOpts struct {
 	// Display only cluster volumes, and use cluster volume list formatting.
-	Cluster string
+	Cluster bool
 
 	// Provide filter values (e.g. `dangling=true`).
 	Filter string
@@ -16,7 +16,7 @@ type VolumeLsOpts struct {
 	Format string
 
 	// Only display volume names.
-	Quiet string
+	Quiet bool
 }
 
 // List volumes.

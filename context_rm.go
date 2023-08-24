@@ -2,7 +2,7 @@ package ctrctl
 
 type ContextRmOpts struct {
 	// Force the removal of a context in use.
-	Force string
+	Force bool
 }
 
 // Remove one or more contexts.

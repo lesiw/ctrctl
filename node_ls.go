@@ -13,7 +13,7 @@ type NodeLsOpts struct {
 	Format string
 
 	// Only display IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List nodes in the swarm.

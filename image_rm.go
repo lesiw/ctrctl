@@ -2,10 +2,10 @@ package ctrctl
 
 type ImageRmOpts struct {
 	// Force removal of the image.
-	Force string
+	Force bool
 
 	// Do not delete untagged parents.
-	NoPrune string
+	NoPrune bool
 }
 
 // Remove one or more images.

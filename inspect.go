@@ -8,7 +8,7 @@ type InspectOpts struct {
 	Format string
 
 	// Display total file sizes if the type is container.
-	Size string
+	Size bool
 
 	// Return JSON for specified type.
 	Type string

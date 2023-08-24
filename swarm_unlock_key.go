@@ -2,10 +2,10 @@ package ctrctl
 
 type SwarmUnlockKeyOpts struct {
 	// Only display token.
-	Quiet string
+	Quiet bool
 
 	// Rotate unlock key.
-	Rotate string
+	Rotate bool
 }
 
 // Manage the unlock key.

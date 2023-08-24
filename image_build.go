@@ -14,7 +14,7 @@ type ImageBuildOpts struct {
 	CgroupParent string
 
 	// Compress the build context using gzip.
-	Compress string
+	Compress bool
 
 	// Limit the CPU CFS (Completely Fair Scheduler) period.
 	CpuPeriod string
@@ -32,13 +32,13 @@ type ImageBuildOpts struct {
 	CpusetMems string
 
 	// Skip image verification.
-	DisableContentTrust string
+	DisableContentTrust bool
 
 	// Name of the Dockerfile (Default is `PATH/Dockerfile`).
 	File string
 
 	// Always remove intermediate containers.
-	ForceRm string
+	ForceRm bool
 
 	// Write the image ID to the file.
 	Iidfile string
@@ -59,19 +59,19 @@ type ImageBuildOpts struct {
 	Network string
 
 	// Do not use cache when building the image.
-	NoCache string
+	NoCache bool
 
 	// Set platform if server is multi-platform capable.
 	Platform string
 
 	// Always attempt to pull a newer version of the image.
-	Pull string
+	Pull bool
 
 	// Suppress the build output and print image ID on success.
-	Quiet string
+	Quiet bool
 
 	// Remove intermediate containers after a successful build.
-	Rm string
+	Rm bool
 
 	// Security options.
 	SecurityOpt string
@@ -80,7 +80,7 @@ type ImageBuildOpts struct {
 	ShmSize string
 
 	// Squash newly built layers into a single new layer.
-	Squash string
+	Squash bool
 
 	// Name and optionally a tag in the `name:tag` format.
 	Tag string

@@ -8,7 +8,7 @@ type ContainerInspectOpts struct {
 	Format string
 
 	// Display total file sizes.
-	Size string
+	Size bool
 }
 
 // Display detailed information on one or more containers.

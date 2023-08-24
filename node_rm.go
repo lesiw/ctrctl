@@ -2,7 +2,7 @@ package ctrctl
 
 type NodeRmOpts struct {
 	// Force remove a node from the swarm.
-	Force string
+	Force bool
 }
 
 // Remove one or more nodes from the swarm.

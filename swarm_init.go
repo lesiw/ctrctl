@@ -5,7 +5,7 @@ type SwarmInitOpts struct {
 	AdvertiseAddr string
 
 	// Enable manager autolocking (requiring an unlock key to start a stopped manager).
-	Autolock string
+	Autolock bool
 
 	// Availability of the node (`active`, `pause`, `drain`).
 	Availability string
@@ -32,7 +32,7 @@ type SwarmInitOpts struct {
 	ExternalCa string
 
 	// Force create a new cluster from current state.
-	ForceNewCluster string
+	ForceNewCluster bool
 
 	// Listen address (format: `<ip|interface>[:port]`).
 	ListenAddr string

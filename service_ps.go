@@ -8,13 +8,13 @@ type ServicePsOpts struct {
 	Format string
 
 	// Do not map IDs to Names.
-	NoResolve string
+	NoResolve bool
 
 	// Do not truncate output.
-	NoTrunc string
+	NoTrunc bool
 
 	// Only display task IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List the tasks of one or more services.

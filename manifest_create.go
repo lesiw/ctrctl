@@ -2,10 +2,10 @@ package ctrctl
 
 type ManifestCreateOpts struct {
 	// Amend an existing manifest list.
-	Amend string
+	Amend bool
 
 	// Allow communication with an insecure registry.
-	Insecure string
+	Insecure bool
 }
 
 // Create a local manifest list for annotating and pushing to a registry.

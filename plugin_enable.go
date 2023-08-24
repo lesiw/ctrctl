@@ -2,7 +2,7 @@ package ctrctl
 
 type PluginEnableOpts struct {
 	// HTTP client timeout (in seconds).
-	Timeout string
+	Timeout *int
 }
 
 // Enable a plugin.

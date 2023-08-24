@@ -5,13 +5,13 @@ type PluginInstallOpts struct {
 	Alias string
 
 	// Do not enable the plugin on install.
-	Disable string
+	Disable bool
 
 	// Skip image verification.
-	DisableContentTrust string
+	DisableContentTrust bool
 
 	// Grant all permissions necessary to run the plugin.
-	GrantAllPermissions string
+	GrantAllPermissions bool
 }
 
 // Install a plugin.

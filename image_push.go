@@ -2,13 +2,13 @@ package ctrctl
 
 type ImagePushOpts struct {
 	// Push all tags of an image to the repository.
-	AllTags string
+	AllTags bool
 
 	// Skip image signing.
-	DisableContentTrust string
+	DisableContentTrust bool
 
 	// Suppress verbose output.
-	Quiet string
+	Quiet bool
 }
 
 // Upload an image to a registry.

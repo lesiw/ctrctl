@@ -2,7 +2,7 @@ package ctrctl
 
 type TrustInspectOpts struct {
 	// Print the information in a human friendly format.
-	Pretty string
+	Pretty bool
 }
 
 // Return low-level information about keys and signatures.

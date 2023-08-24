@@ -2,7 +2,7 @@ package ctrctl
 
 type ServiceScaleOpts struct {
 	// Exit immediately instead of waiting for the service to converge.
-	Detach string
+	Detach bool
 }
 
 // Scale one or multiple replicated services.

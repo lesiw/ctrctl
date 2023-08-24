@@ -79,17 +79,14 @@ func optsToArgs(opts interface{}) []string {
 		if field.Type.Kind() == reflect.String && value.IsZero() {
 			continue
 		}
+		if field.Type.Kind() == reflect.Bool && !value.Bool() {
+			continue
+		}
 		result = append(result, fieldToFlag(field.Name))
 
 		switch field.Type.Kind() {
-		case reflect.Bool:
-			if value.Elem().Bool() {
-				result = append(result, "true")
-			} else {
-				result = append(result, "false")
-			}
 		case reflect.Int:
-			result = append(result, strconv.FormatInt(value.Elem().Int(), 10))
+			result = append(result, strconv.FormatInt(value.Int(), 10))
 		case reflect.String:
 			result = append(result, value.String())
 		}

@@ -2,7 +2,7 @@ package ctrctl
 
 type SwarmLeaveOpts struct {
 	// Force this node to leave the swarm, ignoring warnings.
-	Force string
+	Force bool
 }
 
 // Leave the swarm.

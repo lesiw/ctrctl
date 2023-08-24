@@ -2,7 +2,7 @@ package ctrctl
 
 type SwarmUpdateOpts struct {
 	// Change manager autolocking setting (true|false).
-	Autolock string
+	Autolock bool
 
 	// Validity period for node certificates (ns|us|ms|s|m|h).
 	CertExpiry string

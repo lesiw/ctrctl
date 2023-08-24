@@ -2,13 +2,13 @@ package ctrctl
 
 type PluginUpgradeOpts struct {
 	// Skip image verification.
-	DisableContentTrust string
+	DisableContentTrust bool
 
 	// Grant all permissions necessary to run the plugin.
-	GrantAllPermissions string
+	GrantAllPermissions bool
 
 	// Do not check if specified remote plugin matches existing plugin image.
-	SkipRemoteCheck string
+	SkipRemoteCheck bool
 }
 
 // Upgrade an existing plugin.

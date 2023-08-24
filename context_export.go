@@ -2,7 +2,7 @@ package ctrctl
 
 type ContextExportOpts struct {
 	// Export as a kubeconfig file.
-	Kubeconfig string
+	Kubeconfig bool
 }
 
 // Export a context to a tar archive FILE or a tar stream on STDOUT.

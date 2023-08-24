@@ -2,10 +2,10 @@ package ctrctl
 
 type ManifestInspectOpts struct {
 	// Allow communication with an insecure registry.
-	Insecure string
+	Insecure bool
 
 	// Output additional info including layers and platform.
-	Verbose string
+	Verbose bool
 }
 
 // Display an image manifest, or manifest list.

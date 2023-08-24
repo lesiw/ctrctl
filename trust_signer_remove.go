@@ -2,7 +2,7 @@ package ctrctl
 
 type TrustSignerRemoveOpts struct {
 	// Do not prompt for confirmation before removing the most recent signer.
-	Force string
+	Force bool
 }
 
 // Remove a signer.

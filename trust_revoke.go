@@ -2,7 +2,7 @@ package ctrctl
 
 type TrustRevokeOpts struct {
 	// Do not prompt for confirmation.
-	Yes string
+	Yes bool
 }
 
 // Remove trust for an image.

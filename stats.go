@@ -2,7 +2,7 @@ package ctrctl
 
 type StatsOpts struct {
 	// Show all containers (default shows just running).
-	All string
+	All bool
 
 	// Format output using a custom template:.
 	// 'table':            Print output in table format with column headers (default).
@@ -13,10 +13,10 @@ type StatsOpts struct {
 	Format string
 
 	// Disable streaming stats and only pull the first result.
-	NoStream string
+	NoStream bool
 
 	// Do not truncate output.
-	NoTrunc string
+	NoTrunc bool
 }
 
 // Display a live stream of container(s) resource usage statistics.

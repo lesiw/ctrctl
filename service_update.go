@@ -32,7 +32,7 @@ type ServiceUpdateOpts struct {
 	CredentialSpec string
 
 	// Exit immediately instead of waiting for the service to converge.
-	Detach string
+	Detach bool
 
 	// Add or update a custom DNS server.
 	DnsAdd string
@@ -65,7 +65,7 @@ type ServiceUpdateOpts struct {
 	EnvRm string
 
 	// Force update even if no changes require it.
-	Force string
+	Force bool
 
 	// Add a Generic resource.
 	GenericResourceAdd string
@@ -86,7 +86,7 @@ type ServiceUpdateOpts struct {
 	HealthInterval string
 
 	// Consecutive failures needed to report unhealthy.
-	HealthRetries string
+	HealthRetries *int
 
 	// Start period for the container to initialize before counting retries towards unstable (ms|s|m|h).
 	HealthStartPeriod string
@@ -107,7 +107,7 @@ type ServiceUpdateOpts struct {
 	Image string
 
 	// Use an init inside each service container to forward signals and reap processes.
-	Init string
+	Init bool
 
 	// Service container isolation mode.
 	Isolation string
@@ -149,10 +149,10 @@ type ServiceUpdateOpts struct {
 	NetworkRm string
 
 	// Disable any container-specified HEALTHCHECK.
-	NoHealthcheck string
+	NoHealthcheck bool
 
 	// Do not query the registry to resolve image digest and supported platforms.
-	NoResolveImage string
+	NoResolveImage bool
 
 	// Add a placement preference.
 	PlacementPrefAdd string
@@ -167,10 +167,10 @@ type ServiceUpdateOpts struct {
 	PublishRm string
 
 	// Suppress progress output.
-	Quiet string
+	Quiet bool
 
 	// Mount the container's root filesystem as read only.
-	ReadOnly string
+	ReadOnly bool
 
 	// Number of tasks.
 	Replicas string
@@ -197,7 +197,7 @@ type ServiceUpdateOpts struct {
 	RestartWindow string
 
 	// Rollback to previous specification.
-	Rollback string
+	Rollback bool
 
 	// Delay between task rollbacks (ns|us|ms|s|m|h).
 	RollbackDelay string
@@ -236,7 +236,7 @@ type ServiceUpdateOpts struct {
 	SysctlRm string
 
 	// Allocate a pseudo-TTY.
-	Tty string
+	Tty bool
 
 	// Add or update a ulimit option.
 	UlimitAdd string
@@ -266,7 +266,7 @@ type ServiceUpdateOpts struct {
 	User string
 
 	// Send registry authentication details to swarm agents.
-	WithRegistryAuth string
+	WithRegistryAuth bool
 
 	// Working directory inside the container.
 	Workdir string

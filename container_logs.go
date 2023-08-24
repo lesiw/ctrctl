@@ -2,10 +2,10 @@ package ctrctl
 
 type ContainerLogsOpts struct {
 	// Show extra details provided to logs.
-	Details string
+	Details bool
 
 	// Follow log output.
-	Follow string
+	Follow bool
 
 	// Show logs since timestamp (e.g. `2013-01-02T13:23:37Z`) or relative (e.g. `42m` for 42 minutes).
 	Since string
@@ -14,7 +14,7 @@ type ContainerLogsOpts struct {
 	Tail string
 
 	// Show timestamps.
-	Timestamps string
+	Timestamps bool
 
 	// Show logs before a timestamp (e.g. `2013-01-02T13:23:37Z`) or relative (e.g. `42m` for 42 minutes).
 	Until string

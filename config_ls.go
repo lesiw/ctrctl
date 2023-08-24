@@ -13,7 +13,7 @@ type ConfigLsOpts struct {
 	Format string
 
 	// Only display IDs.
-	Quiet string
+	Quiet bool
 }
 
 // List configs.

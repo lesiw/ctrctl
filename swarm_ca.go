@@ -11,16 +11,16 @@ type SwarmCaOpts struct {
 	CertExpiry string
 
 	// Exit immediately instead of waiting for the root rotation to converge.
-	Detach string
+	Detach bool
 
 	// Specifications of one or more certificate signing endpoints.
 	ExternalCa string
 
 	// Suppress progress output.
-	Quiet string
+	Quiet bool
 
 	// Rotate the swarm CA - if no certificate or key are provided, new ones will be generated.
-	Rotate string
+	Rotate bool
 }
 
 // Display and rotate the root CA.

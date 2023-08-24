@@ -84,7 +84,7 @@ type ContainerCreateOpts struct {
 	DeviceWriteIops string
 
 	// Skip image verification.
-	DisableContentTrust string
+	DisableContentTrust bool
 
 	// Set custom DNS servers.
 	Dns string
@@ -126,7 +126,7 @@ type ContainerCreateOpts struct {
 	HealthInterval string
 
 	// Consecutive failures needed to report unhealthy.
-	HealthRetries string
+	HealthRetries *int
 
 	// Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s).
 	HealthStartPeriod string
@@ -135,16 +135,16 @@ type ContainerCreateOpts struct {
 	HealthTimeout string
 
 	// Print usage.
-	Help string
+	Help bool
 
 	// Container host name.
 	Hostname string
 
 	// Run an init inside the container that forwards signals and reaps processes.
-	Init string
+	Init bool
 
 	// Keep STDIN open even if not attached.
-	Interactive string
+	Interactive bool
 
 	// Maximum IO bandwidth limit for the system drive (Windows only).
 	IoMaxbandwidth string
@@ -219,13 +219,13 @@ type ContainerCreateOpts struct {
 	NetworkAlias string
 
 	// Disable any container-specified HEALTHCHECK.
-	NoHealthcheck string
+	NoHealthcheck bool
 
 	// Disable OOM Killer.
-	OomKillDisable string
+	OomKillDisable bool
 
 	// Tune host's OOM preferences (-1000 to 1000).
-	OomScoreAdj string
+	OomScoreAdj *int
 
 	// PID namespace to use.
 	Pid string
@@ -237,28 +237,28 @@ type ContainerCreateOpts struct {
 	Platform string
 
 	// Give extended privileges to this container.
-	Privileged string
+	Privileged bool
 
 	// Publish a container's port(s) to the host.
 	Publish string
 
 	// Publish all exposed ports to random ports.
-	PublishAll string
+	PublishAll bool
 
 	// Pull image before creating (`always`, `|missing`, `never`).
 	Pull string
 
 	// Suppress the pull output.
-	Quiet string
+	Quiet bool
 
 	// Mount the container's root filesystem as read only.
-	ReadOnly string
+	ReadOnly bool
 
 	// Restart policy to apply when a container exits.
 	Restart string
 
 	// Automatically remove the container when it exits.
-	Rm string
+	Rm bool
 
 	// Runtime to use for this container.
 	Runtime string
@@ -273,7 +273,7 @@ type ContainerCreateOpts struct {
 	StopSignal string
 
 	// Timeout (in seconds) to stop a container.
-	StopTimeout string
+	StopTimeout *int
 
 	// Storage driver options for the container.
 	StorageOpt string
@@ -285,7 +285,7 @@ type ContainerCreateOpts struct {
 	Tmpfs string
 
 	// Allocate a pseudo-TTY.
-	Tty string
+	Tty bool
 
 	// Ulimit options.
 	Ulimit string

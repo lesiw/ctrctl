@@ -2,13 +2,13 @@ package ctrctl
 
 type BuilderPruneOpts struct {
 	// Remove all unused build cache, not just dangling ones.
-	All string
+	All bool
 
 	// Provide filter values (e.g. `until=24h`).
 	Filter string
 
 	// Do not prompt for confirmation.
-	Force string
+	Force bool
 
 	// Amount of disk space to keep for cache.
 	KeepStorage string
