@@ -15,10 +15,10 @@ import (
 	"unicode"
 )
 
-// Cli prefixes every command.
+// Cli is the command prefix.
 var Cli = []string{"docker"}
 
-// Verbose mode prints the commands being run and streams output to the terminal.
+// Verbose mode prints the commands being run and streams their output to the terminal.
 var Verbose bool
 
 var shUnsafe = regexp.MustCompile(`[^\w@%+=:,./-]`)
