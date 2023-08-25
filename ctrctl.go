@@ -2,7 +2,53 @@ package ctrctl
 
 import "fmt"
 
-type ContainerAttachOpts struct {
+type DockerOpts struct {
+	// Location of client config files.
+	Config string
+
+	// Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with `docker context use`).
+	Context string
+
+	// Enable debug mode.
+	Debug bool
+
+	// Print usage.
+	Help bool
+
+	// Daemon socket to connect to.
+	Host string
+
+	// Set the logging level (`debug`, `info`, `warn`, `error`, `fatal`).
+	LogLevel string
+
+	// Use TLS; implied by --tlsverify.
+	Tls bool
+
+	// Trust certs signed only by this CA.
+	Tlscacert string
+
+	// Path to TLS certificate file.
+	Tlscert string
+
+	// Path to TLS key file.
+	Tlskey string
+
+	// Use TLS and verify the remote.
+	Tlsverify bool
+}
+
+// The base command for the Docker CLI.
+func Docker(opts *DockerOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type AttachOpts struct {
 	// Override the key sequence for detaching a container.
 	DetachKeys string
 
@@ -14,17 +60,148 @@ type ContainerAttachOpts struct {
 }
 
 // Attach local standard input, output, and error streams to a running container.
-func ContainerAttach(opts *ContainerAttachOpts, container string) (
+func Attach(opts *AttachOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "attach"},
+		[]string{"attach"},
 		[]string{container},
 		opts,
 		0,
 	)
 }
 
-type ContainerCommitOpts struct {
+type BuildOpts struct {
+	// Add a custom host-to-IP mapping (`host:ip`).
+	AddHost string
+
+	// Set build-time variables.
+	BuildArg string
+
+	// Images to consider as cache sources.
+	CacheFrom string
+
+	// Optional parent cgroup for the container.
+	CgroupParent string
+
+	// Compress the build context using gzip.
+	Compress bool
+
+	// Limit the CPU CFS (Completely Fair Scheduler) period.
+	CpuPeriod string
+
+	// Limit the CPU CFS (Completely Fair Scheduler) quota.
+	CpuQuota string
+
+	// CPU shares (relative weight).
+	CpuShares string
+
+	// CPUs in which to allow execution (0-3, 0,1).
+	CpusetCpus string
+
+	// MEMs in which to allow execution (0-3, 0,1).
+	CpusetMems string
+
+	// Skip image verification.
+	DisableContentTrust bool
+
+	// Name of the Dockerfile (Default is `PATH/Dockerfile`).
+	File string
+
+	// Always remove intermediate containers.
+	ForceRm bool
+
+	// Write the image ID to the file.
+	Iidfile string
+
+	// Container isolation technology.
+	Isolation string
+
+	// Set metadata for an image.
+	Label string
+
+	// Memory limit.
+	Memory string
+
+	// Swap limit equal to memory plus swap: -1 to enable unlimited swap.
+	MemorySwap string
+
+	// Set the networking mode for the RUN instructions during build.
+	Network string
+
+	// Do not use cache when building the image.
+	NoCache bool
+
+	// Set platform if server is multi-platform capable.
+	Platform string
+
+	// Always attempt to pull a newer version of the image.
+	Pull bool
+
+	// Suppress the build output and print image ID on success.
+	Quiet bool
+
+	// Remove intermediate containers after a successful build.
+	Rm bool
+
+	// Security options.
+	SecurityOpt string
+
+	// Size of `/dev/shm`.
+	ShmSize string
+
+	// Squash newly built layers into a single new layer.
+	Squash bool
+
+	// Name and optionally a tag in the `name:tag` format.
+	Tag string
+
+	// Set the target build stage to build.
+	Target string
+
+	// Ulimit options.
+	Ulimit string
+}
+
+// Build an image from a Dockerfile.
+func Build(opts *BuildOpts, path string, url string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"build"},
+		[]string{path, url},
+		opts,
+		0,
+	)
+}
+
+type BuilderOpts struct {
+}
+
+// Manage builds.
+func Builder(opts *BuilderOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"builder"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type CheckpointOpts struct {
+}
+
+// Manage checkpoints.
+func Checkpoint(opts *CheckpointOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"checkpoint"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type CommitOpts struct {
 	// Author (e.g., `John Hannibal Smith <hannibal@a-team.com>`).
 	Author string
 
@@ -39,17 +216,59 @@ type ContainerCommitOpts struct {
 }
 
 // Create a new image from a container's changes.
-func ContainerCommit(opts *ContainerCommitOpts, container string, repositoryTag string) (
+func Commit(opts *CommitOpts, container string, repositoryTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "commit"},
+		[]string{"commit"},
 		[]string{container, repositoryTag},
 		opts,
 		0,
 	)
 }
 
-type ContainerCpOpts struct {
+type ConfigOpts struct {
+}
+
+// Manage Swarm configs.
+func Config(opts *ConfigOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"config"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type ContainerOpts struct {
+}
+
+// Manage containers.
+func Container(opts *ContainerOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"container"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type ContextOpts struct {
+}
+
+// Manage contexts.
+func Context(opts *ContextOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"context"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type CpOpts struct {
 	// Archive mode (copy all uid/gid information).
 	Archive bool
 
@@ -61,17 +280,17 @@ type ContainerCpOpts struct {
 }
 
 // Copy files/folders between a container and the local filesystem.
-func ContainerCp(opts *ContainerCpOpts, srcpath string, dstpath string) (
+func Cp(opts *CpOpts, srcpath string, dstpath string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "cp"},
+		[]string{"cp"},
 		[]string{srcpath, dstpath},
 		opts,
 		-1,
 	)
 }
 
-type ContainerCreateOpts struct {
+type CreateOpts struct {
 	// Add a custom host-to-IP mapping (host:ip).
 	AddHost string
 
@@ -384,31 +603,56 @@ type ContainerCreateOpts struct {
 }
 
 // Create a new container.
-func ContainerCreate(opts *ContainerCreateOpts, image string, command string, arg ...string) (
+func Create(opts *CreateOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "create"},
+		[]string{"create"},
 		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)
 }
 
-type ContainerDiffOpts struct {
+type DiffOpts struct {
 }
 
 // Inspect changes to files or directories on a container's filesystem.
-func ContainerDiff(opts *ContainerDiffOpts, container string) (
+func Diff(opts *DiffOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "diff"},
+		[]string{"diff"},
 		[]string{container},
 		opts,
 		-1,
 	)
 }
 
-type ContainerExecOpts struct {
+type EventsOpts struct {
+	// Filter output based on conditions provided.
+	Filter string
+
+	// Format the output using the given Go template.
+	Format string
+
+	// Show all events created since timestamp.
+	Since string
+
+	// Stream events until this timestamp.
+	Until string
+}
+
+// Get real time events from the server.
+func Events(opts *EventsOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"events"},
+		[]string{},
+		opts,
+		0,
+	)
+}
+
+type ExecOpts struct {
 	// Detached mode: run command in the background.
 	Detach bool
 
@@ -438,77 +682,256 @@ type ContainerExecOpts struct {
 }
 
 // Execute a command in a running container.
-func ContainerExec(opts *ContainerExecOpts, container string, command string, arg ...string) (
+func Exec(opts *ExecOpts, container string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "exec"},
+		[]string{"exec"},
 		append([]string{container, command}, arg...),
 		opts,
 		0,
 	)
 }
 
-type ContainerExportOpts struct {
+type ExportOpts struct {
 	// Write to a file, instead of STDOUT.
 	Output string
 }
 
 // Export a container's filesystem as a tar archive.
-func ContainerExport(opts *ContainerExportOpts, container string) (
+func Export(opts *ExportOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "export"},
+		[]string{"export"},
 		[]string{container},
 		opts,
 		0,
 	)
 }
 
-type ContainerInspectOpts struct {
+type HistoryOpts struct {
+	// Format output using a custom template:.
+	// 'table':            Print output in table format with column headers (default).
+	// 'table TEMPLATE':   Print output in table format using the given Go template.
+	// 'json':             Print in JSON format.
+	// 'TEMPLATE':         Print output using the given Go template.
+	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
+	Format string
+
+	// Print sizes and dates in human readable format.
+	Human bool
+
+	// Don't truncate output.
+	NoTrunc bool
+
+	// Only show image IDs.
+	Quiet bool
+}
+
+// Show the history of an image.
+func History(opts *HistoryOpts, image string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"history"},
+		[]string{image},
+		opts,
+		0,
+	)
+}
+
+type ImageOpts struct {
+}
+
+// Manage images.
+func Image(opts *ImageOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"image"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type ImagesOpts struct {
+	// Show all images (default hides intermediate images).
+	All bool
+
+	// Show digests.
+	Digests bool
+
+	// Filter output based on conditions provided.
+	Filter string
+
+	// Format output using a custom template:.
+	// 'table':            Print output in table format with column headers (default).
+	// 'table TEMPLATE':   Print output in table format using the given Go template.
+	// 'json':             Print in JSON format.
+	// 'TEMPLATE':         Print output using the given Go template.
+	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
+	Format string
+
+	// Don't truncate output.
+	NoTrunc bool
+
+	// Only show image IDs.
+	Quiet bool
+}
+
+// List images.
+func Images(opts *ImagesOpts, repositoryTag string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"images"},
+		[]string{repositoryTag},
+		opts,
+		0,
+	)
+}
+
+type ImportOpts struct {
+	// Apply Dockerfile instruction to the created image.
+	Change string
+
+	// Set commit message for imported image.
+	Message string
+
+	// Set platform if server is multi-platform capable.
+	Platform string
+}
+
+// Import the contents from a tarball to create a filesystem image.
+func Import(opts *ImportOpts, fileUrl string, RepositoryTag string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"import"},
+		[]string{fileUrl, RepositoryTag},
+		opts,
+		0,
+	)
+}
+
+type InfoOpts struct {
+	// Format output using a custom template:.
+	// 'json':             Print in JSON format.
+	// 'TEMPLATE':         Print output using the given Go template.
+	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
+	Format string
+}
+
+// Display system-wide information.
+func Info(opts *InfoOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"info"},
+		[]string{},
+		opts,
+		0,
+	)
+}
+
+type InspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
-	// Display total file sizes.
+	// Display total file sizes if the type is container.
 	Size bool
+
+	// Return JSON for specified type.
+	Type string
 }
 
-// Display detailed information on one or more containers.
-func ContainerInspect(opts *ContainerInspectOpts, container ...string) (
+// Return low-level information on Docker objects.
+func Inspect(opts *InspectOpts, nameId ...string) (
 	stdout string, stderr string, err error) {
-	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+	if len(nameId) == 0 {
+		return "", "", fmt.Errorf("nameId must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "inspect"},
-		container,
+		[]string{"inspect"},
+		nameId,
 		opts,
 		0,
 	)
 }
 
-type ContainerKillOpts struct {
+type KillOpts struct {
 	// Signal to send to the container.
 	Signal string
 }
 
 // Kill one or more running containers.
-func ContainerKill(opts *ContainerKillOpts, container ...string) (
+func Kill(opts *KillOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "kill"},
+		[]string{"kill"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerLogsOpts struct {
+type LoadOpts struct {
+	// Read from tar archive file, instead of STDIN.
+	Input string
+
+	// Suppress the load output.
+	Quiet bool
+}
+
+// Load an image from a tar archive or STDIN.
+func Load(opts *LoadOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"load"},
+		[]string{},
+		opts,
+		0,
+	)
+}
+
+type LoginOpts struct {
+	// Password.
+	Password string
+
+	// Take the password from stdin.
+	PasswordStdin bool
+
+	// Username.
+	Username string
+}
+
+// Log in to a registry.
+func Login(opts *LoginOpts, server string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"login"},
+		[]string{server},
+		opts,
+		0,
+	)
+}
+
+type LogoutOpts struct {
+}
+
+// Log out from a registry.
+func Logout(opts *LogoutOpts, server string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"logout"},
+		[]string{server},
+		opts,
+		-1,
+	)
+}
+
+type LogsOpts struct {
 	// Show extra details provided to logs.
 	Details bool
 
@@ -529,17 +952,104 @@ type ContainerLogsOpts struct {
 }
 
 // Fetch the logs of a container.
-func ContainerLogs(opts *ContainerLogsOpts, container string) (
+func Logs(opts *LogsOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "logs"},
+		[]string{"logs"},
 		[]string{container},
 		opts,
 		0,
 	)
 }
 
-type ContainerLsOpts struct {
+type ManifestOpts struct {
+}
+
+// Manage Docker image manifests and manifest lists.
+func Manifest(opts *ManifestOpts, command string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"manifest"},
+		[]string{command},
+		opts,
+		-1,
+	)
+}
+
+type NetworkOpts struct {
+}
+
+// Manage networks.
+func Network(opts *NetworkOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"network"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type NodeOpts struct {
+}
+
+// Manage Swarm nodes.
+func Node(opts *NodeOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"node"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type PauseOpts struct {
+}
+
+// Pause all processes within one or more containers.
+func Pause(opts *PauseOpts, container ...string) (
+	stdout string, stderr string, err error) {
+	if len(container) == 0 {
+		return "", "", fmt.Errorf("container must have at least one value")
+	}
+	return runCtrCmd(
+		[]string{"pause"},
+		container,
+		opts,
+		-1,
+	)
+}
+
+type PluginOpts struct {
+}
+
+// Manage plugins.
+func Plugin(opts *PluginOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"plugin"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type PortOpts struct {
+}
+
+// List port mappings or a specific mapping for the container.
+func Port(opts *PortOpts, container string, privatePortProto string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"port"},
+		[]string{container, privatePortProto},
+		opts,
+		-1,
+	)
+}
+
+type PsOpts struct {
 	// Show all containers (default shows just running).
 	All bool
 
@@ -571,81 +1081,78 @@ type ContainerLsOpts struct {
 }
 
 // List containers.
-func ContainerLs(opts *ContainerLsOpts) (
+func Ps(opts *PsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "ls"},
+		[]string{"ps"},
 		[]string{},
 		opts,
 		0,
 	)
 }
 
-type ContainerPauseOpts struct {
+type PullOpts struct {
+	// Download all tagged images in the repository.
+	AllTags bool
+
+	// Skip image verification.
+	DisableContentTrust bool
+
+	// Set platform if server is multi-platform capable.
+	Platform string
+
+	// Suppress verbose output.
+	Quiet bool
 }
 
-// Pause all processes within one or more containers.
-func ContainerPause(opts *ContainerPauseOpts, container ...string) (
-	stdout string, stderr string, err error) {
-	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
-	}
-	return runCtrCmd(
-		[]string{"container", "pause"},
-		container,
-		opts,
-		-1,
-	)
-}
-
-type ContainerPortOpts struct {
-}
-
-// List port mappings or a specific mapping for the container.
-func ContainerPort(opts *ContainerPortOpts, container string, privatePortProto string) (
+// Download an image from a registry.
+func Pull(opts *PullOpts, nameTagDigest string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "port"},
-		[]string{container, privatePortProto},
-		opts,
-		-1,
-	)
-}
-
-type ContainerPruneOpts struct {
-	// Provide filter values (e.g. `until=<timestamp>`).
-	Filter string
-
-	// Do not prompt for confirmation.
-	Force bool
-}
-
-// Remove all stopped containers.
-func ContainerPrune(opts *ContainerPruneOpts) (
-	stdout string, stderr string, err error) {
-	return runCtrCmd(
-		[]string{"container", "prune"},
-		[]string{},
+		[]string{"pull"},
+		[]string{nameTagDigest},
 		opts,
 		0,
 	)
 }
 
-type ContainerRenameOpts struct {
+type PushOpts struct {
+	// Push all tags of an image to the repository.
+	AllTags bool
+
+	// Skip image signing.
+	DisableContentTrust bool
+
+	// Suppress verbose output.
+	Quiet bool
+}
+
+// Upload an image to a registry.
+func Push(opts *PushOpts, nameTag string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"push"},
+		[]string{nameTag},
+		opts,
+		0,
+	)
+}
+
+type RenameOpts struct {
 }
 
 // Rename a container.
-func ContainerRename(opts *ContainerRenameOpts, container string, newName string) (
+func Rename(opts *RenameOpts, container string, newName string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "rename"},
+		[]string{"rename"},
 		[]string{container, newName},
 		opts,
 		-1,
 	)
 }
 
-type ContainerRestartOpts struct {
+type RestartOpts struct {
 	// Signal to send to the container.
 	Signal string
 
@@ -654,20 +1161,20 @@ type ContainerRestartOpts struct {
 }
 
 // Restart one or more containers.
-func ContainerRestart(opts *ContainerRestartOpts, container ...string) (
+func Restart(opts *RestartOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "restart"},
+		[]string{"restart"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerRmOpts struct {
+type RmOpts struct {
 	// Force the removal of a running container (uses SIGKILL).
 	Force bool
 
@@ -679,20 +1186,42 @@ type ContainerRmOpts struct {
 }
 
 // Remove one or more containers.
-func ContainerRm(opts *ContainerRmOpts, container ...string) (
+func Rm(opts *RmOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "rm"},
+		[]string{"rm"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerRunOpts struct {
+type RmiOpts struct {
+	// Force removal of the image.
+	Force bool
+
+	// Do not delete untagged parents.
+	NoPrune bool
+}
+
+// Remove one or more images.
+func Rmi(opts *RmiOpts, image ...string) (
+	stdout string, stderr string, err error) {
+	if len(image) == 0 {
+		return "", "", fmt.Errorf("image must have at least one value")
+	}
+	return runCtrCmd(
+		[]string{"rmi"},
+		image,
+		opts,
+		0,
+	)
+}
+
+type RunOpts struct {
 	// Add a custom host-to-IP mapping (host:ip).
 	AddHost string
 
@@ -1014,17 +1543,105 @@ type ContainerRunOpts struct {
 }
 
 // Create and run a new container from an image.
-func ContainerRun(opts *ContainerRunOpts, image string, command string, arg ...string) (
+func Run(opts *RunOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "run"},
+		[]string{"run"},
 		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)
 }
 
-type ContainerStartOpts struct {
+type SaveOpts struct {
+	// Write to a file, instead of STDOUT.
+	Output string
+}
+
+// Save one or more images to a tar archive (streamed to STDOUT by default).
+func Save(opts *SaveOpts, image ...string) (
+	stdout string, stderr string, err error) {
+	if len(image) == 0 {
+		return "", "", fmt.Errorf("image must have at least one value")
+	}
+	return runCtrCmd(
+		[]string{"save"},
+		image,
+		opts,
+		0,
+	)
+}
+
+type SearchOpts struct {
+	// Filter output based on conditions provided.
+	Filter string
+
+	// Pretty-print search using a Go template.
+	Format string
+
+	// Max number of search results.
+	Limit *int
+
+	// Don't truncate output.
+	NoTrunc bool
+}
+
+// Search Docker Hub for images.
+func Search(opts *SearchOpts, term string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"search"},
+		[]string{term},
+		opts,
+		0,
+	)
+}
+
+type SecretOpts struct {
+}
+
+// Manage Swarm secrets.
+func Secret(opts *SecretOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"secret"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type ServiceOpts struct {
+}
+
+// Manage Swarm services.
+func Service(opts *ServiceOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"service"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type StackOpts struct {
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
+}
+
+// Manage Swarm stacks.
+func Stack(opts *StackOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"stack"},
+		[]string{},
+		opts,
+		0,
+	)
+}
+
+type StartOpts struct {
 	// Attach STDOUT/STDERR and forward signals.
 	Attach bool
 
@@ -1042,20 +1659,20 @@ type ContainerStartOpts struct {
 }
 
 // Start one or more stopped containers.
-func ContainerStart(opts *ContainerStartOpts, container ...string) (
+func Start(opts *StartOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "start"},
+		[]string{"start"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerStatsOpts struct {
+type StatsOpts struct {
 	// Show all containers (default shows just running).
 	All bool
 
@@ -1075,17 +1692,17 @@ type ContainerStatsOpts struct {
 }
 
 // Display a live stream of container(s) resource usage statistics.
-func ContainerStats(opts *ContainerStatsOpts, container ...string) (
+func Stats(opts *StatsOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "stats"},
+		[]string{"stats"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerStopOpts struct {
+type StopOpts struct {
 	// Signal to send to the container.
 	Signal string
 
@@ -1094,51 +1711,107 @@ type ContainerStopOpts struct {
 }
 
 // Stop one or more running containers.
-func ContainerStop(opts *ContainerStopOpts, container ...string) (
+func Stop(opts *StopOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "stop"},
+		[]string{"stop"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerTopOpts struct {
+type SwarmOpts struct {
+}
+
+// Manage Swarm.
+func Swarm(opts *SwarmOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"swarm"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type SystemOpts struct {
+}
+
+// Manage Docker.
+func System(opts *SystemOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"system"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type TagOpts struct {
+}
+
+// Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
+func Tag(opts *TagOpts, sourceImageTag string, targetImageTag string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"tag"},
+		[]string{sourceImageTag, targetImageTag},
+		opts,
+		-1,
+	)
+}
+
+type TopOpts struct {
 }
 
 // Display the running processes of a container.
-func ContainerTop(opts *ContainerTopOpts, container string, psOptions string) (
+func Top(opts *TopOpts, container string, psOptions string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"container", "top"},
+		[]string{"top"},
 		[]string{container, psOptions},
 		opts,
 		-1,
 	)
 }
 
-type ContainerUnpauseOpts struct {
+type TrustOpts struct {
+}
+
+// Manage trust on Docker images.
+func Trust(opts *TrustOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"trust"},
+		[]string{},
+		opts,
+		-1,
+	)
+}
+
+type UnpauseOpts struct {
 }
 
 // Unpause all processes within one or more containers.
-func ContainerUnpause(opts *ContainerUnpauseOpts, container ...string) (
+func Unpause(opts *UnpauseOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "unpause"},
+		[]string{"unpause"},
 		container,
 		opts,
 		-1,
 	)
 }
 
-type ContainerUpdateOpts struct {
+type UpdateOpts struct {
 	// Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0).
 	BlkioWeight string
 
@@ -1186,30 +1859,63 @@ type ContainerUpdateOpts struct {
 }
 
 // Update configuration of one or more containers.
-func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (
+func Update(opts *UpdateOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "update"},
+		[]string{"update"},
 		container,
 		opts,
 		0,
 	)
 }
 
-type ContainerWaitOpts struct {
+type VersionOpts struct {
+	// Format output using a custom template:.
+	// 'json':             Print in JSON format.
+	// 'TEMPLATE':         Print output using the given Go template.
+	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
+	Format string
+}
+
+// Show the Docker version information.
+func Version(opts *VersionOpts) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"version"},
+		[]string{},
+		opts,
+		0,
+	)
+}
+
+type VolumeOpts struct {
+}
+
+// Manage volumes.
+func Volume(opts *VolumeOpts, command string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"volume"},
+		[]string{command},
+		opts,
+		-1,
+	)
+}
+
+type WaitOpts struct {
 }
 
 // Block until one or more containers stop, then print their exit codes.
-func ContainerWait(opts *ContainerWaitOpts, container ...string) (
+func Wait(opts *WaitOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	if len(container) == 0 {
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{"container", "wait"},
+		[]string{"wait"},
 		container,
 		opts,
 		-1,

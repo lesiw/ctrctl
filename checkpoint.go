@@ -1,15 +1,52 @@
 package ctrctl
 
-type CheckpointOpts struct {
+type CheckpointCreateOpts struct {
+	// Use a custom checkpoint storage directory.
+	CheckpointDir string
+
+	// Leave the container running after checkpoint.
+	LeaveRunning bool
 }
 
-// Manage checkpoints.
-func Checkpoint(opts *CheckpointOpts) (
+// Create a checkpoint from a running container.
+func CheckpointCreate(opts *CheckpointCreateOpts, container string, checkpoint string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{"checkpoint"},
-		[]string{},
+		[]string{"checkpoint", "create"},
+		[]string{container, checkpoint},
 		opts,
-		-1,
+		0,
+	)
+}
+
+type CheckpointLsOpts struct {
+	// Use a custom checkpoint storage directory.
+	CheckpointDir string
+}
+
+// List checkpoints for a container.
+func CheckpointLs(opts *CheckpointLsOpts, container string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"checkpoint", "ls"},
+		[]string{container},
+		opts,
+		0,
+	)
+}
+
+type CheckpointRmOpts struct {
+	// Use a custom checkpoint storage directory.
+	CheckpointDir string
+}
+
+// Remove a checkpoint.
+func CheckpointRm(opts *CheckpointRmOpts, container string, checkpoint string) (
+	stdout string, stderr string, err error) {
+	return runCtrCmd(
+		[]string{"checkpoint", "rm"},
+		[]string{container, checkpoint},
+		opts,
+		0,
 	)
 }

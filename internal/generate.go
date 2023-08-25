@@ -5,12 +5,12 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/fs"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
+	"sort"
 	"strings"
 	"text/template"
 	"unicode"
@@ -75,9 +75,7 @@ var cmdOverrides = map[string]*ctrCliCmd{
 	},
 }
 
-var cmdTemplate = `package ctrctl
-
-type {{ .FuncName }}Opts struct {
+var cmdTemplate = `type {{ .FuncName }}Opts struct {
 {{ .OptsStruct }}
 }
 
@@ -94,6 +92,7 @@ func {{ .FuncName }}(opts *{{ .FuncName }}Opts{{if .ArgsDefn}}, {{ .ArgsDefn }}{
 		{{ .OptsPos }},
 	)
 }
+
 `
 
 func main() {
@@ -121,27 +120,37 @@ func run() error {
 		return fmt.Errorf("error parsing template: %w", err)
 	}
 
-	err = filepath.WalkDir(
-		filepath.Join(docsDir, "docs-main", "data", "engine-cli"),
-		func(path string, d fs.DirEntry, err error) error {
-			if d.IsDir() {
-				return nil
-			}
-			buf, err := os.ReadFile(path)
-			if err != nil {
-				return fmt.Errorf("error reading file: %w", err)
-			}
-			addCliDefinition(buf, tmpl)
-			return nil
-		},
-	)
+	cliDocsDir := filepath.Join(docsDir, "docs-main", "data", "engine-cli")
+	m, err := outfilemap(cliDocsDir)
 	if err != nil {
-		return fmt.Errorf("error gathering cli data: %w", err)
+		return fmt.Errorf("error mapping output files: %w", err)
+	}
+	for name, files := range m {
+		out, err := os.OpenFile(name+".go", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+		if err != nil {
+			return fmt.Errorf("error creating file %s: %w", name+".go", err)
+		}
+		defer out.Close()
+		out.WriteString("package ctrctl\n\n")
+		for _, file := range files {
+			path := filepath.Join(cliDocsDir, file)
+			in, err := os.ReadFile(path)
+			if err != nil {
+				return fmt.Errorf("error reading file %s: %w", path, err)
+			}
+			if err := addCliDefinition(in, out, tmpl); err != nil {
+				return fmt.Errorf("error adding cli definition: %w", err)
+			}
+		}
 	}
 
 	cmd := exec.Command("gofmt", "-w", "-s", ".")
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("error running gofmt: %w", err)
+	}
+	cmd = exec.Command("goimports", "-w", ".")
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("error running goimports: %w", err)
 	}
 
 	return nil
@@ -168,6 +177,35 @@ func clearGeneratedFiles() error {
 		}
 	}
 	return nil
+}
+
+func outfilemap(path string) (map[string][]string, error) {
+	result := make(map[string][]string)
+	files, err := os.ReadDir(path)
+	if err != nil {
+		return nil, fmt.Errorf("error reading %s: %w", path, err)
+	}
+	for _, f := range files {
+		if f.IsDir() {
+			continue
+		}
+		nameparts := strings.Split(f.Name(), "_")
+		var key string
+		if len(nameparts) < 3 {
+			key = "ctrctl"
+		} else {
+			key = nameparts[1]
+		}
+		_, ok := result[key]
+		if !ok {
+			result[key] = []string{}
+		}
+		result[key] = append(result[key], f.Name())
+	}
+	for name := range result {
+		sort.Strings(result[name])
+	}
+	return result, nil
 }
 
 func fetchZip(url string, dir string) error {
@@ -228,8 +266,8 @@ func extractZip(archive *zip.Reader, dir string) error {
 	return nil
 }
 
-func addCliDefinition(buf []byte, tmpl *template.Template) error {
-	cmd, err := cmdFromDefinition(buf)
+func addCliDefinition(in []byte, out io.Writer, tmpl *template.Template) error {
+	cmd, err := cmdFromDefinition(in)
 	if err != nil {
 		return err
 	}
@@ -238,13 +276,6 @@ func addCliDefinition(buf []byte, tmpl *template.Template) error {
 	if trimmedCmd == "" {
 		return nil
 	}
-
-	filename := underscore(trimmedCmd) + ".go"
-	out, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
-	if err != nil {
-		return fmt.Errorf("error creating %s: %w", filename, err)
-	}
-	defer out.Close()
 
 	var varg string
 	if cmd.Varg != nil {
