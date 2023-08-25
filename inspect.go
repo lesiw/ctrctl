@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type InspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -15,11 +17,14 @@ type InspectOpts struct {
 }
 
 // Return low-level information on Docker objects.
-func Inspect(opts *InspectOpts, nameId string, extraNameId ...string) (
+func Inspect(opts *InspectOpts, nameId ...string) (
 	stdout string, stderr string, err error) {
+	if len(nameId) == 0 {
+		return "", "", fmt.Errorf("nameId must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "inspect" },
-		append([]string{ nameId }, extraNameId...),
+		nameId,
 		opts,
 		0,
 	)

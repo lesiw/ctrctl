@@ -36,12 +36,14 @@ type ctrCliCmd struct {
 	Options          []*ctrCliOpt
 	InheritedOptions []*ctrCliOpt `yaml:"inherited_options"`
 	Arguments        []*ctrCliArg
+	Varg             *ctrCliArg
 }
 
 type ctrCliArg struct {
-	Name     string
-	Optional bool
-	Multiple bool
+	Name         string
+	Optional     bool
+	Varg         bool
+	VargRequired bool
 }
 
 type ctrCliOpt struct {
@@ -74,16 +76,21 @@ var cmdOverrides = map[string]*ctrCliCmd{
 
 var cmdTemplate = `package ctrctl
 
-type {{ .FuncName }}Opts struct {
+{{if .VargRequired}}import "fmt"
+
+{{end}}type {{ .FuncName }}Opts struct {
 {{ .OptsStruct }}
 }
 
 // {{ .Short }}
 func {{ .FuncName }}(opts *{{ .FuncName }}Opts{{if .ArgsDefn}}, {{ .ArgsDefn }}{{end}}) (
 	stdout string, stderr string, err error) {
-	return runCtrCmd(
+{{if .VargRequired }}	if len({{ .Varg }}) == 0 {
+		return "", "", fmt.Errorf("{{ .Varg }} must have at least one value")
+	}
+{{end}}	return runCtrCmd(
 		{{ .Subcommand }},
-		{{if .Args}}{{ .Args }},
+{{if .Args}}		{{ .Args }},
 {{end}}		opts,
 		{{ .OptsPos }},
 	)
@@ -235,22 +242,31 @@ func addCliDefinition(buf []byte, tmpl *template.Template) error {
 	}
 	defer out.Close()
 
+	var varg string
+	if cmd.Varg != nil {
+		varg = cmd.Varg.Name
+	}
+
 	return tmpl.Execute(out, struct {
-		FuncName   string
-		OptsStruct string
-		Short      string
-		ArgsDefn   string
-		Args       string
-		OptsPos    int
-		Subcommand string
+		FuncName     string
+		OptsStruct   string
+		Short        string
+		ArgsDefn     string
+		Args         string
+		OptsPos      int
+		Subcommand   string
+		Varg         string
+		VargRequired bool
 	}{
-		FuncName:   cmd.methodName(),
-		OptsStruct: cmd.optsStruct(),
-		Short:      ensureDot(strings.TrimSpace(cmd.Short)),
-		ArgsDefn:   cmd.argsDefn(),
-		Args:       cmd.argsSlice(),
-		OptsPos:    cmd.optsPos(),
-		Subcommand: cmd.subcommandSlice(),
+		FuncName:     cmd.methodName(),
+		OptsStruct:   cmd.optsStruct(),
+		Short:        ensureDot(strings.TrimSpace(cmd.Short)),
+		ArgsDefn:     cmd.argsDefn(),
+		Args:         cmd.argsSlice(),
+		OptsPos:      cmd.optsPos(),
+		Subcommand:   cmd.subcommandSlice(),
+		Varg:         varg,
+		VargRequired: (cmd.Varg != nil && cmd.Varg.VargRequired),
 	})
 }
 
@@ -301,7 +317,7 @@ func cmdFromDefinition(buf []byte) (*ctrCliCmd, error) {
 		case '.':
 			dots++
 			if dots > 2 {
-				arg.Multiple = true
+				arg.Varg = true
 			}
 		default:
 			if subFinished && !unicode.IsLetter(r) && !unicode.IsNumber(r) {
@@ -321,7 +337,9 @@ func cmdFromDefinition(buf []byte) (*ctrCliCmd, error) {
 		}
 	}
 
-	cmd.deduplicateArgs()
+	if err := cmd.deduplicateArgs(); err != nil {
+		return nil, fmt.Errorf("error deduplicating '%s' args: %w", cmd.Command, err)
+	}
 	cmd.convertOptNames()
 
 	overrides, ok := cmdOverrides[strings.TrimPrefix(cmd.Command, "docker ")]
@@ -341,15 +359,34 @@ func hasLowercase(s string) bool {
 	return false
 }
 
-func (cmd *ctrCliCmd) deduplicateArgs() {
+func (cmd *ctrCliCmd) deduplicateArgs() error {
 	names := make(map[string]bool)
+	var lastarg *ctrCliArg
+	var newargs []*ctrCliArg
 	for _, arg := range cmd.Arguments {
 		_, seen := names[arg.Name]
 		if seen {
-			arg.Name = fmt.Sprintf("extra%s", capitalize(arg.Name))
+			if cmd.Varg != nil {
+				return fmt.Errorf("multiple vargs: %s, %s", cmd.Varg.Name, arg.Name)
+			}
+			if lastarg != nil && lastarg.Name == arg.Name {
+				cmd.Varg = lastarg
+				lastarg.Varg = true
+				lastarg.VargRequired = true
+				continue
+			} else {
+				arg.Name = fmt.Sprintf("extra%s", capitalize(arg.Name))
+			}
+		}
+		if arg.Varg {
+			cmd.Varg = arg
 		}
 		names[arg.Name] = true
+		newargs = append(newargs, arg)
+		lastarg = arg
 	}
+	cmd.Arguments = newargs
+	return nil
 }
 
 func (cmd *ctrCliCmd) convertOptNames() {
@@ -426,7 +463,7 @@ func (c *ctrCliCmd) argsDefn() string {
 			continue
 		}
 		var defn string
-		if arg.Multiple {
+		if arg.Varg {
 			defn = fmt.Sprintf("%s ...string", arg.Name)
 		} else {
 			defn = fmt.Sprintf("%s string", arg.Name)
@@ -438,23 +475,23 @@ func (c *ctrCliCmd) argsDefn() string {
 
 func (c *ctrCliCmd) argsSlice() string {
 	var defns []string
-	var vararg bool
 	for _, arg := range c.Arguments {
 		if arg.isOpts() {
 			continue
 		}
-		if arg.Multiple {
-			vararg = true
+		if arg.Varg {
 			continue
 		}
 		defns = append(defns, arg.Name)
 	}
-	if len(defns) == 0 {
+	if len(defns) == 0 && c.Varg != nil {
+		return c.Varg.Name
+	} else if len(defns) == 0 {
 		return "[]string{}"
-	} else if vararg {
+	} else if c.Varg != nil {
 		return fmt.Sprintf("append([]string{ %s }, %s...)",
 			strings.Join(defns, ","),
-			c.Arguments[len(c.Arguments)-1].Name,
+			c.Varg.Name,
 		)
 	} else {
 		return fmt.Sprintf("[]string{ %s }", strings.Join(defns, ", "))

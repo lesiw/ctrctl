@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type ContainerRestartOpts struct {
 	// Signal to send to the container.
 	Signal string
@@ -9,11 +11,14 @@ type ContainerRestartOpts struct {
 }
 
 // Restart one or more containers.
-func ContainerRestart(opts *ContainerRestartOpts, container string, extraContainer ...string) (
+func ContainerRestart(opts *ContainerRestartOpts, container ...string) (
 	stdout string, stderr string, err error) {
+	if len(container) == 0 {
+		return "", "", fmt.Errorf("container must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "container", "restart" },
-		append([]string{ container }, extraContainer...),
+		container,
 		opts,
 		0,
 	)

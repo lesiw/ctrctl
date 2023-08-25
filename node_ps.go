@@ -22,7 +22,7 @@ func NodePs(opts *NodePsOpts, node ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
 		[]string{ "node", "ps" },
-		[]string{},
+		node,
 		opts,
 		0,
 	)

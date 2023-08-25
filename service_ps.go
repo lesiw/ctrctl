@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type ServicePsOpts struct {
 	// Filter output based on conditions provided.
 	Filter string
@@ -18,11 +20,14 @@ type ServicePsOpts struct {
 }
 
 // List the tasks of one or more services.
-func ServicePs(opts *ServicePsOpts, service string, extraService ...string) (
+func ServicePs(opts *ServicePsOpts, service ...string) (
 	stdout string, stderr string, err error) {
+	if len(service) == 0 {
+		return "", "", fmt.Errorf("service must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "service", "ps" },
-		append([]string{ service }, extraService...),
+		service,
 		opts,
 		0,
 	)

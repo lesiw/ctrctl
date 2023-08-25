@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type VolumeInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -9,11 +11,14 @@ type VolumeInspectOpts struct {
 }
 
 // Display detailed information on one or more volumes.
-func VolumeInspect(opts *VolumeInspectOpts, volume string, extraVolume ...string) (
+func VolumeInspect(opts *VolumeInspectOpts, volume ...string) (
 	stdout string, stderr string, err error) {
+	if len(volume) == 0 {
+		return "", "", fmt.Errorf("volume must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "volume", "inspect" },
-		append([]string{ volume }, extraVolume...),
+		volume,
 		opts,
 		0,
 	)

@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type NetworkInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -12,11 +14,14 @@ type NetworkInspectOpts struct {
 }
 
 // Display detailed information on one or more networks.
-func NetworkInspect(opts *NetworkInspectOpts, network string, extraNetwork ...string) (
+func NetworkInspect(opts *NetworkInspectOpts, network ...string) (
 	stdout string, stderr string, err error) {
+	if len(network) == 0 {
+		return "", "", fmt.Errorf("network must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "network", "inspect" },
-		append([]string{ network }, extraNetwork...),
+		network,
 		opts,
 		0,
 	)

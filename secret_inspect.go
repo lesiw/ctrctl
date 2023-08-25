@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type SecretInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -12,11 +14,14 @@ type SecretInspectOpts struct {
 }
 
 // Display detailed information on one or more secrets.
-func SecretInspect(opts *SecretInspectOpts, secret string, extraSecret ...string) (
+func SecretInspect(opts *SecretInspectOpts, secret ...string) (
 	stdout string, stderr string, err error) {
+	if len(secret) == 0 {
+		return "", "", fmt.Errorf("secret must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "secret", "inspect" },
-		append([]string{ secret }, extraSecret...),
+		secret,
 		opts,
 		0,
 	)

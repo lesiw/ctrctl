@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type StopOpts struct {
 	// Signal to send to the container.
 	Signal string
@@ -9,11 +11,14 @@ type StopOpts struct {
 }
 
 // Stop one or more running containers.
-func Stop(opts *StopOpts, container string, extraContainer ...string) (
+func Stop(opts *StopOpts, container ...string) (
 	stdout string, stderr string, err error) {
+	if len(container) == 0 {
+		return "", "", fmt.Errorf("container must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "stop" },
-		append([]string{ container }, extraContainer...),
+		container,
 		opts,
 		0,
 	)

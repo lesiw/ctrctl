@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type ServiceInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -12,11 +14,14 @@ type ServiceInspectOpts struct {
 }
 
 // Display detailed information on one or more services.
-func ServiceInspect(opts *ServiceInspectOpts, service string, extraService ...string) (
+func ServiceInspect(opts *ServiceInspectOpts, service ...string) (
 	stdout string, stderr string, err error) {
+	if len(service) == 0 {
+		return "", "", fmt.Errorf("service must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "service", "inspect" },
-		append([]string{ service }, extraService...),
+		service,
 		opts,
 		0,
 	)

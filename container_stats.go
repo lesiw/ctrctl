@@ -24,7 +24,7 @@ func ContainerStats(opts *ContainerStatsOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
 		[]string{ "container", "stats" },
-		[]string{},
+		container,
 		opts,
 		0,
 	)

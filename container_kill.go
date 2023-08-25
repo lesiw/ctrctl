@@ -1,16 +1,21 @@
 package ctrctl
 
+import "fmt"
+
 type ContainerKillOpts struct {
 	// Signal to send to the container.
 	Signal string
 }
 
 // Kill one or more running containers.
-func ContainerKill(opts *ContainerKillOpts, container string, extraContainer ...string) (
+func ContainerKill(opts *ContainerKillOpts, container ...string) (
 	stdout string, stderr string, err error) {
+	if len(container) == 0 {
+		return "", "", fmt.Errorf("container must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "container", "kill" },
-		append([]string{ container }, extraContainer...),
+		container,
 		opts,
 		0,
 	)

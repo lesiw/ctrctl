@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type ConfigInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -12,11 +14,14 @@ type ConfigInspectOpts struct {
 }
 
 // Display detailed information on one or more configs.
-func ConfigInspect(opts *ConfigInspectOpts, config string, extraConfig ...string) (
+func ConfigInspect(opts *ConfigInspectOpts, config ...string) (
 	stdout string, stderr string, err error) {
+	if len(config) == 0 {
+		return "", "", fmt.Errorf("config must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "config", "inspect" },
-		append([]string{ config }, extraConfig...),
+		config,
 		opts,
 		0,
 	)

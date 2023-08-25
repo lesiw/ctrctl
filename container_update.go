@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type ContainerUpdateOpts struct {
 	// Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0).
 	BlkioWeight string
@@ -48,11 +50,14 @@ type ContainerUpdateOpts struct {
 }
 
 // Update configuration of one or more containers.
-func ContainerUpdate(opts *ContainerUpdateOpts, container string, extraContainer ...string) (
+func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (
 	stdout string, stderr string, err error) {
+	if len(container) == 0 {
+		return "", "", fmt.Errorf("container must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "container", "update" },
-		append([]string{ container }, extraContainer...),
+		container,
 		opts,
 		0,
 	)

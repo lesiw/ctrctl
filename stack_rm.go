@@ -1,15 +1,20 @@
 package ctrctl
 
+import "fmt"
+
 type StackRmOpts struct {
 
 }
 
 // Remove one or more stacks.
-func StackRm(opts *StackRmOpts, stack string, extraStack ...string) (
+func StackRm(opts *StackRmOpts, stack ...string) (
 	stdout string, stderr string, err error) {
+	if len(stack) == 0 {
+		return "", "", fmt.Errorf("stack must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "stack", "rm" },
-		append([]string{ stack }, extraStack...),
+		stack,
 		opts,
 		0,
 	)

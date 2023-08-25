@@ -1,5 +1,7 @@
 package ctrctl
 
+import "fmt"
+
 type StartOpts struct {
 	// Attach STDOUT/STDERR and forward signals.
 	Attach bool
@@ -18,11 +20,14 @@ type StartOpts struct {
 }
 
 // Start one or more stopped containers.
-func Start(opts *StartOpts, container string, extraContainer ...string) (
+func Start(opts *StartOpts, container ...string) (
 	stdout string, stderr string, err error) {
+	if len(container) == 0 {
+		return "", "", fmt.Errorf("container must have at least one value")
+	}
 	return runCtrCmd(
 		[]string{ "start" },
-		append([]string{ container }, extraContainer...),
+		container,
 		opts,
 		0,
 	)
