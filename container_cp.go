@@ -15,8 +15,8 @@ type ContainerCpOpts struct {
 func ContainerCp(opts *ContainerCpOpts, srcpath string, dstpath string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "cp" },
-		[]string{ srcpath, dstpath },
+		[]string{"container", "cp"},
+		[]string{srcpath, dstpath},
 		opts,
 		-1,
 	)

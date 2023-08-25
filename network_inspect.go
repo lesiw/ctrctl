@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type NetworkInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -20,7 +18,7 @@ func NetworkInspect(opts *NetworkInspectOpts, network ...string) (
 		return "", "", fmt.Errorf("network must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "network", "inspect" },
+		[]string{"network", "inspect"},
 		network,
 		opts,
 		0,

@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type RmiOpts struct {
 	// Force removal of the image.
 	Force bool
@@ -17,7 +15,7 @@ func Rmi(opts *RmiOpts, image ...string) (
 		return "", "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "rmi" },
+		[]string{"rmi"},
 		image,
 		opts,
 		0,

@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ServiceScaleOpts struct {
 	// Exit immediately instead of waiting for the service to converge.
 	Detach bool
@@ -14,7 +12,7 @@ func ServiceScale(opts *ServiceScaleOpts, serviceReplicas ...string) (
 		return "", "", fmt.Errorf("serviceReplicas must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "service", "scale" },
+		[]string{"service", "scale"},
 		serviceReplicas,
 		opts,
 		-1,

@@ -15,8 +15,8 @@ type CpOpts struct {
 func Cp(opts *CpOpts, srcpath string, dstpath string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "cp" },
-		[]string{ srcpath, dstpath },
+		[]string{"cp"},
+		[]string{srcpath, dstpath},
 		opts,
 		-1,
 	)

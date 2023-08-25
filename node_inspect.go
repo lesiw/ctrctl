@@ -15,8 +15,8 @@ type NodeInspectOpts struct {
 func NodeInspect(opts *NodeInspectOpts, selfNode string, node ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "node", "inspect" },
-		append([]string{ selfNode }, node...),
+		[]string{"node", "inspect"},
+		append([]string{selfNode}, node...),
 		opts,
 		0,
 	)

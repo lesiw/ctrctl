@@ -15,7 +15,7 @@ type VolumePruneOpts struct {
 func VolumePrune(opts *VolumePruneOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "volume", "prune" },
+		[]string{"volume", "prune"},
 		[]string{},
 		opts,
 		0,

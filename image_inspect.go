@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ImageInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -17,7 +15,7 @@ func ImageInspect(opts *ImageInspectOpts, image ...string) (
 		return "", "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "image", "inspect" },
+		[]string{"image", "inspect"},
 		image,
 		opts,
 		0,

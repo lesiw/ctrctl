@@ -316,8 +316,8 @@ type ContainerCreateOpts struct {
 func ContainerCreate(opts *ContainerCreateOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "create" },
-		append([]string{ image,command }, arg...),
+		[]string{"container", "create"},
+		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)

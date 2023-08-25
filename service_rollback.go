@@ -12,8 +12,8 @@ type ServiceRollbackOpts struct {
 func ServiceRollback(opts *ServiceRollbackOpts, service string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "service", "rollback" },
-		[]string{ service },
+		[]string{"service", "rollback"},
+		[]string{service},
 		opts,
 		0,
 	)

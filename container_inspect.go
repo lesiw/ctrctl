@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ContainerInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -20,7 +18,7 @@ func ContainerInspect(opts *ContainerInspectOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "container", "inspect" },
+		[]string{"container", "inspect"},
 		container,
 		opts,
 		0,

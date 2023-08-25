@@ -23,7 +23,7 @@ type NetworkLsOpts struct {
 func NetworkLs(opts *NetworkLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "network", "ls" },
+		[]string{"network", "ls"},
 		[]string{},
 		opts,
 		0,

@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ContextRmOpts struct {
 	// Force the removal of a context in use.
 	Force bool
@@ -14,7 +12,7 @@ func ContextRm(opts *ContextRmOpts, context ...string) (
 		return "", "", fmt.Errorf("context must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "context", "rm" },
+		[]string{"context", "rm"},
 		context,
 		opts,
 		-1,

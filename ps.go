@@ -35,7 +35,7 @@ type PsOpts struct {
 func Ps(opts *PsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "ps" },
+		[]string{"ps"},
 		[]string{},
 		opts,
 		0,

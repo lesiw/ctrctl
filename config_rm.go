@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type ConfigRmOpts struct {
-
 }
 
 // Remove one or more configs.
@@ -13,7 +10,7 @@ func ConfigRm(opts *ConfigRmOpts, config ...string) (
 		return "", "", fmt.Errorf("config must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "config", "rm" },
+		[]string{"config", "rm"},
 		config,
 		opts,
 		-1,

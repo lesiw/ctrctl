@@ -12,7 +12,7 @@ type NetworkPruneOpts struct {
 func NetworkPrune(opts *NetworkPruneOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "network", "prune" },
+		[]string{"network", "prune"},
 		[]string{},
 		opts,
 		0,

@@ -325,8 +325,8 @@ type ContainerRunOpts struct {
 func ContainerRun(opts *ContainerRunOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "run" },
-		append([]string{ image,command }, arg...),
+		[]string{"container", "run"},
+		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)

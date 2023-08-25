@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type TrustInspectOpts struct {
 	// Print the information in a human friendly format.
 	Pretty bool
@@ -14,7 +12,7 @@ func TrustInspect(opts *TrustInspectOpts, imageTag ...string) (
 		return "", "", fmt.Errorf("imageTag must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "trust", "inspect" },
+		[]string{"trust", "inspect"},
 		imageTag,
 		opts,
 		-1,

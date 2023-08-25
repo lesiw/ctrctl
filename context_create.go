@@ -21,8 +21,8 @@ type ContextCreateOpts struct {
 func ContextCreate(opts *ContextCreateOpts, context string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "context", "create" },
-		[]string{ context },
+		[]string{"context", "create"},
+		[]string{context},
 		opts,
 		0,
 	)

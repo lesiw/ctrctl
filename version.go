@@ -12,7 +12,7 @@ type VersionOpts struct {
 func Version(opts *VersionOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "version" },
+		[]string{"version"},
 		[]string{},
 		opts,
 		0,

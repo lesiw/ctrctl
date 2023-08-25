@@ -9,8 +9,8 @@ type CheckpointLsOpts struct {
 func CheckpointLs(opts *CheckpointLsOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "checkpoint", "ls" },
-		[]string{ container },
+		[]string{"checkpoint", "ls"},
+		[]string{container},
 		opts,
 		0,
 	)

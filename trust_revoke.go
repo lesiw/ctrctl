@@ -9,8 +9,8 @@ type TrustRevokeOpts struct {
 func TrustRevoke(opts *TrustRevokeOpts, imageTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "trust", "revoke" },
-		[]string{ imageTag },
+		[]string{"trust", "revoke"},
+		[]string{imageTag},
 		opts,
 		0,
 	)

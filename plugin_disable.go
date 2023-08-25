@@ -9,8 +9,8 @@ type PluginDisableOpts struct {
 func PluginDisable(opts *PluginDisableOpts, plugin string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "disable" },
-		[]string{ plugin },
+		[]string{"plugin", "disable"},
+		[]string{plugin},
 		opts,
 		0,
 	)

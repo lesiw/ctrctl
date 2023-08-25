@@ -15,8 +15,8 @@ type PushOpts struct {
 func Push(opts *PushOpts, nameTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "push" },
-		[]string{ nameTag },
+		[]string{"push"},
+		[]string{nameTag},
 		opts,
 		0,
 	)

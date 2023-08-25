@@ -18,7 +18,7 @@ type EventsOpts struct {
 func Events(opts *EventsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "events" },
+		[]string{"events"},
 		[]string{},
 		opts,
 		0,

@@ -23,7 +23,7 @@ type PluginLsOpts struct {
 func PluginLs(opts *PluginLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "ls" },
+		[]string{"plugin", "ls"},
 		[]string{},
 		opts,
 		0,

@@ -12,7 +12,7 @@ type LoadOpts struct {
 func Load(opts *LoadOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "load" },
+		[]string{"load"},
 		[]string{},
 		opts,
 		0,

@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type NodeRmOpts struct {
 	// Force remove a node from the swarm.
 	Force bool
@@ -14,7 +12,7 @@ func NodeRm(opts *NodeRmOpts, node ...string) (
 		return "", "", fmt.Errorf("node must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "node", "rm" },
+		[]string{"node", "rm"},
 		node,
 		opts,
 		0,

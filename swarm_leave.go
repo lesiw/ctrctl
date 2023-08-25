@@ -9,7 +9,7 @@ type SwarmLeaveOpts struct {
 func SwarmLeave(opts *SwarmLeaveOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "leave" },
+		[]string{"swarm", "leave"},
 		[]string{},
 		opts,
 		0,

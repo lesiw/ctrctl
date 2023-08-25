@@ -15,7 +15,7 @@ type ImagePruneOpts struct {
 func ImagePrune(opts *ImagePruneOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "prune" },
+		[]string{"image", "prune"},
 		[]string{},
 		opts,
 		0,

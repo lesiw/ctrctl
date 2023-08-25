@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ContainerStartOpts struct {
 	// Attach STDOUT/STDERR and forward signals.
 	Attach bool
@@ -26,7 +24,7 @@ func ContainerStart(opts *ContainerStartOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "container", "start" },
+		[]string{"container", "start"},
 		container,
 		opts,
 		0,

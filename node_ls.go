@@ -20,7 +20,7 @@ type NodeLsOpts struct {
 func NodeLs(opts *NodeLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "node", "ls" },
+		[]string{"node", "ls"},
 		[]string{},
 		opts,
 		0,

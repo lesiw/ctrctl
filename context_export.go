@@ -9,8 +9,8 @@ type ContextExportOpts struct {
 func ContextExport(opts *ContextExportOpts, context string, file string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "context", "export" },
-		[]string{ context, file },
+		[]string{"context", "export"},
+		[]string{context, file},
 		opts,
 		0,
 	)

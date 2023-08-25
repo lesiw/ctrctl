@@ -9,8 +9,8 @@ type TrustSignOpts struct {
 func TrustSign(opts *TrustSignOpts, imageTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "trust", "sign" },
-		[]string{ imageTag },
+		[]string{"trust", "sign"},
+		[]string{imageTag},
 		opts,
 		-1,
 	)

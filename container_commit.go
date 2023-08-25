@@ -18,8 +18,8 @@ type ContainerCommitOpts struct {
 func ContainerCommit(opts *ContainerCommitOpts, container string, repositoryTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "commit" },
-		[]string{ container, repositoryTag },
+		[]string{"container", "commit"},
+		[]string{container, repositoryTag},
 		opts,
 		0,
 	)

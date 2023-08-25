@@ -12,8 +12,8 @@ type CheckpointCreateOpts struct {
 func CheckpointCreate(opts *CheckpointCreateOpts, container string, checkpoint string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "checkpoint", "create" },
-		[]string{ container, checkpoint },
+		[]string{"checkpoint", "create"},
+		[]string{container, checkpoint},
 		opts,
 		0,
 	)

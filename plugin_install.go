@@ -18,8 +18,8 @@ type PluginInstallOpts struct {
 func PluginInstall(opts *PluginInstallOpts, plugin string, keyValue ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "install" },
-		append([]string{ plugin }, keyValue...),
+		[]string{"plugin", "install"},
+		append([]string{plugin}, keyValue...),
 		opts,
 		0,
 	)

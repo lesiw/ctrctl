@@ -27,7 +27,7 @@ type SwarmUpdateOpts struct {
 func SwarmUpdate(opts *SwarmUpdateOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "update" },
+		[]string{"swarm", "update"},
 		[]string{},
 		opts,
 		0,

@@ -54,8 +54,8 @@ type NetworkCreateOpts struct {
 func NetworkCreate(opts *NetworkCreateOpts, network string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "network", "create" },
-		[]string{ network },
+		[]string{"network", "create"},
+		[]string{network},
 		opts,
 		0,
 	)

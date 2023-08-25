@@ -96,8 +96,8 @@ type ImageBuildOpts struct {
 func ImageBuild(opts *ImageBuildOpts, path string, url string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "build" },
-		[]string{ path, url },
+		[]string{"image", "build"},
+		[]string{path, url},
 		opts,
 		0,
 	)

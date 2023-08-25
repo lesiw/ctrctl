@@ -39,7 +39,7 @@ type DockerOpts struct {
 func Docker(opts *DockerOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{  },
+		[]string{},
 		[]string{},
 		opts,
 		-1,

@@ -12,7 +12,7 @@ type SystemInfoOpts struct {
 func SystemInfo(opts *SystemInfoOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "system", "info" },
+		[]string{"system", "info"},
 		[]string{},
 		opts,
 		0,

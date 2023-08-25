@@ -21,8 +21,8 @@ type ManifestAnnotateOpts struct {
 func ManifestAnnotate(opts *ManifestAnnotateOpts, manifestList string, manifest string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "manifest", "annotate" },
-		[]string{ manifestList, manifest },
+		[]string{"manifest", "annotate"},
+		[]string{manifestList, manifest},
 		opts,
 		0,
 	)

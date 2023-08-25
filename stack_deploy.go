@@ -18,8 +18,8 @@ type StackDeployOpts struct {
 func StackDeploy(opts *StackDeployOpts, stack string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stack", "deploy" },
-		[]string{ stack },
+		[]string{"stack", "deploy"},
+		[]string{stack},
 		opts,
 		0,
 	)

@@ -96,8 +96,8 @@ type BuildOpts struct {
 func Build(opts *BuildOpts, path string, url string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "build" },
-		[]string{ path, url },
+		[]string{"build"},
+		[]string{path, url},
 		opts,
 		0,
 	)

@@ -14,7 +14,7 @@ type StackLsOpts struct {
 func StackLs(opts *StackLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stack", "ls" },
+		[]string{"stack", "ls"},
 		[]string{},
 		opts,
 		0,

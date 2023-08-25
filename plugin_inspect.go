@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type PluginInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -17,7 +15,7 @@ func PluginInspect(opts *PluginInspectOpts, plugin ...string) (
 		return "", "", fmt.Errorf("plugin must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "plugin", "inspect" },
+		[]string{"plugin", "inspect"},
 		plugin,
 		opts,
 		0,

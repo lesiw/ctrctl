@@ -23,7 +23,7 @@ type VolumeLsOpts struct {
 func VolumeLs(opts *VolumeLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "volume", "ls" },
+		[]string{"volume", "ls"},
 		[]string{},
 		opts,
 		0,

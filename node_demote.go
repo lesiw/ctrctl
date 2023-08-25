@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type NodeDemoteOpts struct {
-
 }
 
 // Demote one or more nodes from manager in the swarm.
@@ -13,7 +10,7 @@ func NodeDemote(opts *NodeDemoteOpts, node ...string) (
 		return "", "", fmt.Errorf("node must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "node", "demote" },
+		[]string{"node", "demote"},
 		node,
 		opts,
 		-1,

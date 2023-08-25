@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type ManifestRmOpts struct {
-
 }
 
 // Delete one or more manifest lists from local storage.
@@ -13,7 +10,7 @@ func ManifestRm(opts *ManifestRmOpts, manifestList ...string) (
 		return "", "", fmt.Errorf("manifestList must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "manifest", "rm" },
+		[]string{"manifest", "rm"},
 		manifestList,
 		opts,
 		-1,

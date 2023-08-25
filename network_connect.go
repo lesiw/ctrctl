@@ -24,8 +24,8 @@ type NetworkConnectOpts struct {
 func NetworkConnect(opts *NetworkConnectOpts, network string, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "network", "connect" },
-		[]string{ network, container },
+		[]string{"network", "connect"},
+		[]string{network, container},
 		opts,
 		0,
 	)

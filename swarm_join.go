@@ -21,8 +21,8 @@ type SwarmJoinOpts struct {
 func SwarmJoin(opts *SwarmJoinOpts, hostPort string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "join" },
-		[]string{ hostPort },
+		[]string{"swarm", "join"},
+		[]string{hostPort},
 		opts,
 		0,
 	)

@@ -12,7 +12,7 @@ type ContainerPruneOpts struct {
 func ContainerPrune(opts *ContainerPruneOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "prune" },
+		[]string{"container", "prune"},
 		[]string{},
 		opts,
 		0,

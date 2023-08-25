@@ -48,8 +48,8 @@ type VolumeCreateOpts struct {
 func VolumeCreate(opts *VolumeCreateOpts, volume string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "volume", "create" },
-		[]string{ volume },
+		[]string{"volume", "create"},
+		[]string{volume},
 		opts,
 		0,
 	)

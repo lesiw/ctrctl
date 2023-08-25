@@ -18,8 +18,8 @@ type PullOpts struct {
 func Pull(opts *PullOpts, nameTagDigest string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "pull" },
-		[]string{ nameTagDigest },
+		[]string{"pull"},
+		[]string{nameTagDigest},
 		opts,
 		0,
 	)

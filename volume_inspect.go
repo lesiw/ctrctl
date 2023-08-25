@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type VolumeInspectOpts struct {
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
@@ -17,7 +15,7 @@ func VolumeInspect(opts *VolumeInspectOpts, volume ...string) (
 		return "", "", fmt.Errorf("volume must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "volume", "inspect" },
+		[]string{"volume", "inspect"},
 		volume,
 		opts,
 		0,

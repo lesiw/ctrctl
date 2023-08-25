@@ -219,8 +219,8 @@ type ServiceCreateOpts struct {
 func ServiceCreate(opts *ServiceCreateOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "service", "create" },
-		append([]string{ image,command }, arg...),
+		[]string{"service", "create"},
+		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)

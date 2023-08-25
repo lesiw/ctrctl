@@ -18,7 +18,7 @@ type BuilderPruneOpts struct {
 func BuilderPrune(opts *BuilderPruneOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "builder", "prune" },
+		[]string{"builder", "prune"},
 		[]string{},
 		opts,
 		-1,

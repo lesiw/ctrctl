@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type WaitOpts struct {
-
 }
 
 // Block until one or more containers stop, then print their exit codes.
@@ -13,7 +10,7 @@ func Wait(opts *WaitOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "wait" },
+		[]string{"wait"},
 		container,
 		opts,
 		-1,

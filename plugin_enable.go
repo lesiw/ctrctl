@@ -9,8 +9,8 @@ type PluginEnableOpts struct {
 func PluginEnable(opts *PluginEnableOpts, plugin string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "enable" },
-		[]string{ plugin },
+		[]string{"plugin", "enable"},
+		[]string{plugin},
 		opts,
 		0,
 	)

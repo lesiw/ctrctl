@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ServicePsOpts struct {
 	// Filter output based on conditions provided.
 	Filter string
@@ -26,7 +24,7 @@ func ServicePs(opts *ServicePsOpts, service ...string) (
 		return "", "", fmt.Errorf("service must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "service", "ps" },
+		[]string{"service", "ps"},
 		service,
 		opts,
 		0,

@@ -18,8 +18,8 @@ type ContextUpdateOpts struct {
 func ContextUpdate(opts *ContextUpdateOpts, context string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "context", "update" },
-		[]string{ context },
+		[]string{"context", "update"},
+		[]string{context},
 		opts,
 		0,
 	)

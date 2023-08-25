@@ -15,8 +15,8 @@ type LoginOpts struct {
 func Login(opts *LoginOpts, server string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "login" },
-		[]string{ server },
+		[]string{"login"},
+		[]string{server},
 		opts,
 		0,
 	)

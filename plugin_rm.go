@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type PluginRmOpts struct {
 	// Force the removal of an active plugin.
 	Force bool
@@ -14,7 +12,7 @@ func PluginRm(opts *PluginRmOpts, plugin ...string) (
 		return "", "", fmt.Errorf("plugin must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "plugin", "rm" },
+		[]string{"plugin", "rm"},
 		plugin,
 		opts,
 		0,

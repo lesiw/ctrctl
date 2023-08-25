@@ -12,8 +12,8 @@ type SwarmJoinTokenOpts struct {
 func SwarmJoinToken(opts *SwarmJoinTokenOpts, WorkerManager string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "join-token" },
-		[]string{ WorkerManager },
+		[]string{"swarm", "join-token"},
+		[]string{WorkerManager},
 		opts,
 		0,
 	)

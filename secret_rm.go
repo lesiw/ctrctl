@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type SecretRmOpts struct {
-
 }
 
 // Remove one or more secrets.
@@ -13,7 +10,7 @@ func SecretRm(opts *SecretRmOpts, secret ...string) (
 		return "", "", fmt.Errorf("secret must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "secret", "rm" },
+		[]string{"secret", "rm"},
 		secret,
 		opts,
 		-1,

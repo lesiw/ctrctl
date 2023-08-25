@@ -15,8 +15,8 @@ type ImageImportOpts struct {
 func ImageImport(opts *ImageImportOpts, fileUrl string, RepositoryTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "import" },
-		[]string{ fileUrl, RepositoryTag },
+		[]string{"image", "import"},
+		[]string{fileUrl, RepositoryTag},
 		opts,
 		0,
 	)

@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -76,9 +77,7 @@ var cmdOverrides = map[string]*ctrCliCmd{
 
 var cmdTemplate = `package ctrctl
 
-{{if .VargRequired}}import "fmt"
-
-{{end}}type {{ .FuncName }}Opts struct {
+type {{ .FuncName }}Opts struct {
 {{ .OptsStruct }}
 }
 
@@ -138,6 +137,11 @@ func run() error {
 	)
 	if err != nil {
 		return fmt.Errorf("error gathering cli data: %w", err)
+	}
+
+	cmd := exec.Command("gofmt", "-w", "-s", ".")
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("error running gofmt: %w", err)
 	}
 
 	return nil
@@ -489,12 +493,12 @@ func (c *ctrCliCmd) argsSlice() string {
 	} else if len(defns) == 0 {
 		return "[]string{}"
 	} else if c.Varg != nil {
-		return fmt.Sprintf("append([]string{ %s }, %s...)",
+		return fmt.Sprintf("append([]string{%s}, %s...)",
 			strings.Join(defns, ","),
 			c.Varg.Name,
 		)
 	} else {
-		return fmt.Sprintf("[]string{ %s }", strings.Join(defns, ", "))
+		return fmt.Sprintf("[]string{%s}", strings.Join(defns, ", "))
 	}
 }
 
@@ -503,7 +507,7 @@ func (c *ctrCliCmd) subcommandSlice() string {
 	for _, part := range c.Subcommand {
 		quoted = append(quoted, "\""+part+"\"")
 	}
-	return fmt.Sprintf("[]string{ %s }", strings.Join(quoted, ", "))
+	return fmt.Sprintf("[]string{%s}", strings.Join(quoted, ", "))
 }
 
 func (a *ctrCliArg) isOpts() bool {

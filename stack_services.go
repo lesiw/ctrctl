@@ -20,8 +20,8 @@ type StackServicesOpts struct {
 func StackServices(opts *StackServicesOpts, stack string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stack", "services" },
-		[]string{ stack },
+		[]string{"stack", "services"},
+		[]string{stack},
 		opts,
 		0,
 	)

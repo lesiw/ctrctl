@@ -9,8 +9,8 @@ type TrustKeyLoadOpts struct {
 func TrustKeyLoad(opts *TrustKeyLoadOpts, keyfile string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "trust", "key", "load" },
-		[]string{ keyfile },
+		[]string{"trust", "key", "load"},
+		[]string{keyfile},
 		opts,
 		0,
 	)

@@ -18,8 +18,8 @@ type SearchOpts struct {
 func Search(opts *SearchOpts, term string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "search" },
-		[]string{ term },
+		[]string{"search"},
+		[]string{term},
 		opts,
 		0,
 	)

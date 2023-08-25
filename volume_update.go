@@ -9,8 +9,8 @@ type VolumeUpdateOpts struct {
 func VolumeUpdate(opts *VolumeUpdateOpts, volume string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "volume", "update" },
-		[]string{ volume },
+		[]string{"volume", "update"},
+		[]string{volume},
 		opts,
 		0,
 	)

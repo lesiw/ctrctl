@@ -24,8 +24,8 @@ type LogsOpts struct {
 func Logs(opts *LogsOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "logs" },
-		[]string{ container },
+		[]string{"logs"},
+		[]string{container},
 		opts,
 		0,
 	)

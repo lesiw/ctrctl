@@ -23,8 +23,8 @@ type HistoryOpts struct {
 func History(opts *HistoryOpts, image string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "history" },
-		[]string{ image },
+		[]string{"history"},
+		[]string{image},
 		opts,
 		0,
 	)

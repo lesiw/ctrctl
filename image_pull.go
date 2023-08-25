@@ -18,8 +18,8 @@ type ImagePullOpts struct {
 func ImagePull(opts *ImagePullOpts, nameTagDigest string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "pull" },
-		[]string{ nameTagDigest },
+		[]string{"image", "pull"},
+		[]string{nameTagDigest},
 		opts,
 		0,
 	)

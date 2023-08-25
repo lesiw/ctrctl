@@ -51,7 +51,7 @@ type SwarmInitOpts struct {
 func SwarmInit(opts *SwarmInitOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "init" },
+		[]string{"swarm", "init"},
 		[]string{},
 		opts,
 		0,

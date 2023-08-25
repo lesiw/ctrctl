@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type VolumeRmOpts struct {
 	// Force the removal of one or more volumes.
 	Force bool
@@ -14,7 +12,7 @@ func VolumeRm(opts *VolumeRmOpts, volume ...string) (
 		return "", "", fmt.Errorf("volume must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "volume", "rm" },
+		[]string{"volume", "rm"},
 		volume,
 		opts,
 		0,

@@ -26,8 +26,8 @@ type StackPsOpts struct {
 func StackPs(opts *StackPsOpts, stack string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stack", "ps" },
-		[]string{ stack },
+		[]string{"stack", "ps"},
+		[]string{stack},
 		opts,
 		0,
 	)

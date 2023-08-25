@@ -12,7 +12,7 @@ type InfoOpts struct {
 func Info(opts *InfoOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "info" },
+		[]string{"info"},
 		[]string{},
 		opts,
 		0,

@@ -12,8 +12,8 @@ type ManifestPushOpts struct {
 func ManifestPush(opts *ManifestPushOpts, manifestList string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "manifest", "push" },
-		[]string{ manifestList },
+		[]string{"manifest", "push"},
+		[]string{manifestList},
 		opts,
 		0,
 	)

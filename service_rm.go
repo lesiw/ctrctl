@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type ServiceRmOpts struct {
-
 }
 
 // Remove one or more services.
@@ -13,7 +10,7 @@ func ServiceRm(opts *ServiceRmOpts, service ...string) (
 		return "", "", fmt.Errorf("service must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "service", "rm" },
+		[]string{"service", "rm"},
 		service,
 		opts,
 		-1,

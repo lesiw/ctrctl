@@ -15,8 +15,8 @@ type SecretCreateOpts struct {
 func SecretCreate(opts *SecretCreateOpts, secret string, file string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "secret", "create" },
-		[]string{ secret, file },
+		[]string{"secret", "create"},
+		[]string{secret, file},
 		opts,
 		0,
 	)

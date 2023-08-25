@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type SaveOpts struct {
 	// Write to a file, instead of STDOUT.
 	Output string
@@ -14,7 +12,7 @@ func Save(opts *SaveOpts, image ...string) (
 		return "", "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "save" },
+		[]string{"save"},
 		image,
 		opts,
 		0,

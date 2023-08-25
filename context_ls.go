@@ -17,7 +17,7 @@ type ContextLsOpts struct {
 func ContextLs(opts *ContextLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "context", "ls" },
+		[]string{"context", "ls"},
 		[]string{},
 		opts,
 		0,

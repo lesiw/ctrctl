@@ -276,8 +276,8 @@ type ServiceUpdateOpts struct {
 func ServiceUpdate(opts *ServiceUpdateOpts, service string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "service", "update" },
-		[]string{ service },
+		[]string{"service", "update"},
+		[]string{service},
 		opts,
 		0,
 	)

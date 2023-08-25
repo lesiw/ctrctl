@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type KillOpts struct {
 	// Signal to send to the container.
 	Signal string
@@ -14,7 +12,7 @@ func Kill(opts *KillOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "kill" },
+		[]string{"kill"},
 		container,
 		opts,
 		0,

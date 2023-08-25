@@ -12,7 +12,7 @@ type ImageLoadOpts struct {
 func ImageLoad(opts *ImageLoadOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "load" },
+		[]string{"image", "load"},
 		[]string{},
 		opts,
 		0,

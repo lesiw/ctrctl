@@ -35,7 +35,7 @@ type ContainerLsOpts struct {
 func ContainerLs(opts *ContainerLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "ls" },
+		[]string{"container", "ls"},
 		[]string{},
 		opts,
 		0,

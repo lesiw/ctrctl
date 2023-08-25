@@ -29,8 +29,8 @@ type ImageLsOpts struct {
 func ImageLs(opts *ImageLsOpts, repositoryTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "ls" },
-		[]string{ repositoryTag },
+		[]string{"image", "ls"},
+		[]string{repositoryTag},
 		opts,
 		0,
 	)

@@ -15,8 +15,8 @@ type ImportOpts struct {
 func Import(opts *ImportOpts, fileUrl string, RepositoryTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "import" },
-		[]string{ fileUrl, RepositoryTag },
+		[]string{"import"},
+		[]string{fileUrl, RepositoryTag},
 		opts,
 		0,
 	)

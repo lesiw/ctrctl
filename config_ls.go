@@ -20,7 +20,7 @@ type ConfigLsOpts struct {
 func ConfigLs(opts *ConfigLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "config", "ls" },
+		[]string{"config", "ls"},
 		[]string{},
 		opts,
 		0,

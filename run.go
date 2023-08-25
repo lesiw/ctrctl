@@ -325,8 +325,8 @@ type RunOpts struct {
 func Run(opts *RunOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "run" },
-		append([]string{ image,command }, arg...),
+		[]string{"run"},
+		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)

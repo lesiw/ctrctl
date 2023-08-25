@@ -316,8 +316,8 @@ type CreateOpts struct {
 func Create(opts *CreateOpts, image string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "create" },
-		append([]string{ image,command }, arg...),
+		[]string{"create"},
+		append([]string{image, command}, arg...),
 		opts,
 		0,
 	)

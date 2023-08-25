@@ -21,7 +21,7 @@ type NodePsOpts struct {
 func NodePs(opts *NodePsOpts, node ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "node", "ps" },
+		[]string{"node", "ps"},
 		node,
 		opts,
 		0,

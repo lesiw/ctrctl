@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ContainerRmOpts struct {
 	// Force the removal of a running container (uses SIGKILL).
 	Force bool
@@ -20,7 +18,7 @@ func ContainerRm(opts *ContainerRmOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "container", "rm" },
+		[]string{"container", "rm"},
 		container,
 		opts,
 		0,

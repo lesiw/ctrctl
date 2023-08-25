@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type TrustSignerAddOpts struct {
 	// Path to the signer's public key file.
 	Key string
@@ -14,8 +12,8 @@ func TrustSignerAdd(opts *TrustSignerAddOpts, name string, repository ...string)
 		return "", "", fmt.Errorf("repository must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "trust", "signer", "add" },
-		append([]string{ name }, repository...),
+		[]string{"trust", "signer", "add"},
+		append([]string{name}, repository...),
 		opts,
 		0,
 	)

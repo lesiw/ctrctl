@@ -18,8 +18,8 @@ type NodeUpdateOpts struct {
 func NodeUpdate(opts *NodeUpdateOpts, node string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "node", "update" },
-		[]string{ node },
+		[]string{"node", "update"},
+		[]string{node},
 		opts,
 		0,
 	)

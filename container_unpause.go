@@ -1,9 +1,6 @@
 package ctrctl
 
-import "fmt"
-
 type ContainerUnpauseOpts struct {
-
 }
 
 // Unpause all processes within one or more containers.
@@ -13,7 +10,7 @@ func ContainerUnpause(opts *ContainerUnpauseOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "container", "unpause" },
+		[]string{"container", "unpause"},
 		container,
 		opts,
 		-1,

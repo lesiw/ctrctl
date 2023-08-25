@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type ContainerStopOpts struct {
 	// Signal to send to the container.
 	Signal string
@@ -17,7 +15,7 @@ func ContainerStop(opts *ContainerStopOpts, container ...string) (
 		return "", "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "container", "stop" },
+		[]string{"container", "stop"},
 		container,
 		opts,
 		0,

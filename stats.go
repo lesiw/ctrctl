@@ -23,7 +23,7 @@ type StatsOpts struct {
 func Stats(opts *StatsOpts, container ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stats" },
+		[]string{"stats"},
 		container,
 		opts,
 		0,

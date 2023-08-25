@@ -1,7 +1,5 @@
 package ctrctl
 
-import "fmt"
-
 type NetworkRmOpts struct {
 	// Do not error if the network does not exist.
 	Force bool
@@ -14,7 +12,7 @@ func NetworkRm(opts *NetworkRmOpts, network ...string) (
 		return "", "", fmt.Errorf("network must have at least one value")
 	}
 	return runCtrCmd(
-		[]string{ "network", "rm" },
+		[]string{"network", "rm"},
 		network,
 		opts,
 		-1,

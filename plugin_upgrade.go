@@ -15,8 +15,8 @@ type PluginUpgradeOpts struct {
 func PluginUpgrade(opts *PluginUpgradeOpts, plugin string, remote string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "upgrade" },
-		[]string{ plugin, remote },
+		[]string{"plugin", "upgrade"},
+		[]string{plugin, remote},
 		opts,
 		0,
 	)

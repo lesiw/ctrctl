@@ -27,7 +27,7 @@ type SwarmCaOpts struct {
 func SwarmCa(opts *SwarmCaOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "ca" },
+		[]string{"swarm", "ca"},
 		[]string{},
 		opts,
 		0,

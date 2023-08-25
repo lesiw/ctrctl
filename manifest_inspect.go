@@ -12,8 +12,8 @@ type ManifestInspectOpts struct {
 func ManifestInspect(opts *ManifestInspectOpts, manifestList string, manifest string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "manifest", "inspect" },
-		[]string{ manifestList, manifest },
+		[]string{"manifest", "inspect"},
+		[]string{manifestList, manifest},
 		opts,
 		0,
 	)

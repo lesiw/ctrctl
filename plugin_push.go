@@ -9,8 +9,8 @@ type PluginPushOpts struct {
 func PluginPush(opts *PluginPushOpts, pluginTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "push" },
-		[]string{ pluginTag },
+		[]string{"plugin", "push"},
+		[]string{pluginTag},
 		opts,
 		0,
 	)

@@ -20,7 +20,7 @@ type SecretLsOpts struct {
 func SecretLs(opts *SecretLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "secret", "ls" },
+		[]string{"secret", "ls"},
 		[]string{},
 		opts,
 		0,

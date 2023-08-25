@@ -9,8 +9,8 @@ type NetworkDisconnectOpts struct {
 func NetworkDisconnect(opts *NetworkDisconnectOpts, network string, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "network", "disconnect" },
-		[]string{ network, container },
+		[]string{"network", "disconnect"},
+		[]string{network, container},
 		opts,
 		0,
 	)

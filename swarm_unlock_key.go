@@ -12,7 +12,7 @@ type SwarmUnlockKeyOpts struct {
 func SwarmUnlockKey(opts *SwarmUnlockKeyOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "swarm", "unlock-key" },
+		[]string{"swarm", "unlock-key"},
 		[]string{},
 		opts,
 		0,

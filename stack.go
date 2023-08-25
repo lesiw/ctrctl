@@ -9,7 +9,7 @@ type StackOpts struct {
 func Stack(opts *StackOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stack" },
+		[]string{"stack"},
 		[]string{},
 		opts,
 		0,

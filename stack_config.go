@@ -12,7 +12,7 @@ type StackConfigOpts struct {
 func StackConfig(opts *StackConfigOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "stack", "config" },
+		[]string{"stack", "config"},
 		[]string{},
 		opts,
 		0,

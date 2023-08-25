@@ -20,7 +20,7 @@ type ServiceLsOpts struct {
 func ServiceLs(opts *ServiceLsOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "service", "ls" },
+		[]string{"service", "ls"},
 		[]string{},
 		opts,
 		0,

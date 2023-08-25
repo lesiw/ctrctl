@@ -18,7 +18,7 @@ type SystemPruneOpts struct {
 func SystemPrune(opts *SystemPruneOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "system", "prune" },
+		[]string{"system", "prune"},
 		[]string{},
 		opts,
 		0,

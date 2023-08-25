@@ -12,8 +12,8 @@ type ConfigCreateOpts struct {
 func ConfigCreate(opts *ConfigCreateOpts, config string, file string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "config", "create" },
-		[]string{ config, file },
+		[]string{"config", "create"},
+		[]string{config, file},
 		opts,
 		0,
 	)

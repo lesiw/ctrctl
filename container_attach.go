@@ -15,8 +15,8 @@ type ContainerAttachOpts struct {
 func ContainerAttach(opts *ContainerAttachOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "attach" },
-		[]string{ container },
+		[]string{"container", "attach"},
+		[]string{container},
 		opts,
 		0,
 	)

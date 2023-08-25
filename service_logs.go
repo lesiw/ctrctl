@@ -33,8 +33,8 @@ type ServiceLogsOpts struct {
 func ServiceLogs(opts *ServiceLogsOpts, serviceTask string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "service", "logs" },
-		[]string{ serviceTask },
+		[]string{"service", "logs"},
+		[]string{serviceTask},
 		opts,
 		0,
 	)

@@ -17,7 +17,7 @@ type SystemDfOpts struct {
 func SystemDf(opts *SystemDfOpts) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "system", "df" },
+		[]string{"system", "df"},
 		[]string{},
 		opts,
 		0,

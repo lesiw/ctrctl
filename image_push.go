@@ -15,8 +15,8 @@ type ImagePushOpts struct {
 func ImagePush(opts *ImagePushOpts, nameTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "image", "push" },
-		[]string{ nameTag },
+		[]string{"image", "push"},
+		[]string{nameTag},
 		opts,
 		0,
 	)

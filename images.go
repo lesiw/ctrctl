@@ -29,8 +29,8 @@ type ImagesOpts struct {
 func Images(opts *ImagesOpts, repositoryTag string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "images" },
-		[]string{ repositoryTag },
+		[]string{"images"},
+		[]string{repositoryTag},
 		opts,
 		0,
 	)

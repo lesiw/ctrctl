@@ -9,8 +9,8 @@ type PluginCreateOpts struct {
 func PluginCreate(opts *PluginCreateOpts, plugin string, pluginDataDir string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "plugin", "create" },
-		[]string{ plugin, pluginDataDir },
+		[]string{"plugin", "create"},
+		[]string{plugin, pluginDataDir},
 		opts,
 		0,
 	)

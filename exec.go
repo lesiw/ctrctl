@@ -33,8 +33,8 @@ type ExecOpts struct {
 func Exec(opts *ExecOpts, container string, command string, arg ...string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "exec" },
-		append([]string{ container,command }, arg...),
+		[]string{"exec"},
+		append([]string{container, command}, arg...),
 		opts,
 		0,
 	)

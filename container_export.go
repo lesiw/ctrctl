@@ -9,8 +9,8 @@ type ContainerExportOpts struct {
 func ContainerExport(opts *ContainerExportOpts, container string) (
 	stdout string, stderr string, err error) {
 	return runCtrCmd(
-		[]string{ "container", "export" },
-		[]string{ container },
+		[]string{"container", "export"},
+		[]string{container},
 		opts,
 		0,
 	)
