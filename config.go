@@ -3,6 +3,9 @@ package ctrctl
 import "fmt"
 
 type ConfigCreateOpts struct {
+	// Print usage.
+	Help bool
+
 	// Config labels.
 	Label string
 
@@ -27,6 +30,9 @@ type ConfigInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Print the information in a human friendly format.
 	Pretty bool
@@ -58,6 +64,9 @@ type ConfigLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Only display IDs.
 	Quiet bool
 }
@@ -74,6 +83,8 @@ func ConfigLs(opts *ConfigLsOpts) (
 }
 
 type ConfigRmOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more configs.

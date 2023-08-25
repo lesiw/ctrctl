@@ -42,6 +42,9 @@ type ImageBuildOpts struct {
 	// Always remove intermediate containers.
 	ForceRm bool
 
+	// Print usage.
+	Help bool
+
 	// Write the image ID to the file.
 	Iidfile string
 
@@ -114,6 +117,9 @@ type ImageHistoryOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Print sizes and dates in human readable format.
 	Human bool
 
@@ -139,6 +145,9 @@ type ImageImportOpts struct {
 	// Apply Dockerfile instruction to the created image.
 	Change string
 
+	// Print usage.
+	Help bool
+
 	// Set commit message for imported image.
 	Message string
 
@@ -163,6 +172,9 @@ type ImageInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Display detailed information on one or more images.
@@ -180,6 +192,9 @@ func ImageInspect(opts *ImageInspectOpts, image ...string) (
 }
 
 type ImageLoadOpts struct {
+	// Print usage.
+	Help bool
+
 	// Read from tar archive file, instead of STDIN.
 	Input string
 
@@ -216,6 +231,9 @@ type ImageLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Don't truncate output.
 	NoTrunc bool
 
@@ -243,6 +261,9 @@ type ImagePruneOpts struct {
 
 	// Do not prompt for confirmation.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove unused images.
@@ -262,6 +283,9 @@ type ImagePullOpts struct {
 
 	// Skip image verification.
 	DisableContentTrust bool
+
+	// Print usage.
+	Help bool
 
 	// Set platform if server is multi-platform capable.
 	Platform string
@@ -288,6 +312,9 @@ type ImagePushOpts struct {
 	// Skip image signing.
 	DisableContentTrust bool
 
+	// Print usage.
+	Help bool
+
 	// Suppress verbose output.
 	Quiet bool
 }
@@ -306,6 +333,9 @@ func ImagePush(opts *ImagePushOpts, nameTag string) (
 type ImageRmOpts struct {
 	// Force removal of the image.
 	Force bool
+
+	// Print usage.
+	Help bool
 
 	// Do not delete untagged parents.
 	NoPrune bool
@@ -326,6 +356,9 @@ func ImageRm(opts *ImageRmOpts, image ...string) (
 }
 
 type ImageSaveOpts struct {
+	// Print usage.
+	Help bool
+
 	// Write to a file, instead of STDOUT.
 	Output string
 }
@@ -345,6 +378,8 @@ func ImageSave(opts *ImageSaveOpts, image ...string) (
 }
 
 type ImageTagOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.

@@ -9,6 +9,9 @@ type SystemDfOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Show detailed information on space usage.
 	Verbose bool
 }
@@ -25,6 +28,8 @@ func SystemDf(opts *SystemDfOpts) (
 }
 
 type SystemDialStdioOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Proxy the stdio stream to the daemon connection. Should not be invoked manually.
@@ -44,6 +49,9 @@ type SystemEventsOpts struct {
 
 	// Format the output using the given Go template.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Show all events created since timestamp.
 	Since string
@@ -69,6 +77,9 @@ type SystemInfoOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Display system-wide information.
@@ -91,6 +102,9 @@ type SystemPruneOpts struct {
 
 	// Do not prompt for confirmation.
 	Force bool
+
+	// Print usage.
+	Help bool
 
 	// Prune volumes.
 	Volumes bool

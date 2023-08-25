@@ -6,6 +6,9 @@ type ContainerAttachOpts struct {
 	// Override the key sequence for detaching a container.
 	DetachKeys string
 
+	// Print usage.
+	Help bool
+
 	// Do not attach STDIN.
 	NoStdin bool
 
@@ -31,6 +34,9 @@ type ContainerCommitOpts struct {
 	// Apply Dockerfile instruction to the created image.
 	Change string
 
+	// Print usage.
+	Help bool
+
 	// Commit message.
 	Message string
 
@@ -55,6 +61,9 @@ type ContainerCpOpts struct {
 
 	// Always follow symbol link in SRC_PATH.
 	FollowLink bool
+
+	// Print usage.
+	Help bool
 
 	// Suppress progress output during copy. Progress output is automatically suppressed if no terminal is attached.
 	Quiet bool
@@ -395,6 +404,8 @@ func ContainerCreate(opts *ContainerCreateOpts, image string, command string, ar
 }
 
 type ContainerDiffOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Inspect changes to files or directories on a container's filesystem.
@@ -420,6 +431,9 @@ type ContainerExecOpts struct {
 
 	// Read in a file of environment variables.
 	EnvFile string
+
+	// Print usage.
+	Help bool
 
 	// Keep STDIN open even if not attached.
 	Interactive bool
@@ -449,6 +463,9 @@ func ContainerExec(opts *ContainerExecOpts, container string, command string, ar
 }
 
 type ContainerExportOpts struct {
+	// Print usage.
+	Help bool
+
 	// Write to a file, instead of STDOUT.
 	Output string
 }
@@ -471,6 +488,9 @@ type ContainerInspectOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Display total file sizes.
 	Size bool
 }
@@ -490,6 +510,9 @@ func ContainerInspect(opts *ContainerInspectOpts, container ...string) (
 }
 
 type ContainerKillOpts struct {
+	// Print usage.
+	Help bool
+
 	// Signal to send to the container.
 	Signal string
 }
@@ -514,6 +537,9 @@ type ContainerLogsOpts struct {
 
 	// Follow log output.
 	Follow bool
+
+	// Print usage.
+	Help bool
 
 	// Show logs since timestamp (e.g. `2013-01-02T13:23:37Z`) or relative (e.g. `42m` for 42 minutes).
 	Since string
@@ -554,6 +580,9 @@ type ContainerLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Show n last created containers (includes all states).
 	Last *int
 
@@ -582,6 +611,8 @@ func ContainerLs(opts *ContainerLsOpts) (
 }
 
 type ContainerPauseOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Pause all processes within one or more containers.
@@ -599,6 +630,8 @@ func ContainerPause(opts *ContainerPauseOpts, container ...string) (
 }
 
 type ContainerPortOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // List port mappings or a specific mapping for the container.
@@ -618,6 +651,9 @@ type ContainerPruneOpts struct {
 
 	// Do not prompt for confirmation.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove all stopped containers.
@@ -632,6 +668,8 @@ func ContainerPrune(opts *ContainerPruneOpts) (
 }
 
 type ContainerRenameOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Rename a container.
@@ -646,6 +684,9 @@ func ContainerRename(opts *ContainerRenameOpts, container string, newName string
 }
 
 type ContainerRestartOpts struct {
+	// Print usage.
+	Help bool
+
 	// Signal to send to the container.
 	Signal string
 
@@ -670,6 +711,9 @@ func ContainerRestart(opts *ContainerRestartOpts, container ...string) (
 type ContainerRmOpts struct {
 	// Force the removal of a running container (uses SIGKILL).
 	Force bool
+
+	// Print usage.
+	Help bool
 
 	// Remove the specified link.
 	Link bool
@@ -1037,6 +1081,9 @@ type ContainerStartOpts struct {
 	// Override the key sequence for detaching a container.
 	DetachKeys string
 
+	// Print usage.
+	Help bool
+
 	// Attach container's STDIN.
 	Interactive bool
 }
@@ -1067,6 +1114,9 @@ type ContainerStatsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Disable streaming stats and only pull the first result.
 	NoStream bool
 
@@ -1086,6 +1136,9 @@ func ContainerStats(opts *ContainerStatsOpts, container ...string) (
 }
 
 type ContainerStopOpts struct {
+	// Print usage.
+	Help bool
+
 	// Signal to send to the container.
 	Signal string
 
@@ -1108,6 +1161,8 @@ func ContainerStop(opts *ContainerStopOpts, container ...string) (
 }
 
 type ContainerTopOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Display the running processes of a container.
@@ -1122,6 +1177,8 @@ func ContainerTop(opts *ContainerTopOpts, container string, psOptions string) (
 }
 
 type ContainerUnpauseOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Unpause all processes within one or more containers.
@@ -1166,6 +1223,9 @@ type ContainerUpdateOpts struct {
 	// MEMs in which to allow execution (0-3, 0,1).
 	CpusetMems string
 
+	// Print usage.
+	Help bool
+
 	// Kernel memory limit (deprecated).
 	KernelMemory string
 
@@ -1200,6 +1260,8 @@ func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (
 }
 
 type ContainerWaitOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Block until one or more containers stop, then print their exit codes.

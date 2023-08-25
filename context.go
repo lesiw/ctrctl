@@ -15,6 +15,9 @@ type ContextCreateOpts struct {
 	// create context from a named context.
 	From string
 
+	// Print usage.
+	Help bool
+
 	// set the kubernetes endpoint.
 	Kubernetes string
 }
@@ -31,6 +34,9 @@ func ContextCreate(opts *ContextCreateOpts, context string) (
 }
 
 type ContextExportOpts struct {
+	// Print usage.
+	Help bool
+
 	// Export as a kubeconfig file.
 	Kubeconfig bool
 }
@@ -47,6 +53,8 @@ func ContextExport(opts *ContextExportOpts, context string, file string) (
 }
 
 type ContextImportOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Import a context from a tar or zip file.
@@ -66,6 +74,9 @@ type ContextInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Display detailed information on one or more contexts.
@@ -91,6 +102,9 @@ type ContextLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Only show context names.
 	Quiet bool
 }
@@ -109,6 +123,9 @@ func ContextLs(opts *ContextLsOpts) (
 type ContextRmOpts struct {
 	// Force the removal of a context in use.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more contexts.
@@ -126,6 +143,8 @@ func ContextRm(opts *ContextRmOpts, context ...string) (
 }
 
 type ContextShowOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Print the name of the current context.
@@ -149,6 +168,9 @@ type ContextUpdateOpts struct {
 	// set the docker endpoint.
 	Docker string
 
+	// Print usage.
+	Help bool
+
 	// set the kubernetes endpoint.
 	Kubernetes string
 }
@@ -165,6 +187,8 @@ func ContextUpdate(opts *ContextUpdateOpts, context string) (
 }
 
 type ContextUseOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Set the current docker context.

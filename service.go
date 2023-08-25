@@ -66,6 +66,9 @@ type ServiceCreateOpts struct {
 	// Maximum time to allow one check to run (ms|s|m|h).
 	HealthTimeout string
 
+	// Print usage.
+	Help bool
+
 	// Set one or more custom host-to-IP mappings (host:ip).
 	Host string
 
@@ -235,6 +238,9 @@ type ServiceInspectOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Print the information in a human friendly format.
 	Pretty bool
 }
@@ -259,6 +265,9 @@ type ServiceLogsOpts struct {
 
 	// Follow log output.
 	Follow bool
+
+	// Print usage.
+	Help bool
 
 	// Do not map IDs to Names in output.
 	NoResolve bool
@@ -305,6 +314,9 @@ type ServiceLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Only display IDs.
 	Quiet bool
 }
@@ -326,6 +338,9 @@ type ServicePsOpts struct {
 
 	// Pretty-print tasks using a Go template.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Do not map IDs to Names.
 	NoResolve bool
@@ -352,6 +367,8 @@ func ServicePs(opts *ServicePsOpts, service ...string) (
 }
 
 type ServiceRmOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more services.
@@ -372,6 +389,9 @@ type ServiceRollbackOpts struct {
 	// Exit immediately instead of waiting for the service to converge.
 	Detach bool
 
+	// Print usage.
+	Help bool
+
 	// Suppress progress output.
 	Quiet bool
 }
@@ -390,6 +410,9 @@ func ServiceRollback(opts *ServiceRollbackOpts, service string) (
 type ServiceScaleOpts struct {
 	// Exit immediately instead of waiting for the service to converge.
 	Detach bool
+
+	// Print usage.
+	Help bool
 }
 
 // Scale one or multiple replicated services.
@@ -499,6 +522,9 @@ type ServiceUpdateOpts struct {
 
 	// Maximum time to allow one check to run (ms|s|m|h).
 	HealthTimeout string
+
+	// Print usage.
+	Help bool
 
 	// Add a custom host-to-IP mapping (`host:ip`).
 	HostAdd string

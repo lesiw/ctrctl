@@ -16,6 +16,9 @@ type SwarmCaOpts struct {
 	// Specifications of one or more certificate signing endpoints.
 	ExternalCa string
 
+	// Print usage.
+	Help bool
+
 	// Suppress progress output.
 	Quiet bool
 
@@ -68,6 +71,9 @@ type SwarmInitOpts struct {
 	// Force create a new cluster from current state.
 	ForceNewCluster bool
 
+	// Print usage.
+	Help bool
+
 	// Listen address (format: `<ip|interface>[:port]`).
 	ListenAddr string
 
@@ -93,6 +99,9 @@ func SwarmInit(opts *SwarmInitOpts) (
 }
 
 type SwarmJoinTokenOpts struct {
+	// Print usage.
+	Help bool
+
 	// Only display token.
 	Quiet bool
 
@@ -121,6 +130,9 @@ type SwarmJoinOpts struct {
 	// Address or interface to use for data path traffic (format: `<ip|interface>`).
 	DataPathAddr string
 
+	// Print usage.
+	Help bool
+
 	// Listen address (format: `<ip|interface>[:port]`).
 	ListenAddr string
 
@@ -142,6 +154,9 @@ func SwarmJoin(opts *SwarmJoinOpts, hostPort string) (
 type SwarmLeaveOpts struct {
 	// Force this node to leave the swarm, ignoring warnings.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Leave the swarm.
@@ -156,6 +171,9 @@ func SwarmLeave(opts *SwarmLeaveOpts) (
 }
 
 type SwarmUnlockKeyOpts struct {
+	// Print usage.
+	Help bool
+
 	// Only display token.
 	Quiet bool
 
@@ -175,6 +193,8 @@ func SwarmUnlockKey(opts *SwarmUnlockKeyOpts) (
 }
 
 type SwarmUnlockOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Unlock swarm.
@@ -200,6 +220,9 @@ type SwarmUpdateOpts struct {
 
 	// Specifications of one or more certificate signing endpoints.
 	ExternalCa string
+
+	// Print usage.
+	Help bool
 
 	// Number of additional Raft snapshots to retain.
 	MaxSnapshots string

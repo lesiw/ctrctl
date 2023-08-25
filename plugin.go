@@ -5,6 +5,9 @@ import "fmt"
 type PluginCreateOpts struct {
 	// Compress the context using gzip.
 	Compress bool
+
+	// Print usage.
+	Help bool
 }
 
 // Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
@@ -21,6 +24,9 @@ func PluginCreate(opts *PluginCreateOpts, plugin string, pluginDataDir string) (
 type PluginDisableOpts struct {
 	// Force the disable of an active plugin.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Disable a plugin.
@@ -35,6 +41,9 @@ func PluginDisable(opts *PluginDisableOpts, plugin string) (
 }
 
 type PluginEnableOpts struct {
+	// Print usage.
+	Help bool
+
 	// HTTP client timeout (in seconds).
 	Timeout *int
 }
@@ -56,6 +65,9 @@ type PluginInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Display detailed information on one or more plugins.
@@ -84,6 +96,9 @@ type PluginInstallOpts struct {
 
 	// Grant all permissions necessary to run the plugin.
 	GrantAllPermissions bool
+
+	// Print usage.
+	Help bool
 }
 
 // Install a plugin.
@@ -109,6 +124,9 @@ type PluginLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Don't truncate output.
 	NoTrunc bool
 
@@ -130,6 +148,9 @@ func PluginLs(opts *PluginLsOpts) (
 type PluginPushOpts struct {
 	// Skip image signing.
 	DisableContentTrust bool
+
+	// Print usage.
+	Help bool
 }
 
 // Push a plugin to a registry.
@@ -146,6 +167,9 @@ func PluginPush(opts *PluginPushOpts, pluginTag string) (
 type PluginRmOpts struct {
 	// Force the removal of an active plugin.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more plugins.
@@ -163,6 +187,8 @@ func PluginRm(opts *PluginRmOpts, plugin ...string) (
 }
 
 type PluginSetOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Change settings for a plugin.
@@ -185,6 +211,9 @@ type PluginUpgradeOpts struct {
 
 	// Grant all permissions necessary to run the plugin.
 	GrantAllPermissions bool
+
+	// Print usage.
+	Help bool
 
 	// Do not check if specified remote plugin matches existing plugin image.
 	SkipRemoteCheck bool

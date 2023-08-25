@@ -3,6 +3,9 @@ package ctrctl
 import "fmt"
 
 type TrustInspectOpts struct {
+	// Print usage.
+	Help bool
+
 	// Print the information in a human friendly format.
 	Pretty bool
 }
@@ -22,6 +25,8 @@ func TrustInspect(opts *TrustInspectOpts, imageTag ...string) (
 }
 
 type TrustKeyOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage keys for signing Docker images.
@@ -38,6 +43,9 @@ func TrustKey(opts *TrustKeyOpts) (
 type TrustKeyGenerateOpts struct {
 	// Directory to generate key in, defaults to current directory.
 	Dir string
+
+	// Print usage.
+	Help bool
 }
 
 // Generate and load a signing key-pair.
@@ -52,6 +60,9 @@ func TrustKeyGenerate(opts *TrustKeyGenerateOpts, name string) (
 }
 
 type TrustKeyLoadOpts struct {
+	// Print usage.
+	Help bool
+
 	// Name for the loaded key.
 	Name string
 }
@@ -68,6 +79,9 @@ func TrustKeyLoad(opts *TrustKeyLoadOpts, keyfile string) (
 }
 
 type TrustRevokeOpts struct {
+	// Print usage.
+	Help bool
+
 	// Do not prompt for confirmation.
 	Yes bool
 }
@@ -84,6 +98,9 @@ func TrustRevoke(opts *TrustRevokeOpts, imageTag string) (
 }
 
 type TrustSignOpts struct {
+	// Print usage.
+	Help bool
+
 	// Sign a locally tagged image.
 	Local bool
 }
@@ -100,6 +117,8 @@ func TrustSign(opts *TrustSignOpts, imageTag string) (
 }
 
 type TrustSignerOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage entities who can sign Docker images.
@@ -114,6 +133,9 @@ func TrustSigner(opts *TrustSignerOpts) (
 }
 
 type TrustSignerAddOpts struct {
+	// Print usage.
+	Help bool
+
 	// Path to the signer's public key file.
 	Key string
 }
@@ -135,6 +157,9 @@ func TrustSignerAdd(opts *TrustSignerAddOpts, name string, repository ...string)
 type TrustSignerRemoveOpts struct {
 	// Do not prompt for confirmation before removing the most recent signer.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove a signer.

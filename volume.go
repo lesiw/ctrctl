@@ -12,6 +12,9 @@ type VolumeCreateOpts struct {
 	// Cluster Volume group (cluster volumes).
 	Group string
 
+	// Print usage.
+	Help bool
+
 	// Set metadata for a volume.
 	Label string
 
@@ -63,6 +66,9 @@ type VolumeInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Display detailed information on one or more volumes.
@@ -94,6 +100,9 @@ type VolumeLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Only display volume names.
 	Quiet bool
 }
@@ -118,6 +127,9 @@ type VolumePruneOpts struct {
 
 	// Do not prompt for confirmation.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove all unused local volumes.
@@ -134,6 +146,9 @@ func VolumePrune(opts *VolumePruneOpts) (
 type VolumeRmOpts struct {
 	// Force the removal of one or more volumes.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more volumes.
@@ -153,6 +168,9 @@ func VolumeRm(opts *VolumeRmOpts, volume ...string) (
 type VolumeUpdateOpts struct {
 	// Cluster Volume availability (`active`, `pause`, `drain`).
 	Availability string
+
+	// Print usage.
+	Help bool
 }
 
 // Update a volume (cluster volumes only).

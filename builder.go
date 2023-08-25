@@ -40,6 +40,9 @@ type BuilderBuildOpts struct {
 	// Always remove intermediate containers.
 	ForceRm bool
 
+	// Print usage.
+	Help bool
+
 	// Write the image ID to the file.
 	Iidfile string
 
@@ -112,6 +115,9 @@ type BuilderPruneOpts struct {
 
 	// Do not prompt for confirmation.
 	Force bool
+
+	// Print usage.
+	Help bool
 
 	// Amount of disk space to keep for cache.
 	KeepStorage string

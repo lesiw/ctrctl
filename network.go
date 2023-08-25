@@ -9,6 +9,9 @@ type NetworkConnectOpts struct {
 	// driver options for the network.
 	DriverOpt string
 
+	// Print usage.
+	Help bool
+
 	// IPv4 address (e.g., `172.30.100.104`).
 	Ip string
 
@@ -51,6 +54,9 @@ type NetworkCreateOpts struct {
 
 	// IPv4 or IPv6 Gateway for the master subnet.
 	Gateway string
+
+	// Print usage.
+	Help bool
 
 	// Create swarm routing-mesh network.
 	Ingress bool
@@ -97,6 +103,9 @@ func NetworkCreate(opts *NetworkCreateOpts, network string) (
 type NetworkDisconnectOpts struct {
 	// Force the container to disconnect from a network.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Disconnect a container from a network.
@@ -116,6 +125,9 @@ type NetworkInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Verbose output for diagnostics.
 	Verbose bool
@@ -147,6 +159,9 @@ type NetworkLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Do not truncate the output.
 	NoTrunc bool
 
@@ -171,6 +186,9 @@ type NetworkPruneOpts struct {
 
 	// Do not prompt for confirmation.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove all unused networks.
@@ -187,6 +205,9 @@ func NetworkPrune(opts *NetworkPruneOpts) (
 type NetworkRmOpts struct {
 	// Do not error if the network does not exist.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more networks.

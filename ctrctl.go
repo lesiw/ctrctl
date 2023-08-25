@@ -52,6 +52,9 @@ type AttachOpts struct {
 	// Override the key sequence for detaching a container.
 	DetachKeys string
 
+	// Print usage.
+	Help bool
+
 	// Do not attach STDIN.
 	NoStdin bool
 
@@ -109,6 +112,9 @@ type BuildOpts struct {
 
 	// Always remove intermediate containers.
 	ForceRm bool
+
+	// Print usage.
+	Help bool
 
 	// Write the image ID to the file.
 	Iidfile string
@@ -174,6 +180,8 @@ func Build(opts *BuildOpts, path string, url string) (
 }
 
 type BuilderOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage builds.
@@ -188,6 +196,8 @@ func Builder(opts *BuilderOpts) (
 }
 
 type CheckpointOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage checkpoints.
@@ -208,6 +218,9 @@ type CommitOpts struct {
 	// Apply Dockerfile instruction to the created image.
 	Change string
 
+	// Print usage.
+	Help bool
+
 	// Commit message.
 	Message string
 
@@ -227,6 +240,8 @@ func Commit(opts *CommitOpts, container string, repositoryTag string) (
 }
 
 type ConfigOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Swarm configs.
@@ -241,6 +256,8 @@ func Config(opts *ConfigOpts) (
 }
 
 type ContainerOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage containers.
@@ -255,6 +272,8 @@ func Container(opts *ContainerOpts) (
 }
 
 type ContextOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage contexts.
@@ -274,6 +293,9 @@ type CpOpts struct {
 
 	// Always follow symbol link in SRC_PATH.
 	FollowLink bool
+
+	// Print usage.
+	Help bool
 
 	// Suppress progress output during copy. Progress output is automatically suppressed if no terminal is attached.
 	Quiet bool
@@ -614,6 +636,8 @@ func Create(opts *CreateOpts, image string, command string, arg ...string) (
 }
 
 type DiffOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Inspect changes to files or directories on a container's filesystem.
@@ -633,6 +657,9 @@ type EventsOpts struct {
 
 	// Format the output using the given Go template.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Show all events created since timestamp.
 	Since string
@@ -665,6 +692,9 @@ type ExecOpts struct {
 	// Read in a file of environment variables.
 	EnvFile string
 
+	// Print usage.
+	Help bool
+
 	// Keep STDIN open even if not attached.
 	Interactive bool
 
@@ -693,6 +723,9 @@ func Exec(opts *ExecOpts, container string, command string, arg ...string) (
 }
 
 type ExportOpts struct {
+	// Print usage.
+	Help bool
+
 	// Write to a file, instead of STDOUT.
 	Output string
 }
@@ -717,6 +750,9 @@ type HistoryOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Print sizes and dates in human readable format.
 	Human bool
 
@@ -739,6 +775,8 @@ func History(opts *HistoryOpts, image string) (
 }
 
 type ImageOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage images.
@@ -770,6 +808,9 @@ type ImagesOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Don't truncate output.
 	NoTrunc bool
 
@@ -791,6 +832,9 @@ func Images(opts *ImagesOpts, repositoryTag string) (
 type ImportOpts struct {
 	// Apply Dockerfile instruction to the created image.
 	Change string
+
+	// Print usage.
+	Help bool
 
 	// Set commit message for imported image.
 	Message string
@@ -816,6 +860,9 @@ type InfoOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Display system-wide information.
@@ -835,6 +882,9 @@ type InspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Display total file sizes if the type is container.
 	Size bool
@@ -858,6 +908,9 @@ func Inspect(opts *InspectOpts, nameId ...string) (
 }
 
 type KillOpts struct {
+	// Print usage.
+	Help bool
+
 	// Signal to send to the container.
 	Signal string
 }
@@ -877,6 +930,9 @@ func Kill(opts *KillOpts, container ...string) (
 }
 
 type LoadOpts struct {
+	// Print usage.
+	Help bool
+
 	// Read from tar archive file, instead of STDIN.
 	Input string
 
@@ -896,6 +952,9 @@ func Load(opts *LoadOpts) (
 }
 
 type LoginOpts struct {
+	// Print usage.
+	Help bool
+
 	// Password.
 	Password string
 
@@ -918,6 +977,8 @@ func Login(opts *LoginOpts, server string) (
 }
 
 type LogoutOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Log out from a registry.
@@ -937,6 +998,9 @@ type LogsOpts struct {
 
 	// Follow log output.
 	Follow bool
+
+	// Print usage.
+	Help bool
 
 	// Show logs since timestamp (e.g. `2013-01-02T13:23:37Z`) or relative (e.g. `42m` for 42 minutes).
 	Since string
@@ -963,6 +1027,8 @@ func Logs(opts *LogsOpts, container string) (
 }
 
 type ManifestOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Docker image manifests and manifest lists.
@@ -977,6 +1043,8 @@ func Manifest(opts *ManifestOpts, command string) (
 }
 
 type NetworkOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage networks.
@@ -991,6 +1059,8 @@ func Network(opts *NetworkOpts) (
 }
 
 type NodeOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Swarm nodes.
@@ -1005,6 +1075,8 @@ func Node(opts *NodeOpts) (
 }
 
 type PauseOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Pause all processes within one or more containers.
@@ -1022,6 +1094,8 @@ func Pause(opts *PauseOpts, container ...string) (
 }
 
 type PluginOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage plugins.
@@ -1036,6 +1110,8 @@ func Plugin(opts *PluginOpts) (
 }
 
 type PortOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // List port mappings or a specific mapping for the container.
@@ -1063,6 +1139,9 @@ type PsOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Show n last created containers (includes all states).
 	Last *int
@@ -1098,6 +1177,9 @@ type PullOpts struct {
 	// Skip image verification.
 	DisableContentTrust bool
 
+	// Print usage.
+	Help bool
+
 	// Set platform if server is multi-platform capable.
 	Platform string
 
@@ -1123,6 +1205,9 @@ type PushOpts struct {
 	// Skip image signing.
 	DisableContentTrust bool
 
+	// Print usage.
+	Help bool
+
 	// Suppress verbose output.
 	Quiet bool
 }
@@ -1139,6 +1224,8 @@ func Push(opts *PushOpts, nameTag string) (
 }
 
 type RenameOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Rename a container.
@@ -1153,6 +1240,9 @@ func Rename(opts *RenameOpts, container string, newName string) (
 }
 
 type RestartOpts struct {
+	// Print usage.
+	Help bool
+
 	// Signal to send to the container.
 	Signal string
 
@@ -1178,6 +1268,9 @@ type RmOpts struct {
 	// Force the removal of a running container (uses SIGKILL).
 	Force bool
 
+	// Print usage.
+	Help bool
+
 	// Remove the specified link.
 	Link bool
 
@@ -1202,6 +1295,9 @@ func Rm(opts *RmOpts, container ...string) (
 type RmiOpts struct {
 	// Force removal of the image.
 	Force bool
+
+	// Print usage.
+	Help bool
 
 	// Do not delete untagged parents.
 	NoPrune bool
@@ -1554,6 +1650,9 @@ func Run(opts *RunOpts, image string, command string, arg ...string) (
 }
 
 type SaveOpts struct {
+	// Print usage.
+	Help bool
+
 	// Write to a file, instead of STDOUT.
 	Output string
 }
@@ -1579,6 +1678,9 @@ type SearchOpts struct {
 	// Pretty-print search using a Go template.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Max number of search results.
 	Limit *int
 
@@ -1598,6 +1700,8 @@ func Search(opts *SearchOpts, term string) (
 }
 
 type SecretOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Swarm secrets.
@@ -1612,6 +1716,8 @@ func Secret(opts *SecretOpts) (
 }
 
 type ServiceOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Swarm services.
@@ -1626,6 +1732,9 @@ func Service(opts *ServiceOpts) (
 }
 
 type StackOpts struct {
+	// Print usage.
+	Help bool
+
 	// Orchestrator to use (swarm|all).
 	Orchestrator string
 }
@@ -1653,6 +1762,9 @@ type StartOpts struct {
 
 	// Override the key sequence for detaching a container.
 	DetachKeys string
+
+	// Print usage.
+	Help bool
 
 	// Attach container's STDIN.
 	Interactive bool
@@ -1684,6 +1796,9 @@ type StatsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Disable streaming stats and only pull the first result.
 	NoStream bool
 
@@ -1703,6 +1818,9 @@ func Stats(opts *StatsOpts, container ...string) (
 }
 
 type StopOpts struct {
+	// Print usage.
+	Help bool
+
 	// Signal to send to the container.
 	Signal string
 
@@ -1725,6 +1843,8 @@ func Stop(opts *StopOpts, container ...string) (
 }
 
 type SwarmOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Swarm.
@@ -1739,6 +1859,8 @@ func Swarm(opts *SwarmOpts) (
 }
 
 type SystemOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage Docker.
@@ -1753,6 +1875,8 @@ func System(opts *SystemOpts) (
 }
 
 type TagOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
@@ -1767,6 +1891,8 @@ func Tag(opts *TagOpts, sourceImageTag string, targetImageTag string) (
 }
 
 type TopOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Display the running processes of a container.
@@ -1781,6 +1907,8 @@ func Top(opts *TopOpts, container string, psOptions string) (
 }
 
 type TrustOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage trust on Docker images.
@@ -1795,6 +1923,8 @@ func Trust(opts *TrustOpts) (
 }
 
 type UnpauseOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Unpause all processes within one or more containers.
@@ -1839,6 +1969,9 @@ type UpdateOpts struct {
 	// MEMs in which to allow execution (0-3, 0,1).
 	CpusetMems string
 
+	// Print usage.
+	Help bool
+
 	// Kernel memory limit (deprecated).
 	KernelMemory string
 
@@ -1878,6 +2011,9 @@ type VersionOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 }
 
 // Show the Docker version information.
@@ -1892,6 +2028,8 @@ func Version(opts *VersionOpts) (
 }
 
 type VolumeOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Manage volumes.
@@ -1906,6 +2044,8 @@ func Volume(opts *VolumeOpts, command string) (
 }
 
 type WaitOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Block until one or more containers stop, then print their exit codes.

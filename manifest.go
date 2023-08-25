@@ -6,6 +6,9 @@ type ManifestAnnotateOpts struct {
 	// Set architecture.
 	Arch string
 
+	// Print usage.
+	Help bool
+
 	// Set operating system.
 	Os string
 
@@ -34,6 +37,9 @@ type ManifestCreateOpts struct {
 	// Amend an existing manifest list.
 	Amend bool
 
+	// Print usage.
+	Help bool
+
 	// Allow communication with an insecure registry.
 	Insecure bool
 }
@@ -53,6 +59,9 @@ func ManifestCreate(opts *ManifestCreateOpts, manifestList string, manifest ...s
 }
 
 type ManifestInspectOpts struct {
+	// Print usage.
+	Help bool
+
 	// Allow communication with an insecure registry.
 	Insecure bool
 
@@ -72,6 +81,9 @@ func ManifestInspect(opts *ManifestInspectOpts, manifestList string, manifest st
 }
 
 type ManifestPushOpts struct {
+	// Print usage.
+	Help bool
+
 	// Allow push to an insecure registry.
 	Insecure bool
 
@@ -91,6 +103,8 @@ func ManifestPush(opts *ManifestPushOpts, manifestList string) (
 }
 
 type ManifestRmOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Delete one or more manifest lists from local storage.

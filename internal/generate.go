@@ -312,7 +312,27 @@ func cmdFromDefinition(buf []byte) (*ctrCliCmd, error) {
 		return nil, err
 	}
 
-	usage := strings.TrimPrefix(cmd.Usage, "docker ") + " "
+	cmd.Options = append(cmd.Options, cmd.InheritedOptions...)
+	cmd.convertOptNames()
+	sort.Slice(cmd.Options, func(i, j int) bool {
+		return cmd.Options[i].Option < cmd.Options[j].Option
+	})
+
+	cmd.parseUsage(strings.TrimPrefix(cmd.Usage, "docker ") + " ")
+
+	if err := cmd.deduplicateArgs(); err != nil {
+		return nil, fmt.Errorf("error deduplicating '%s' args: %w", cmd.Command, err)
+	}
+
+	overrides, ok := cmdOverrides[strings.TrimPrefix(cmd.Command, "docker ")]
+	if ok {
+		overrideStruct(cmd, overrides)
+	}
+
+	return cmd, nil
+}
+
+func (cmd *ctrCliCmd) parseUsage(usage string) {
 	var word []rune
 	var depth int
 	var dots int
@@ -371,27 +391,6 @@ func cmdFromDefinition(buf []byte) (*ctrCliCmd, error) {
 			word = append(word, r)
 		}
 	}
-
-	if err := cmd.deduplicateArgs(); err != nil {
-		return nil, fmt.Errorf("error deduplicating '%s' args: %w", cmd.Command, err)
-	}
-	cmd.convertOptNames()
-
-	overrides, ok := cmdOverrides[strings.TrimPrefix(cmd.Command, "docker ")]
-	if ok {
-		overrideStruct(cmd, overrides)
-	}
-
-	return cmd, nil
-}
-
-func hasLowercase(s string) bool {
-	for _, r := range s {
-		if unicode.IsLower(r) {
-			return true
-		}
-	}
-	return false
 }
 
 func (cmd *ctrCliCmd) deduplicateArgs() error {

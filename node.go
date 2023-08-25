@@ -3,6 +3,8 @@ package ctrctl
 import "fmt"
 
 type NodeDemoteOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Demote one or more nodes from manager in the swarm.
@@ -25,6 +27,9 @@ type NodeInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Print the information in a human friendly format.
 	Pretty bool
@@ -53,6 +58,9 @@ type NodeLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Only display IDs.
 	Quiet bool
 }
@@ -69,6 +77,8 @@ func NodeLs(opts *NodeLsOpts) (
 }
 
 type NodePromoteOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Promote one or more nodes to manager in the swarm.
@@ -91,6 +101,9 @@ type NodePsOpts struct {
 
 	// Pretty-print tasks using a Go template.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Do not map IDs to Names.
 	NoResolve bool
@@ -116,6 +129,9 @@ func NodePs(opts *NodePsOpts, node ...string) (
 type NodeRmOpts struct {
 	// Force remove a node from the swarm.
 	Force bool
+
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more nodes from the swarm.
@@ -135,6 +151,9 @@ func NodeRm(opts *NodeRmOpts, node ...string) (
 type NodeUpdateOpts struct {
 	// Availability of the node (`active`, `pause`, `drain`).
 	Availability string
+
+	// Print usage.
+	Help bool
 
 	// Add or update a node label (`key=value`).
 	LabelAdd string

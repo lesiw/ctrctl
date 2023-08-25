@@ -6,6 +6,9 @@ type SecretCreateOpts struct {
 	// Secret driver.
 	Driver string
 
+	// Print usage.
+	Help bool
+
 	// Secret labels.
 	Label string
 
@@ -30,6 +33,9 @@ type SecretInspectOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
 
 	// Print the information in a human friendly format.
 	Pretty bool
@@ -61,6 +67,9 @@ type SecretLsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Only display IDs.
 	Quiet bool
 }
@@ -77,6 +86,8 @@ func SecretLs(opts *SecretLsOpts) (
 }
 
 type SecretRmOpts struct {
+	// Print usage.
+	Help bool
 }
 
 // Remove one or more secrets.

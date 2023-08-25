@@ -6,6 +6,12 @@ type StackConfigOpts struct {
 	// Path to a Compose file, or `-` to read from stdin.
 	ComposeFile string
 
+	// Print usage.
+	Help bool
+
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
+
 	// Skip interpolation and output only merged config.
 	SkipInterpolation bool
 }
@@ -24,6 +30,12 @@ func StackConfig(opts *StackConfigOpts) (
 type StackDeployOpts struct {
 	// Path to a Compose file, or `-` to read from stdin.
 	ComposeFile string
+
+	// Print usage.
+	Help bool
+
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
 
 	// Prune services that are no longer referenced.
 	Prune bool
@@ -54,6 +66,12 @@ type StackLsOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
+
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
 }
 
 // List stacks.
@@ -79,11 +97,17 @@ type StackPsOpts struct {
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
+	// Print usage.
+	Help bool
+
 	// Do not map IDs to Names.
 	NoResolve bool
 
 	// Do not truncate output.
 	NoTrunc bool
+
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
 
 	// Only display task IDs.
 	Quiet bool
@@ -101,6 +125,11 @@ func StackPs(opts *StackPsOpts, stack string) (
 }
 
 type StackRmOpts struct {
+	// Print usage.
+	Help bool
+
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
 }
 
 // Remove one or more stacks.
@@ -128,6 +157,12 @@ type StackServicesOpts struct {
 	// 'TEMPLATE':         Print output using the given Go template.
 	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
+
+	// Print usage.
+	Help bool
+
+	// Orchestrator to use (swarm|all).
+	Orchestrator string
 
 	// Only display IDs.
 	Quiet bool
