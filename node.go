@@ -1,17 +1,22 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type NodeDemoteOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Demote one or more nodes from manager in the swarm.
-func NodeDemote(opts *NodeDemoteOpts, node ...string) (
-	stdout string, stderr string, err error) {
+func NodeDemote(opts *NodeDemoteOpts, node ...string) (string, error) {
 	if len(node) == 0 {
-		return "", "", fmt.Errorf("node must have at least one value")
+		return "", fmt.Errorf("node must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"node", "demote"},
@@ -22,6 +27,9 @@ func NodeDemote(opts *NodeDemoteOpts, node ...string) (
 }
 
 type NodeInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -36,8 +44,7 @@ type NodeInspectOpts struct {
 }
 
 // Display detailed information on one or more nodes.
-func NodeInspect(opts *NodeInspectOpts, selfNode string, node ...string) (
-	stdout string, stderr string, err error) {
+func NodeInspect(opts *NodeInspectOpts, selfNode string, node ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"node", "inspect"},
 		append([]string{selfNode}, node...),
@@ -47,6 +54,9 @@ func NodeInspect(opts *NodeInspectOpts, selfNode string, node ...string) (
 }
 
 type NodeLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -66,8 +76,7 @@ type NodeLsOpts struct {
 }
 
 // List nodes in the swarm.
-func NodeLs(opts *NodeLsOpts) (
-	stdout string, stderr string, err error) {
+func NodeLs(opts *NodeLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"node", "ls"},
 		[]string{},
@@ -77,15 +86,17 @@ func NodeLs(opts *NodeLsOpts) (
 }
 
 type NodePromoteOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Promote one or more nodes to manager in the swarm.
-func NodePromote(opts *NodePromoteOpts, node ...string) (
-	stdout string, stderr string, err error) {
+func NodePromote(opts *NodePromoteOpts, node ...string) (string, error) {
 	if len(node) == 0 {
-		return "", "", fmt.Errorf("node must have at least one value")
+		return "", fmt.Errorf("node must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"node", "promote"},
@@ -96,6 +107,9 @@ func NodePromote(opts *NodePromoteOpts, node ...string) (
 }
 
 type NodePsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -116,8 +130,7 @@ type NodePsOpts struct {
 }
 
 // List tasks running on one or more nodes, defaults to current node.
-func NodePs(opts *NodePsOpts, node ...string) (
-	stdout string, stderr string, err error) {
+func NodePs(opts *NodePsOpts, node ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"node", "ps"},
 		node,
@@ -127,6 +140,9 @@ func NodePs(opts *NodePsOpts, node ...string) (
 }
 
 type NodeRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force remove a node from the swarm.
 	Force bool
 
@@ -135,10 +151,9 @@ type NodeRmOpts struct {
 }
 
 // Remove one or more nodes from the swarm.
-func NodeRm(opts *NodeRmOpts, node ...string) (
-	stdout string, stderr string, err error) {
+func NodeRm(opts *NodeRmOpts, node ...string) (string, error) {
 	if len(node) == 0 {
-		return "", "", fmt.Errorf("node must have at least one value")
+		return "", fmt.Errorf("node must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"node", "rm"},
@@ -149,6 +164,9 @@ func NodeRm(opts *NodeRmOpts, node ...string) (
 }
 
 type NodeUpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Availability of the node (`active`, `pause`, `drain`).
 	Availability string
 
@@ -166,8 +184,7 @@ type NodeUpdateOpts struct {
 }
 
 // Update a node.
-func NodeUpdate(opts *NodeUpdateOpts, node string) (
-	stdout string, stderr string, err error) {
+func NodeUpdate(opts *NodeUpdateOpts, node string) (string, error) {
 	return runCtrCmd(
 		[]string{"node", "update"},
 		[]string{node},

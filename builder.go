@@ -1,6 +1,11 @@
 package ctrctl
 
+import "os/exec"
+
 type BuilderBuildOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (`host:ip`).
 	AddHost string
 
@@ -96,8 +101,7 @@ type BuilderBuildOpts struct {
 }
 
 // Build an image from a Dockerfile.
-func BuilderBuild(opts *BuilderBuildOpts, path string, url string) (
-	stdout string, stderr string, err error) {
+func BuilderBuild(opts *BuilderBuildOpts, path string, url string) (string, error) {
 	return runCtrCmd(
 		[]string{"builder", "build"},
 		[]string{path, url},
@@ -107,6 +111,9 @@ func BuilderBuild(opts *BuilderBuildOpts, path string, url string) (
 }
 
 type BuilderPruneOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Remove all unused build cache, not just dangling ones.
 	All bool
 
@@ -124,8 +131,7 @@ type BuilderPruneOpts struct {
 }
 
 // Remove build cache.
-func BuilderPrune(opts *BuilderPruneOpts) (
-	stdout string, stderr string, err error) {
+func BuilderPrune(opts *BuilderPruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"builder", "prune"},
 		[]string{},

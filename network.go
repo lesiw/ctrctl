@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type NetworkConnectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add network-scoped alias for the container.
 	Alias string
 
@@ -26,8 +32,7 @@ type NetworkConnectOpts struct {
 }
 
 // Connect a container to a network.
-func NetworkConnect(opts *NetworkConnectOpts, network string, container string) (
-	stdout string, stderr string, err error) {
+func NetworkConnect(opts *NetworkConnectOpts, network string, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"network", "connect"},
 		[]string{network, container},
@@ -37,6 +42,9 @@ func NetworkConnect(opts *NetworkConnectOpts, network string, container string) 
 }
 
 type NetworkCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Enable manual container attachment.
 	Attachable bool
 
@@ -90,8 +98,7 @@ type NetworkCreateOpts struct {
 }
 
 // Create a network.
-func NetworkCreate(opts *NetworkCreateOpts, network string) (
-	stdout string, stderr string, err error) {
+func NetworkCreate(opts *NetworkCreateOpts, network string) (string, error) {
 	return runCtrCmd(
 		[]string{"network", "create"},
 		[]string{network},
@@ -101,6 +108,9 @@ func NetworkCreate(opts *NetworkCreateOpts, network string) (
 }
 
 type NetworkDisconnectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the container to disconnect from a network.
 	Force bool
 
@@ -109,8 +119,7 @@ type NetworkDisconnectOpts struct {
 }
 
 // Disconnect a container from a network.
-func NetworkDisconnect(opts *NetworkDisconnectOpts, network string, container string) (
-	stdout string, stderr string, err error) {
+func NetworkDisconnect(opts *NetworkDisconnectOpts, network string, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"network", "disconnect"},
 		[]string{network, container},
@@ -120,6 +129,9 @@ func NetworkDisconnect(opts *NetworkDisconnectOpts, network string, container st
 }
 
 type NetworkInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -134,10 +146,9 @@ type NetworkInspectOpts struct {
 }
 
 // Display detailed information on one or more networks.
-func NetworkInspect(opts *NetworkInspectOpts, network ...string) (
-	stdout string, stderr string, err error) {
+func NetworkInspect(opts *NetworkInspectOpts, network ...string) (string, error) {
 	if len(network) == 0 {
-		return "", "", fmt.Errorf("network must have at least one value")
+		return "", fmt.Errorf("network must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"network", "inspect"},
@@ -148,6 +159,9 @@ func NetworkInspect(opts *NetworkInspectOpts, network ...string) (
 }
 
 type NetworkLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Provide filter values (e.g. `driver=bridge`).
 	Filter string
 
@@ -170,8 +184,7 @@ type NetworkLsOpts struct {
 }
 
 // List networks.
-func NetworkLs(opts *NetworkLsOpts) (
-	stdout string, stderr string, err error) {
+func NetworkLs(opts *NetworkLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"network", "ls"},
 		[]string{},
@@ -181,6 +194,9 @@ func NetworkLs(opts *NetworkLsOpts) (
 }
 
 type NetworkPruneOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Provide filter values (e.g. `until=<timestamp>`).
 	Filter string
 
@@ -192,8 +208,7 @@ type NetworkPruneOpts struct {
 }
 
 // Remove all unused networks.
-func NetworkPrune(opts *NetworkPruneOpts) (
-	stdout string, stderr string, err error) {
+func NetworkPrune(opts *NetworkPruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"network", "prune"},
 		[]string{},
@@ -203,6 +218,9 @@ func NetworkPrune(opts *NetworkPruneOpts) (
 }
 
 type NetworkRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Do not error if the network does not exist.
 	Force bool
 
@@ -211,10 +229,9 @@ type NetworkRmOpts struct {
 }
 
 // Remove one or more networks.
-func NetworkRm(opts *NetworkRmOpts, network ...string) (
-	stdout string, stderr string, err error) {
+func NetworkRm(opts *NetworkRmOpts, network ...string) (string, error) {
 	if len(network) == 0 {
-		return "", "", fmt.Errorf("network must have at least one value")
+		return "", fmt.Errorf("network must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"network", "rm"},

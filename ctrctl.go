@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type DockerOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Location of client config files.
 	Config string
 
@@ -38,8 +44,7 @@ type DockerOpts struct {
 }
 
 // The base command for the Docker CLI.
-func Docker(opts *DockerOpts) (
-	stdout string, stderr string, err error) {
+func Docker(opts *DockerOpts) (string, error) {
 	return runCtrCmd(
 		[]string{},
 		[]string{},
@@ -49,6 +54,9 @@ func Docker(opts *DockerOpts) (
 }
 
 type AttachOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Override the key sequence for detaching a container.
 	DetachKeys string
 
@@ -63,8 +71,7 @@ type AttachOpts struct {
 }
 
 // Attach local standard input, output, and error streams to a running container.
-func Attach(opts *AttachOpts, container string) (
-	stdout string, stderr string, err error) {
+func Attach(opts *AttachOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"attach"},
 		[]string{container},
@@ -74,6 +81,9 @@ func Attach(opts *AttachOpts, container string) (
 }
 
 type BuildOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (`host:ip`).
 	AddHost string
 
@@ -169,8 +179,7 @@ type BuildOpts struct {
 }
 
 // Build an image from a Dockerfile.
-func Build(opts *BuildOpts, path string, url string) (
-	stdout string, stderr string, err error) {
+func Build(opts *BuildOpts, path string, url string) (string, error) {
 	return runCtrCmd(
 		[]string{"build"},
 		[]string{path, url},
@@ -180,13 +189,15 @@ func Build(opts *BuildOpts, path string, url string) (
 }
 
 type BuilderOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage builds.
-func Builder(opts *BuilderOpts) (
-	stdout string, stderr string, err error) {
+func Builder(opts *BuilderOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"builder"},
 		[]string{},
@@ -196,13 +207,15 @@ func Builder(opts *BuilderOpts) (
 }
 
 type CheckpointOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage checkpoints.
-func Checkpoint(opts *CheckpointOpts) (
-	stdout string, stderr string, err error) {
+func Checkpoint(opts *CheckpointOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"checkpoint"},
 		[]string{},
@@ -212,6 +225,9 @@ func Checkpoint(opts *CheckpointOpts) (
 }
 
 type CommitOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Author (e.g., `John Hannibal Smith <hannibal@a-team.com>`).
 	Author string
 
@@ -229,8 +245,7 @@ type CommitOpts struct {
 }
 
 // Create a new image from a container's changes.
-func Commit(opts *CommitOpts, container string, repositoryTag string) (
-	stdout string, stderr string, err error) {
+func Commit(opts *CommitOpts, container string, repositoryTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"commit"},
 		[]string{container, repositoryTag},
@@ -240,13 +255,15 @@ func Commit(opts *CommitOpts, container string, repositoryTag string) (
 }
 
 type ConfigOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Swarm configs.
-func Config(opts *ConfigOpts) (
-	stdout string, stderr string, err error) {
+func Config(opts *ConfigOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"config"},
 		[]string{},
@@ -256,13 +273,15 @@ func Config(opts *ConfigOpts) (
 }
 
 type ContainerOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage containers.
-func Container(opts *ContainerOpts) (
-	stdout string, stderr string, err error) {
+func Container(opts *ContainerOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"container"},
 		[]string{},
@@ -272,13 +291,15 @@ func Container(opts *ContainerOpts) (
 }
 
 type ContextOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage contexts.
-func Context(opts *ContextOpts) (
-	stdout string, stderr string, err error) {
+func Context(opts *ContextOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"context"},
 		[]string{},
@@ -288,6 +309,9 @@ func Context(opts *ContextOpts) (
 }
 
 type CpOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Archive mode (copy all uid/gid information).
 	Archive bool
 
@@ -302,8 +326,7 @@ type CpOpts struct {
 }
 
 // Copy files/folders between a container and the local filesystem.
-func Cp(opts *CpOpts, srcpath string, dstpath string) (
-	stdout string, stderr string, err error) {
+func Cp(opts *CpOpts, srcpath string, dstpath string) (string, error) {
 	return runCtrCmd(
 		[]string{"cp"},
 		[]string{srcpath, dstpath},
@@ -313,6 +336,9 @@ func Cp(opts *CpOpts, srcpath string, dstpath string) (
 }
 
 type CreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (host:ip).
 	AddHost string
 
@@ -625,8 +651,7 @@ type CreateOpts struct {
 }
 
 // Create a new container.
-func Create(opts *CreateOpts, image string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func Create(opts *CreateOpts, image string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"create"},
 		append([]string{image, command}, arg...),
@@ -636,13 +661,15 @@ func Create(opts *CreateOpts, image string, command string, arg ...string) (
 }
 
 type DiffOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Inspect changes to files or directories on a container's filesystem.
-func Diff(opts *DiffOpts, container string) (
-	stdout string, stderr string, err error) {
+func Diff(opts *DiffOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"diff"},
 		[]string{container},
@@ -652,6 +679,9 @@ func Diff(opts *DiffOpts, container string) (
 }
 
 type EventsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -669,8 +699,7 @@ type EventsOpts struct {
 }
 
 // Get real time events from the server.
-func Events(opts *EventsOpts) (
-	stdout string, stderr string, err error) {
+func Events(opts *EventsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"events"},
 		[]string{},
@@ -680,6 +709,9 @@ func Events(opts *EventsOpts) (
 }
 
 type ExecOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Detached mode: run command in the background.
 	Detach bool
 
@@ -712,8 +744,7 @@ type ExecOpts struct {
 }
 
 // Execute a command in a running container.
-func Exec(opts *ExecOpts, container string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func Exec(opts *ExecOpts, container string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"exec"},
 		append([]string{container, command}, arg...),
@@ -723,6 +754,9 @@ func Exec(opts *ExecOpts, container string, command string, arg ...string) (
 }
 
 type ExportOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -731,8 +765,7 @@ type ExportOpts struct {
 }
 
 // Export a container's filesystem as a tar archive.
-func Export(opts *ExportOpts, container string) (
-	stdout string, stderr string, err error) {
+func Export(opts *ExportOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"export"},
 		[]string{container},
@@ -742,6 +775,9 @@ func Export(opts *ExportOpts, container string) (
 }
 
 type HistoryOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'table':            Print output in table format with column headers (default).
 	// 'table TEMPLATE':   Print output in table format using the given Go template.
@@ -764,8 +800,7 @@ type HistoryOpts struct {
 }
 
 // Show the history of an image.
-func History(opts *HistoryOpts, image string) (
-	stdout string, stderr string, err error) {
+func History(opts *HistoryOpts, image string) (string, error) {
 	return runCtrCmd(
 		[]string{"history"},
 		[]string{image},
@@ -775,13 +810,15 @@ func History(opts *HistoryOpts, image string) (
 }
 
 type ImageOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage images.
-func Image(opts *ImageOpts) (
-	stdout string, stderr string, err error) {
+func Image(opts *ImageOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"image"},
 		[]string{},
@@ -791,6 +828,9 @@ func Image(opts *ImageOpts) (
 }
 
 type ImagesOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show all images (default hides intermediate images).
 	All bool
 
@@ -819,8 +859,7 @@ type ImagesOpts struct {
 }
 
 // List images.
-func Images(opts *ImagesOpts, repositoryTag string) (
-	stdout string, stderr string, err error) {
+func Images(opts *ImagesOpts, repositoryTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"images"},
 		[]string{repositoryTag},
@@ -830,6 +869,9 @@ func Images(opts *ImagesOpts, repositoryTag string) (
 }
 
 type ImportOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Apply Dockerfile instruction to the created image.
 	Change string
 
@@ -844,8 +886,7 @@ type ImportOpts struct {
 }
 
 // Import the contents from a tarball to create a filesystem image.
-func Import(opts *ImportOpts, fileUrl string, RepositoryTag string) (
-	stdout string, stderr string, err error) {
+func Import(opts *ImportOpts, fileUrl string, RepositoryTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"import"},
 		[]string{fileUrl, RepositoryTag},
@@ -855,6 +896,9 @@ func Import(opts *ImportOpts, fileUrl string, RepositoryTag string) (
 }
 
 type InfoOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -866,8 +910,7 @@ type InfoOpts struct {
 }
 
 // Display system-wide information.
-func Info(opts *InfoOpts) (
-	stdout string, stderr string, err error) {
+func Info(opts *InfoOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"info"},
 		[]string{},
@@ -877,6 +920,9 @@ func Info(opts *InfoOpts) (
 }
 
 type InspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -894,10 +940,9 @@ type InspectOpts struct {
 }
 
 // Return low-level information on Docker objects.
-func Inspect(opts *InspectOpts, nameId ...string) (
-	stdout string, stderr string, err error) {
+func Inspect(opts *InspectOpts, nameId ...string) (string, error) {
 	if len(nameId) == 0 {
-		return "", "", fmt.Errorf("nameId must have at least one value")
+		return "", fmt.Errorf("nameId must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"inspect"},
@@ -908,6 +953,9 @@ func Inspect(opts *InspectOpts, nameId ...string) (
 }
 
 type KillOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -916,10 +964,9 @@ type KillOpts struct {
 }
 
 // Kill one or more running containers.
-func Kill(opts *KillOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Kill(opts *KillOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"kill"},
@@ -930,6 +977,9 @@ func Kill(opts *KillOpts, container ...string) (
 }
 
 type LoadOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -941,8 +991,7 @@ type LoadOpts struct {
 }
 
 // Load an image from a tar archive or STDIN.
-func Load(opts *LoadOpts) (
-	stdout string, stderr string, err error) {
+func Load(opts *LoadOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"load"},
 		[]string{},
@@ -952,6 +1001,9 @@ func Load(opts *LoadOpts) (
 }
 
 type LoginOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -966,8 +1018,7 @@ type LoginOpts struct {
 }
 
 // Log in to a registry.
-func Login(opts *LoginOpts, server string) (
-	stdout string, stderr string, err error) {
+func Login(opts *LoginOpts, server string) (string, error) {
 	return runCtrCmd(
 		[]string{"login"},
 		[]string{server},
@@ -977,13 +1028,15 @@ func Login(opts *LoginOpts, server string) (
 }
 
 type LogoutOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Log out from a registry.
-func Logout(opts *LogoutOpts, server string) (
-	stdout string, stderr string, err error) {
+func Logout(opts *LogoutOpts, server string) (string, error) {
 	return runCtrCmd(
 		[]string{"logout"},
 		[]string{server},
@@ -993,6 +1046,9 @@ func Logout(opts *LogoutOpts, server string) (
 }
 
 type LogsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show extra details provided to logs.
 	Details bool
 
@@ -1016,8 +1072,7 @@ type LogsOpts struct {
 }
 
 // Fetch the logs of a container.
-func Logs(opts *LogsOpts, container string) (
-	stdout string, stderr string, err error) {
+func Logs(opts *LogsOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"logs"},
 		[]string{container},
@@ -1027,13 +1082,15 @@ func Logs(opts *LogsOpts, container string) (
 }
 
 type ManifestOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Docker image manifests and manifest lists.
-func Manifest(opts *ManifestOpts, command string) (
-	stdout string, stderr string, err error) {
+func Manifest(opts *ManifestOpts, command string) (string, error) {
 	return runCtrCmd(
 		[]string{"manifest"},
 		[]string{command},
@@ -1043,13 +1100,15 @@ func Manifest(opts *ManifestOpts, command string) (
 }
 
 type NetworkOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage networks.
-func Network(opts *NetworkOpts) (
-	stdout string, stderr string, err error) {
+func Network(opts *NetworkOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"network"},
 		[]string{},
@@ -1059,13 +1118,15 @@ func Network(opts *NetworkOpts) (
 }
 
 type NodeOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Swarm nodes.
-func Node(opts *NodeOpts) (
-	stdout string, stderr string, err error) {
+func Node(opts *NodeOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"node"},
 		[]string{},
@@ -1075,15 +1136,17 @@ func Node(opts *NodeOpts) (
 }
 
 type PauseOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Pause all processes within one or more containers.
-func Pause(opts *PauseOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Pause(opts *PauseOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"pause"},
@@ -1094,13 +1157,15 @@ func Pause(opts *PauseOpts, container ...string) (
 }
 
 type PluginOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage plugins.
-func Plugin(opts *PluginOpts) (
-	stdout string, stderr string, err error) {
+func Plugin(opts *PluginOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin"},
 		[]string{},
@@ -1110,13 +1175,15 @@ func Plugin(opts *PluginOpts) (
 }
 
 type PortOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // List port mappings or a specific mapping for the container.
-func Port(opts *PortOpts, container string, privatePortProto string) (
-	stdout string, stderr string, err error) {
+func Port(opts *PortOpts, container string, privatePortProto string) (string, error) {
 	return runCtrCmd(
 		[]string{"port"},
 		[]string{container, privatePortProto},
@@ -1126,6 +1193,9 @@ func Port(opts *PortOpts, container string, privatePortProto string) (
 }
 
 type PsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show all containers (default shows just running).
 	All bool
 
@@ -1160,8 +1230,7 @@ type PsOpts struct {
 }
 
 // List containers.
-func Ps(opts *PsOpts) (
-	stdout string, stderr string, err error) {
+func Ps(opts *PsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"ps"},
 		[]string{},
@@ -1171,6 +1240,9 @@ func Ps(opts *PsOpts) (
 }
 
 type PullOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Download all tagged images in the repository.
 	AllTags bool
 
@@ -1188,8 +1260,7 @@ type PullOpts struct {
 }
 
 // Download an image from a registry.
-func Pull(opts *PullOpts, nameTagDigest string) (
-	stdout string, stderr string, err error) {
+func Pull(opts *PullOpts, nameTagDigest string) (string, error) {
 	return runCtrCmd(
 		[]string{"pull"},
 		[]string{nameTagDigest},
@@ -1199,6 +1270,9 @@ func Pull(opts *PullOpts, nameTagDigest string) (
 }
 
 type PushOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Push all tags of an image to the repository.
 	AllTags bool
 
@@ -1213,8 +1287,7 @@ type PushOpts struct {
 }
 
 // Upload an image to a registry.
-func Push(opts *PushOpts, nameTag string) (
-	stdout string, stderr string, err error) {
+func Push(opts *PushOpts, nameTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"push"},
 		[]string{nameTag},
@@ -1224,13 +1297,15 @@ func Push(opts *PushOpts, nameTag string) (
 }
 
 type RenameOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Rename a container.
-func Rename(opts *RenameOpts, container string, newName string) (
-	stdout string, stderr string, err error) {
+func Rename(opts *RenameOpts, container string, newName string) (string, error) {
 	return runCtrCmd(
 		[]string{"rename"},
 		[]string{container, newName},
@@ -1240,6 +1315,9 @@ func Rename(opts *RenameOpts, container string, newName string) (
 }
 
 type RestartOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -1251,10 +1329,9 @@ type RestartOpts struct {
 }
 
 // Restart one or more containers.
-func Restart(opts *RestartOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Restart(opts *RestartOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"restart"},
@@ -1265,6 +1342,9 @@ func Restart(opts *RestartOpts, container ...string) (
 }
 
 type RmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the removal of a running container (uses SIGKILL).
 	Force bool
 
@@ -1279,10 +1359,9 @@ type RmOpts struct {
 }
 
 // Remove one or more containers.
-func Rm(opts *RmOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Rm(opts *RmOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"rm"},
@@ -1293,6 +1372,9 @@ func Rm(opts *RmOpts, container ...string) (
 }
 
 type RmiOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force removal of the image.
 	Force bool
 
@@ -1304,10 +1386,9 @@ type RmiOpts struct {
 }
 
 // Remove one or more images.
-func Rmi(opts *RmiOpts, image ...string) (
-	stdout string, stderr string, err error) {
+func Rmi(opts *RmiOpts, image ...string) (string, error) {
 	if len(image) == 0 {
-		return "", "", fmt.Errorf("image must have at least one value")
+		return "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"rmi"},
@@ -1318,6 +1399,9 @@ func Rmi(opts *RmiOpts, image ...string) (
 }
 
 type RunOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (host:ip).
 	AddHost string
 
@@ -1639,8 +1723,7 @@ type RunOpts struct {
 }
 
 // Create and run a new container from an image.
-func Run(opts *RunOpts, image string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func Run(opts *RunOpts, image string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"run"},
 		append([]string{image, command}, arg...),
@@ -1650,6 +1733,9 @@ func Run(opts *RunOpts, image string, command string, arg ...string) (
 }
 
 type SaveOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -1658,10 +1744,9 @@ type SaveOpts struct {
 }
 
 // Save one or more images to a tar archive (streamed to STDOUT by default).
-func Save(opts *SaveOpts, image ...string) (
-	stdout string, stderr string, err error) {
+func Save(opts *SaveOpts, image ...string) (string, error) {
 	if len(image) == 0 {
-		return "", "", fmt.Errorf("image must have at least one value")
+		return "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"save"},
@@ -1672,6 +1757,9 @@ func Save(opts *SaveOpts, image ...string) (
 }
 
 type SearchOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -1689,8 +1777,7 @@ type SearchOpts struct {
 }
 
 // Search Docker Hub for images.
-func Search(opts *SearchOpts, term string) (
-	stdout string, stderr string, err error) {
+func Search(opts *SearchOpts, term string) (string, error) {
 	return runCtrCmd(
 		[]string{"search"},
 		[]string{term},
@@ -1700,13 +1787,15 @@ func Search(opts *SearchOpts, term string) (
 }
 
 type SecretOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Swarm secrets.
-func Secret(opts *SecretOpts) (
-	stdout string, stderr string, err error) {
+func Secret(opts *SecretOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"secret"},
 		[]string{},
@@ -1716,13 +1805,15 @@ func Secret(opts *SecretOpts) (
 }
 
 type ServiceOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Swarm services.
-func Service(opts *ServiceOpts) (
-	stdout string, stderr string, err error) {
+func Service(opts *ServiceOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"service"},
 		[]string{},
@@ -1732,6 +1823,9 @@ func Service(opts *ServiceOpts) (
 }
 
 type StackOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -1740,8 +1834,7 @@ type StackOpts struct {
 }
 
 // Manage Swarm stacks.
-func Stack(opts *StackOpts) (
-	stdout string, stderr string, err error) {
+func Stack(opts *StackOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"stack"},
 		[]string{},
@@ -1751,6 +1844,9 @@ func Stack(opts *StackOpts) (
 }
 
 type StartOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Attach STDOUT/STDERR and forward signals.
 	Attach bool
 
@@ -1771,10 +1867,9 @@ type StartOpts struct {
 }
 
 // Start one or more stopped containers.
-func Start(opts *StartOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Start(opts *StartOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"start"},
@@ -1785,6 +1880,9 @@ func Start(opts *StartOpts, container ...string) (
 }
 
 type StatsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show all containers (default shows just running).
 	All bool
 
@@ -1807,8 +1905,7 @@ type StatsOpts struct {
 }
 
 // Display a live stream of container(s) resource usage statistics.
-func Stats(opts *StatsOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Stats(opts *StatsOpts, container ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"stats"},
 		container,
@@ -1818,6 +1915,9 @@ func Stats(opts *StatsOpts, container ...string) (
 }
 
 type StopOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -1829,10 +1929,9 @@ type StopOpts struct {
 }
 
 // Stop one or more running containers.
-func Stop(opts *StopOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Stop(opts *StopOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"stop"},
@@ -1843,13 +1942,15 @@ func Stop(opts *StopOpts, container ...string) (
 }
 
 type SwarmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Swarm.
-func Swarm(opts *SwarmOpts) (
-	stdout string, stderr string, err error) {
+func Swarm(opts *SwarmOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm"},
 		[]string{},
@@ -1859,13 +1960,15 @@ func Swarm(opts *SwarmOpts) (
 }
 
 type SystemOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage Docker.
-func System(opts *SystemOpts) (
-	stdout string, stderr string, err error) {
+func System(opts *SystemOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"system"},
 		[]string{},
@@ -1875,13 +1978,15 @@ func System(opts *SystemOpts) (
 }
 
 type TagOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
-func Tag(opts *TagOpts, sourceImageTag string, targetImageTag string) (
-	stdout string, stderr string, err error) {
+func Tag(opts *TagOpts, sourceImageTag string, targetImageTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"tag"},
 		[]string{sourceImageTag, targetImageTag},
@@ -1891,13 +1996,15 @@ func Tag(opts *TagOpts, sourceImageTag string, targetImageTag string) (
 }
 
 type TopOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Display the running processes of a container.
-func Top(opts *TopOpts, container string, psOptions string) (
-	stdout string, stderr string, err error) {
+func Top(opts *TopOpts, container string, psOptions string) (string, error) {
 	return runCtrCmd(
 		[]string{"top"},
 		[]string{container, psOptions},
@@ -1907,13 +2014,15 @@ func Top(opts *TopOpts, container string, psOptions string) (
 }
 
 type TrustOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage trust on Docker images.
-func Trust(opts *TrustOpts) (
-	stdout string, stderr string, err error) {
+func Trust(opts *TrustOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"trust"},
 		[]string{},
@@ -1923,15 +2032,17 @@ func Trust(opts *TrustOpts) (
 }
 
 type UnpauseOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Unpause all processes within one or more containers.
-func Unpause(opts *UnpauseOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Unpause(opts *UnpauseOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"unpause"},
@@ -1942,6 +2053,9 @@ func Unpause(opts *UnpauseOpts, container ...string) (
 }
 
 type UpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0).
 	BlkioWeight string
 
@@ -1992,10 +2106,9 @@ type UpdateOpts struct {
 }
 
 // Update configuration of one or more containers.
-func Update(opts *UpdateOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Update(opts *UpdateOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"update"},
@@ -2006,6 +2119,9 @@ func Update(opts *UpdateOpts, container ...string) (
 }
 
 type VersionOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -2017,8 +2133,7 @@ type VersionOpts struct {
 }
 
 // Show the Docker version information.
-func Version(opts *VersionOpts) (
-	stdout string, stderr string, err error) {
+func Version(opts *VersionOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"version"},
 		[]string{},
@@ -2028,13 +2143,15 @@ func Version(opts *VersionOpts) (
 }
 
 type VolumeOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage volumes.
-func Volume(opts *VolumeOpts, command string) (
-	stdout string, stderr string, err error) {
+func Volume(opts *VolumeOpts, command string) (string, error) {
 	return runCtrCmd(
 		[]string{"volume"},
 		[]string{command},
@@ -2044,15 +2161,17 @@ func Volume(opts *VolumeOpts, command string) (
 }
 
 type WaitOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Block until one or more containers stop, then print their exit codes.
-func Wait(opts *WaitOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func Wait(opts *WaitOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"wait"},

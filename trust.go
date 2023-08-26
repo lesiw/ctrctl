@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type TrustInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -11,10 +17,9 @@ type TrustInspectOpts struct {
 }
 
 // Return low-level information about keys and signatures.
-func TrustInspect(opts *TrustInspectOpts, imageTag ...string) (
-	stdout string, stderr string, err error) {
+func TrustInspect(opts *TrustInspectOpts, imageTag ...string) (string, error) {
 	if len(imageTag) == 0 {
-		return "", "", fmt.Errorf("imageTag must have at least one value")
+		return "", fmt.Errorf("imageTag must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"trust", "inspect"},
@@ -25,13 +30,15 @@ func TrustInspect(opts *TrustInspectOpts, imageTag ...string) (
 }
 
 type TrustKeyOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage keys for signing Docker images.
-func TrustKey(opts *TrustKeyOpts) (
-	stdout string, stderr string, err error) {
+func TrustKey(opts *TrustKeyOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"trust", "key"},
 		[]string{},
@@ -41,6 +48,9 @@ func TrustKey(opts *TrustKeyOpts) (
 }
 
 type TrustKeyGenerateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Directory to generate key in, defaults to current directory.
 	Dir string
 
@@ -49,8 +59,7 @@ type TrustKeyGenerateOpts struct {
 }
 
 // Generate and load a signing key-pair.
-func TrustKeyGenerate(opts *TrustKeyGenerateOpts, name string) (
-	stdout string, stderr string, err error) {
+func TrustKeyGenerate(opts *TrustKeyGenerateOpts, name string) (string, error) {
 	return runCtrCmd(
 		[]string{"trust", "key", "generate"},
 		[]string{name},
@@ -60,6 +69,9 @@ func TrustKeyGenerate(opts *TrustKeyGenerateOpts, name string) (
 }
 
 type TrustKeyLoadOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -68,8 +80,7 @@ type TrustKeyLoadOpts struct {
 }
 
 // Load a private key file for signing.
-func TrustKeyLoad(opts *TrustKeyLoadOpts, keyfile string) (
-	stdout string, stderr string, err error) {
+func TrustKeyLoad(opts *TrustKeyLoadOpts, keyfile string) (string, error) {
 	return runCtrCmd(
 		[]string{"trust", "key", "load"},
 		[]string{keyfile},
@@ -79,6 +90,9 @@ func TrustKeyLoad(opts *TrustKeyLoadOpts, keyfile string) (
 }
 
 type TrustRevokeOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -87,8 +101,7 @@ type TrustRevokeOpts struct {
 }
 
 // Remove trust for an image.
-func TrustRevoke(opts *TrustRevokeOpts, imageTag string) (
-	stdout string, stderr string, err error) {
+func TrustRevoke(opts *TrustRevokeOpts, imageTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"trust", "revoke"},
 		[]string{imageTag},
@@ -98,6 +111,9 @@ func TrustRevoke(opts *TrustRevokeOpts, imageTag string) (
 }
 
 type TrustSignOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -106,8 +122,7 @@ type TrustSignOpts struct {
 }
 
 // Sign an image.
-func TrustSign(opts *TrustSignOpts, imageTag string) (
-	stdout string, stderr string, err error) {
+func TrustSign(opts *TrustSignOpts, imageTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"trust", "sign"},
 		[]string{imageTag},
@@ -117,13 +132,15 @@ func TrustSign(opts *TrustSignOpts, imageTag string) (
 }
 
 type TrustSignerOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Manage entities who can sign Docker images.
-func TrustSigner(opts *TrustSignerOpts) (
-	stdout string, stderr string, err error) {
+func TrustSigner(opts *TrustSignerOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"trust", "signer"},
 		[]string{},
@@ -133,6 +150,9 @@ func TrustSigner(opts *TrustSignerOpts) (
 }
 
 type TrustSignerAddOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -141,10 +161,9 @@ type TrustSignerAddOpts struct {
 }
 
 // Add a signer.
-func TrustSignerAdd(opts *TrustSignerAddOpts, name string, repository ...string) (
-	stdout string, stderr string, err error) {
+func TrustSignerAdd(opts *TrustSignerAddOpts, name string, repository ...string) (string, error) {
 	if len(repository) == 0 {
-		return "", "", fmt.Errorf("repository must have at least one value")
+		return "", fmt.Errorf("repository must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"trust", "signer", "add"},
@@ -155,6 +174,9 @@ func TrustSignerAdd(opts *TrustSignerAddOpts, name string, repository ...string)
 }
 
 type TrustSignerRemoveOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Do not prompt for confirmation before removing the most recent signer.
 	Force bool
 
@@ -163,10 +185,9 @@ type TrustSignerRemoveOpts struct {
 }
 
 // Remove a signer.
-func TrustSignerRemove(opts *TrustSignerRemoveOpts, name string, repository ...string) (
-	stdout string, stderr string, err error) {
+func TrustSignerRemove(opts *TrustSignerRemoveOpts, name string, repository ...string) (string, error) {
 	if len(repository) == 0 {
-		return "", "", fmt.Errorf("repository must have at least one value")
+		return "", fmt.Errorf("repository must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"trust", "signer", "remove"},

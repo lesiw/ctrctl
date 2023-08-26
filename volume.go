@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type VolumeCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Cluster Volume availability (`active`, `pause`, `drain`).
 	Availability string
 
@@ -50,8 +56,7 @@ type VolumeCreateOpts struct {
 }
 
 // Create a volume.
-func VolumeCreate(opts *VolumeCreateOpts, volume string) (
-	stdout string, stderr string, err error) {
+func VolumeCreate(opts *VolumeCreateOpts, volume string) (string, error) {
 	return runCtrCmd(
 		[]string{"volume", "create"},
 		[]string{volume},
@@ -61,6 +66,9 @@ func VolumeCreate(opts *VolumeCreateOpts, volume string) (
 }
 
 type VolumeInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -72,10 +80,9 @@ type VolumeInspectOpts struct {
 }
 
 // Display detailed information on one or more volumes.
-func VolumeInspect(opts *VolumeInspectOpts, volume ...string) (
-	stdout string, stderr string, err error) {
+func VolumeInspect(opts *VolumeInspectOpts, volume ...string) (string, error) {
 	if len(volume) == 0 {
-		return "", "", fmt.Errorf("volume must have at least one value")
+		return "", fmt.Errorf("volume must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"volume", "inspect"},
@@ -86,6 +93,9 @@ func VolumeInspect(opts *VolumeInspectOpts, volume ...string) (
 }
 
 type VolumeLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Display only cluster volumes, and use cluster volume list formatting.
 	Cluster bool
 
@@ -108,8 +118,7 @@ type VolumeLsOpts struct {
 }
 
 // List volumes.
-func VolumeLs(opts *VolumeLsOpts) (
-	stdout string, stderr string, err error) {
+func VolumeLs(opts *VolumeLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"volume", "ls"},
 		[]string{},
@@ -119,6 +128,9 @@ func VolumeLs(opts *VolumeLsOpts) (
 }
 
 type VolumePruneOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Remove all unused volumes, not just anonymous ones.
 	All bool
 
@@ -133,8 +145,7 @@ type VolumePruneOpts struct {
 }
 
 // Remove all unused local volumes.
-func VolumePrune(opts *VolumePruneOpts) (
-	stdout string, stderr string, err error) {
+func VolumePrune(opts *VolumePruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"volume", "prune"},
 		[]string{},
@@ -144,6 +155,9 @@ func VolumePrune(opts *VolumePruneOpts) (
 }
 
 type VolumeRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the removal of one or more volumes.
 	Force bool
 
@@ -152,10 +166,9 @@ type VolumeRmOpts struct {
 }
 
 // Remove one or more volumes.
-func VolumeRm(opts *VolumeRmOpts, volume ...string) (
-	stdout string, stderr string, err error) {
+func VolumeRm(opts *VolumeRmOpts, volume ...string) (string, error) {
 	if len(volume) == 0 {
-		return "", "", fmt.Errorf("volume must have at least one value")
+		return "", fmt.Errorf("volume must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"volume", "rm"},
@@ -166,6 +179,9 @@ func VolumeRm(opts *VolumeRmOpts, volume ...string) (
 }
 
 type VolumeUpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Cluster Volume availability (`active`, `pause`, `drain`).
 	Availability string
 
@@ -174,8 +190,7 @@ type VolumeUpdateOpts struct {
 }
 
 // Update a volume (cluster volumes only).
-func VolumeUpdate(opts *VolumeUpdateOpts, volume string) (
-	stdout string, stderr string, err error) {
+func VolumeUpdate(opts *VolumeUpdateOpts, volume string) (string, error) {
 	return runCtrCmd(
 		[]string{"volume", "update"},
 		[]string{volume},

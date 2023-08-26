@@ -1,6 +1,11 @@
 package ctrctl
 
+import "os/exec"
+
 type SystemDfOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'table':            Print output in table format with column headers (default).
 	// 'table TEMPLATE':   Print output in table format using the given Go template.
@@ -17,8 +22,7 @@ type SystemDfOpts struct {
 }
 
 // Show docker disk usage.
-func SystemDf(opts *SystemDfOpts) (
-	stdout string, stderr string, err error) {
+func SystemDf(opts *SystemDfOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"system", "df"},
 		[]string{},
@@ -28,13 +32,15 @@ func SystemDf(opts *SystemDfOpts) (
 }
 
 type SystemDialStdioOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Proxy the stdio stream to the daemon connection. Should not be invoked manually.
-func SystemDialStdio(opts *SystemDialStdioOpts) (
-	stdout string, stderr string, err error) {
+func SystemDialStdio(opts *SystemDialStdioOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"system", "dial-stdio"},
 		[]string{},
@@ -44,6 +50,9 @@ func SystemDialStdio(opts *SystemDialStdioOpts) (
 }
 
 type SystemEventsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -61,8 +70,7 @@ type SystemEventsOpts struct {
 }
 
 // Get real time events from the server.
-func SystemEvents(opts *SystemEventsOpts) (
-	stdout string, stderr string, err error) {
+func SystemEvents(opts *SystemEventsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"system", "events"},
 		[]string{},
@@ -72,6 +80,9 @@ func SystemEvents(opts *SystemEventsOpts) (
 }
 
 type SystemInfoOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -83,8 +94,7 @@ type SystemInfoOpts struct {
 }
 
 // Display system-wide information.
-func SystemInfo(opts *SystemInfoOpts) (
-	stdout string, stderr string, err error) {
+func SystemInfo(opts *SystemInfoOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"system", "info"},
 		[]string{},
@@ -94,6 +104,9 @@ func SystemInfo(opts *SystemInfoOpts) (
 }
 
 type SystemPruneOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Remove all unused images not just dangling ones.
 	All bool
 
@@ -111,8 +124,7 @@ type SystemPruneOpts struct {
 }
 
 // Remove unused data.
-func SystemPrune(opts *SystemPruneOpts) (
-	stdout string, stderr string, err error) {
+func SystemPrune(opts *SystemPruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"system", "prune"},
 		[]string{},

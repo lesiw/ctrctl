@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type ConfigCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -14,8 +20,7 @@ type ConfigCreateOpts struct {
 }
 
 // Create a config from a file or STDIN.
-func ConfigCreate(opts *ConfigCreateOpts, config string, file string) (
-	stdout string, stderr string, err error) {
+func ConfigCreate(opts *ConfigCreateOpts, config string, file string) (string, error) {
 	return runCtrCmd(
 		[]string{"config", "create"},
 		[]string{config, file},
@@ -25,6 +30,9 @@ func ConfigCreate(opts *ConfigCreateOpts, config string, file string) (
 }
 
 type ConfigInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -39,10 +47,9 @@ type ConfigInspectOpts struct {
 }
 
 // Display detailed information on one or more configs.
-func ConfigInspect(opts *ConfigInspectOpts, config ...string) (
-	stdout string, stderr string, err error) {
+func ConfigInspect(opts *ConfigInspectOpts, config ...string) (string, error) {
 	if len(config) == 0 {
-		return "", "", fmt.Errorf("config must have at least one value")
+		return "", fmt.Errorf("config must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"config", "inspect"},
@@ -53,6 +60,9 @@ func ConfigInspect(opts *ConfigInspectOpts, config ...string) (
 }
 
 type ConfigLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -72,8 +82,7 @@ type ConfigLsOpts struct {
 }
 
 // List configs.
-func ConfigLs(opts *ConfigLsOpts) (
-	stdout string, stderr string, err error) {
+func ConfigLs(opts *ConfigLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"config", "ls"},
 		[]string{},
@@ -83,15 +92,17 @@ func ConfigLs(opts *ConfigLsOpts) (
 }
 
 type ConfigRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Remove one or more configs.
-func ConfigRm(opts *ConfigRmOpts, config ...string) (
-	stdout string, stderr string, err error) {
+func ConfigRm(opts *ConfigRmOpts, config ...string) (string, error) {
 	if len(config) == 0 {
-		return "", "", fmt.Errorf("config must have at least one value")
+		return "", fmt.Errorf("config must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"config", "rm"},

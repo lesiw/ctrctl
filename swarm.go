@@ -1,6 +1,11 @@
 package ctrctl
 
+import "os/exec"
+
 type SwarmCaOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Path to the PEM-formatted root CA certificate to use for the new cluster.
 	CaCert string
 
@@ -27,8 +32,7 @@ type SwarmCaOpts struct {
 }
 
 // Display and rotate the root CA.
-func SwarmCa(opts *SwarmCaOpts) (
-	stdout string, stderr string, err error) {
+func SwarmCa(opts *SwarmCaOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "ca"},
 		[]string{},
@@ -38,6 +42,9 @@ func SwarmCa(opts *SwarmCaOpts) (
 }
 
 type SwarmInitOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Advertised address (format: `<ip|interface>[:port]`).
 	AdvertiseAddr string
 
@@ -88,8 +95,7 @@ type SwarmInitOpts struct {
 }
 
 // Initialize a swarm.
-func SwarmInit(opts *SwarmInitOpts) (
-	stdout string, stderr string, err error) {
+func SwarmInit(opts *SwarmInitOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "init"},
 		[]string{},
@@ -99,6 +105,9 @@ func SwarmInit(opts *SwarmInitOpts) (
 }
 
 type SwarmJoinTokenOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -110,8 +119,7 @@ type SwarmJoinTokenOpts struct {
 }
 
 // Manage join tokens.
-func SwarmJoinToken(opts *SwarmJoinTokenOpts, WorkerManager string) (
-	stdout string, stderr string, err error) {
+func SwarmJoinToken(opts *SwarmJoinTokenOpts, WorkerManager string) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "join-token"},
 		[]string{WorkerManager},
@@ -121,6 +129,9 @@ func SwarmJoinToken(opts *SwarmJoinTokenOpts, WorkerManager string) (
 }
 
 type SwarmJoinOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Advertised address (format: `<ip|interface>[:port]`).
 	AdvertiseAddr string
 
@@ -141,8 +152,7 @@ type SwarmJoinOpts struct {
 }
 
 // Join a swarm as a node and/or manager.
-func SwarmJoin(opts *SwarmJoinOpts, hostPort string) (
-	stdout string, stderr string, err error) {
+func SwarmJoin(opts *SwarmJoinOpts, hostPort string) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "join"},
 		[]string{hostPort},
@@ -152,6 +162,9 @@ func SwarmJoin(opts *SwarmJoinOpts, hostPort string) (
 }
 
 type SwarmLeaveOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force this node to leave the swarm, ignoring warnings.
 	Force bool
 
@@ -160,8 +173,7 @@ type SwarmLeaveOpts struct {
 }
 
 // Leave the swarm.
-func SwarmLeave(opts *SwarmLeaveOpts) (
-	stdout string, stderr string, err error) {
+func SwarmLeave(opts *SwarmLeaveOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "leave"},
 		[]string{},
@@ -171,6 +183,9 @@ func SwarmLeave(opts *SwarmLeaveOpts) (
 }
 
 type SwarmUnlockKeyOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -182,8 +197,7 @@ type SwarmUnlockKeyOpts struct {
 }
 
 // Manage the unlock key.
-func SwarmUnlockKey(opts *SwarmUnlockKeyOpts) (
-	stdout string, stderr string, err error) {
+func SwarmUnlockKey(opts *SwarmUnlockKeyOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "unlock-key"},
 		[]string{},
@@ -193,13 +207,15 @@ func SwarmUnlockKey(opts *SwarmUnlockKeyOpts) (
 }
 
 type SwarmUnlockOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Unlock swarm.
-func SwarmUnlock(opts *SwarmUnlockOpts) (
-	stdout string, stderr string, err error) {
+func SwarmUnlock(opts *SwarmUnlockOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "unlock"},
 		[]string{},
@@ -209,6 +225,9 @@ func SwarmUnlock(opts *SwarmUnlockOpts) (
 }
 
 type SwarmUpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Change manager autolocking setting (true|false).
 	Autolock bool
 
@@ -235,8 +254,7 @@ type SwarmUpdateOpts struct {
 }
 
 // Update the swarm.
-func SwarmUpdate(opts *SwarmUpdateOpts) (
-	stdout string, stderr string, err error) {
+func SwarmUpdate(opts *SwarmUpdateOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"swarm", "update"},
 		[]string{},

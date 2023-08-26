@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type ManifestAnnotateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Set architecture.
 	Arch string
 
@@ -23,8 +29,7 @@ type ManifestAnnotateOpts struct {
 }
 
 // Add additional information to a local image manifest.
-func ManifestAnnotate(opts *ManifestAnnotateOpts, manifestList string, manifest string) (
-	stdout string, stderr string, err error) {
+func ManifestAnnotate(opts *ManifestAnnotateOpts, manifestList string, manifest string) (string, error) {
 	return runCtrCmd(
 		[]string{"manifest", "annotate"},
 		[]string{manifestList, manifest},
@@ -34,6 +39,9 @@ func ManifestAnnotate(opts *ManifestAnnotateOpts, manifestList string, manifest 
 }
 
 type ManifestCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Amend an existing manifest list.
 	Amend bool
 
@@ -45,10 +53,9 @@ type ManifestCreateOpts struct {
 }
 
 // Create a local manifest list for annotating and pushing to a registry.
-func ManifestCreate(opts *ManifestCreateOpts, manifestList string, manifest ...string) (
-	stdout string, stderr string, err error) {
+func ManifestCreate(opts *ManifestCreateOpts, manifestList string, manifest ...string) (string, error) {
 	if len(manifest) == 0 {
-		return "", "", fmt.Errorf("manifest must have at least one value")
+		return "", fmt.Errorf("manifest must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"manifest", "create"},
@@ -59,6 +66,9 @@ func ManifestCreate(opts *ManifestCreateOpts, manifestList string, manifest ...s
 }
 
 type ManifestInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -70,8 +80,7 @@ type ManifestInspectOpts struct {
 }
 
 // Display an image manifest, or manifest list.
-func ManifestInspect(opts *ManifestInspectOpts, manifestList string, manifest string) (
-	stdout string, stderr string, err error) {
+func ManifestInspect(opts *ManifestInspectOpts, manifestList string, manifest string) (string, error) {
 	return runCtrCmd(
 		[]string{"manifest", "inspect"},
 		[]string{manifestList, manifest},
@@ -81,6 +90,9 @@ func ManifestInspect(opts *ManifestInspectOpts, manifestList string, manifest st
 }
 
 type ManifestPushOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -92,8 +104,7 @@ type ManifestPushOpts struct {
 }
 
 // Push a manifest list to a repository.
-func ManifestPush(opts *ManifestPushOpts, manifestList string) (
-	stdout string, stderr string, err error) {
+func ManifestPush(opts *ManifestPushOpts, manifestList string) (string, error) {
 	return runCtrCmd(
 		[]string{"manifest", "push"},
 		[]string{manifestList},
@@ -103,15 +114,17 @@ func ManifestPush(opts *ManifestPushOpts, manifestList string) (
 }
 
 type ManifestRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Delete one or more manifest lists from local storage.
-func ManifestRm(opts *ManifestRmOpts, manifestList ...string) (
-	stdout string, stderr string, err error) {
+func ManifestRm(opts *ManifestRmOpts, manifestList ...string) (string, error) {
 	if len(manifestList) == 0 {
-		return "", "", fmt.Errorf("manifestList must have at least one value")
+		return "", fmt.Errorf("manifestList must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"manifest", "rm"},

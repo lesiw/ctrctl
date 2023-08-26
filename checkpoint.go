@@ -1,6 +1,11 @@
 package ctrctl
 
+import "os/exec"
+
 type CheckpointCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Use a custom checkpoint storage directory.
 	CheckpointDir string
 
@@ -12,8 +17,7 @@ type CheckpointCreateOpts struct {
 }
 
 // Create a checkpoint from a running container.
-func CheckpointCreate(opts *CheckpointCreateOpts, container string, checkpoint string) (
-	stdout string, stderr string, err error) {
+func CheckpointCreate(opts *CheckpointCreateOpts, container string, checkpoint string) (string, error) {
 	return runCtrCmd(
 		[]string{"checkpoint", "create"},
 		[]string{container, checkpoint},
@@ -23,6 +27,9 @@ func CheckpointCreate(opts *CheckpointCreateOpts, container string, checkpoint s
 }
 
 type CheckpointLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Use a custom checkpoint storage directory.
 	CheckpointDir string
 
@@ -31,8 +38,7 @@ type CheckpointLsOpts struct {
 }
 
 // List checkpoints for a container.
-func CheckpointLs(opts *CheckpointLsOpts, container string) (
-	stdout string, stderr string, err error) {
+func CheckpointLs(opts *CheckpointLsOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"checkpoint", "ls"},
 		[]string{container},
@@ -42,6 +48,9 @@ func CheckpointLs(opts *CheckpointLsOpts, container string) (
 }
 
 type CheckpointRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Use a custom checkpoint storage directory.
 	CheckpointDir string
 
@@ -50,8 +59,7 @@ type CheckpointRmOpts struct {
 }
 
 // Remove a checkpoint.
-func CheckpointRm(opts *CheckpointRmOpts, container string, checkpoint string) (
-	stdout string, stderr string, err error) {
+func CheckpointRm(opts *CheckpointRmOpts, container string, checkpoint string) (string, error) {
 	return runCtrCmd(
 		[]string{"checkpoint", "rm"},
 		[]string{container, checkpoint},

@@ -13,7 +13,7 @@ import "github.com/lesiw/ctrctl"
 
 func main() {
     ctrctl.Cli = []string{"docker"} // or {"podman"}, or {"lima", "nerdctl"}...
-    ctrctl.Verbose = true
+    ctrctl.Verbose = true           // useful for debugging
 
     id, _, err := ctrctl.ContainerRun(
         &ctrctl.ContainerRunOpts{
@@ -59,6 +59,85 @@ ensures that all potential functionality is covered.
 
 To switch between `docker` and other Docker-compatible CLIs, set `ctrctl.Cli` to
 the appropriate value.
+
+## Simple usage
+
+All wrapper functions return a `string` containing stdout and an optional
+`error`.
+
+`error` may be of type `ctrctl.CliError`, which contains a `Stderr` field for
+debugging purposes.
+
+## Advanced usage
+
+All wrapper functions’ options structs have a `Cmd` field. Set this to an
+`&exec.Cmd` to override the default command behavior.
+
+Note that setting `exec.Cmd.Stdout` or `exec.Cmd.Stderr` to an `io.Writer` will
+disable automatic capture of those outputs. Bypassing capture allows the
+underlying container CLI to work in interactive mode when attached to
+`os.Stdout` and `os.Stderr`.
+
+In this example, standard streams are overridden to expose the output of the
+`ImagePull` to the end user, then drop them into an interactive shell in an
+`alpine` container. Once they exit the shell, the container is removed.
+
+```go
+package main
+
+import (
+    "os"
+    "os/exec"
+
+    "github.com/lesiw/ctrctl"
+)
+
+func main() {
+    _, err := ctrctl.ImagePull(
+        &ctrctl.ImagePullOpts{
+            Cmd: &exec.Cmd{
+                Stdout: os.Stdout,
+                Stderr: os.Stderr,
+            },
+        },
+        "alpine:latest",
+    )
+    if err != nil {
+        panic(err)
+    }
+
+    id, err := ctrctl.ContainerRun(
+        &ctrctl.ContainerRunOpts{
+            Detach: true,
+            Tty:    true,
+        },
+        "alpine",
+        "cat",
+    )
+    if err != nil {
+        panic(err)
+    }
+
+    _, _ = ctrctl.Exec(
+        &ctrctl.ExecOpts{
+            Cmd: &exec.Cmd{
+                Stdin:  os.Stdin,
+                Stdout: os.Stdout,
+                Stderr: os.Stderr,
+            },
+            Interactive: true,
+            Tty:         true,
+        },
+        id,
+        "/bin/sh",
+    )
+
+    _, err = ctrctl.ContainerRm(&ctrctl.ContainerRmOpts{Force: true}, id)
+    if err != nil {
+        panic(err)
+    }
+}
+```
 
 ## Regenerating the interface
 

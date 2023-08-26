@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type ImageBuildOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (`host:ip`).
 	AddHost string
 
@@ -98,8 +104,7 @@ type ImageBuildOpts struct {
 }
 
 // Build an image from a Dockerfile.
-func ImageBuild(opts *ImageBuildOpts, path string, url string) (
-	stdout string, stderr string, err error) {
+func ImageBuild(opts *ImageBuildOpts, path string, url string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "build"},
 		[]string{path, url},
@@ -109,6 +114,9 @@ func ImageBuild(opts *ImageBuildOpts, path string, url string) (
 }
 
 type ImageHistoryOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'table':            Print output in table format with column headers (default).
 	// 'table TEMPLATE':   Print output in table format using the given Go template.
@@ -131,8 +139,7 @@ type ImageHistoryOpts struct {
 }
 
 // Show the history of an image.
-func ImageHistory(opts *ImageHistoryOpts, image string) (
-	stdout string, stderr string, err error) {
+func ImageHistory(opts *ImageHistoryOpts, image string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "history"},
 		[]string{image},
@@ -142,6 +149,9 @@ func ImageHistory(opts *ImageHistoryOpts, image string) (
 }
 
 type ImageImportOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Apply Dockerfile instruction to the created image.
 	Change string
 
@@ -156,8 +166,7 @@ type ImageImportOpts struct {
 }
 
 // Import the contents from a tarball to create a filesystem image.
-func ImageImport(opts *ImageImportOpts, fileUrl string, RepositoryTag string) (
-	stdout string, stderr string, err error) {
+func ImageImport(opts *ImageImportOpts, fileUrl string, RepositoryTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "import"},
 		[]string{fileUrl, RepositoryTag},
@@ -167,6 +176,9 @@ func ImageImport(opts *ImageImportOpts, fileUrl string, RepositoryTag string) (
 }
 
 type ImageInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -178,10 +190,9 @@ type ImageInspectOpts struct {
 }
 
 // Display detailed information on one or more images.
-func ImageInspect(opts *ImageInspectOpts, image ...string) (
-	stdout string, stderr string, err error) {
+func ImageInspect(opts *ImageInspectOpts, image ...string) (string, error) {
 	if len(image) == 0 {
-		return "", "", fmt.Errorf("image must have at least one value")
+		return "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"image", "inspect"},
@@ -192,6 +203,9 @@ func ImageInspect(opts *ImageInspectOpts, image ...string) (
 }
 
 type ImageLoadOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -203,8 +217,7 @@ type ImageLoadOpts struct {
 }
 
 // Load an image from a tar archive or STDIN.
-func ImageLoad(opts *ImageLoadOpts) (
-	stdout string, stderr string, err error) {
+func ImageLoad(opts *ImageLoadOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "load"},
 		[]string{},
@@ -214,6 +227,9 @@ func ImageLoad(opts *ImageLoadOpts) (
 }
 
 type ImageLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show all images (default hides intermediate images).
 	All bool
 
@@ -242,8 +258,7 @@ type ImageLsOpts struct {
 }
 
 // List images.
-func ImageLs(opts *ImageLsOpts, repositoryTag string) (
-	stdout string, stderr string, err error) {
+func ImageLs(opts *ImageLsOpts, repositoryTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "ls"},
 		[]string{repositoryTag},
@@ -253,6 +268,9 @@ func ImageLs(opts *ImageLsOpts, repositoryTag string) (
 }
 
 type ImagePruneOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Remove all unused images, not just dangling ones.
 	All bool
 
@@ -267,8 +285,7 @@ type ImagePruneOpts struct {
 }
 
 // Remove unused images.
-func ImagePrune(opts *ImagePruneOpts) (
-	stdout string, stderr string, err error) {
+func ImagePrune(opts *ImagePruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "prune"},
 		[]string{},
@@ -278,6 +295,9 @@ func ImagePrune(opts *ImagePruneOpts) (
 }
 
 type ImagePullOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Download all tagged images in the repository.
 	AllTags bool
 
@@ -295,8 +315,7 @@ type ImagePullOpts struct {
 }
 
 // Download an image from a registry.
-func ImagePull(opts *ImagePullOpts, nameTagDigest string) (
-	stdout string, stderr string, err error) {
+func ImagePull(opts *ImagePullOpts, nameTagDigest string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "pull"},
 		[]string{nameTagDigest},
@@ -306,6 +325,9 @@ func ImagePull(opts *ImagePullOpts, nameTagDigest string) (
 }
 
 type ImagePushOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Push all tags of an image to the repository.
 	AllTags bool
 
@@ -320,8 +342,7 @@ type ImagePushOpts struct {
 }
 
 // Upload an image to a registry.
-func ImagePush(opts *ImagePushOpts, nameTag string) (
-	stdout string, stderr string, err error) {
+func ImagePush(opts *ImagePushOpts, nameTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "push"},
 		[]string{nameTag},
@@ -331,6 +352,9 @@ func ImagePush(opts *ImagePushOpts, nameTag string) (
 }
 
 type ImageRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force removal of the image.
 	Force bool
 
@@ -342,10 +366,9 @@ type ImageRmOpts struct {
 }
 
 // Remove one or more images.
-func ImageRm(opts *ImageRmOpts, image ...string) (
-	stdout string, stderr string, err error) {
+func ImageRm(opts *ImageRmOpts, image ...string) (string, error) {
 	if len(image) == 0 {
-		return "", "", fmt.Errorf("image must have at least one value")
+		return "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"image", "rm"},
@@ -356,6 +379,9 @@ func ImageRm(opts *ImageRmOpts, image ...string) (
 }
 
 type ImageSaveOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -364,10 +390,9 @@ type ImageSaveOpts struct {
 }
 
 // Save one or more images to a tar archive (streamed to STDOUT by default).
-func ImageSave(opts *ImageSaveOpts, image ...string) (
-	stdout string, stderr string, err error) {
+func ImageSave(opts *ImageSaveOpts, image ...string) (string, error) {
 	if len(image) == 0 {
-		return "", "", fmt.Errorf("image must have at least one value")
+		return "", fmt.Errorf("image must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"image", "save"},
@@ -378,13 +403,15 @@ func ImageSave(opts *ImageSaveOpts, image ...string) (
 }
 
 type ImageTagOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
-func ImageTag(opts *ImageTagOpts, sourceImageTag string, targetImageTag string) (
-	stdout string, stderr string, err error) {
+func ImageTag(opts *ImageTagOpts, sourceImageTag string, targetImageTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "tag"},
 		[]string{sourceImageTag, targetImageTag},

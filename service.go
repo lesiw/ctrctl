@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type ServiceCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add Linux capabilities.
 	CapAdd string
 
@@ -221,8 +227,7 @@ type ServiceCreateOpts struct {
 }
 
 // Create a new service.
-func ServiceCreate(opts *ServiceCreateOpts, image string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func ServiceCreate(opts *ServiceCreateOpts, image string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"service", "create"},
 		append([]string{image, command}, arg...),
@@ -232,6 +237,9 @@ func ServiceCreate(opts *ServiceCreateOpts, image string, command string, arg ..
 }
 
 type ServiceInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -246,10 +254,9 @@ type ServiceInspectOpts struct {
 }
 
 // Display detailed information on one or more services.
-func ServiceInspect(opts *ServiceInspectOpts, service ...string) (
-	stdout string, stderr string, err error) {
+func ServiceInspect(opts *ServiceInspectOpts, service ...string) (string, error) {
 	if len(service) == 0 {
-		return "", "", fmt.Errorf("service must have at least one value")
+		return "", fmt.Errorf("service must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"service", "inspect"},
@@ -260,6 +267,9 @@ func ServiceInspect(opts *ServiceInspectOpts, service ...string) (
 }
 
 type ServiceLogsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show extra details provided to logs.
 	Details bool
 
@@ -292,8 +302,7 @@ type ServiceLogsOpts struct {
 }
 
 // Fetch the logs of a service or task.
-func ServiceLogs(opts *ServiceLogsOpts, serviceTask string) (
-	stdout string, stderr string, err error) {
+func ServiceLogs(opts *ServiceLogsOpts, serviceTask string) (string, error) {
 	return runCtrCmd(
 		[]string{"service", "logs"},
 		[]string{serviceTask},
@@ -303,6 +312,9 @@ func ServiceLogs(opts *ServiceLogsOpts, serviceTask string) (
 }
 
 type ServiceLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -322,8 +334,7 @@ type ServiceLsOpts struct {
 }
 
 // List services.
-func ServiceLs(opts *ServiceLsOpts) (
-	stdout string, stderr string, err error) {
+func ServiceLs(opts *ServiceLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"service", "ls"},
 		[]string{},
@@ -333,6 +344,9 @@ func ServiceLs(opts *ServiceLsOpts) (
 }
 
 type ServicePsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -353,10 +367,9 @@ type ServicePsOpts struct {
 }
 
 // List the tasks of one or more services.
-func ServicePs(opts *ServicePsOpts, service ...string) (
-	stdout string, stderr string, err error) {
+func ServicePs(opts *ServicePsOpts, service ...string) (string, error) {
 	if len(service) == 0 {
-		return "", "", fmt.Errorf("service must have at least one value")
+		return "", fmt.Errorf("service must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"service", "ps"},
@@ -367,15 +380,17 @@ func ServicePs(opts *ServicePsOpts, service ...string) (
 }
 
 type ServiceRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Remove one or more services.
-func ServiceRm(opts *ServiceRmOpts, service ...string) (
-	stdout string, stderr string, err error) {
+func ServiceRm(opts *ServiceRmOpts, service ...string) (string, error) {
 	if len(service) == 0 {
-		return "", "", fmt.Errorf("service must have at least one value")
+		return "", fmt.Errorf("service must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"service", "rm"},
@@ -386,6 +401,9 @@ func ServiceRm(opts *ServiceRmOpts, service ...string) (
 }
 
 type ServiceRollbackOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Exit immediately instead of waiting for the service to converge.
 	Detach bool
 
@@ -397,8 +415,7 @@ type ServiceRollbackOpts struct {
 }
 
 // Revert changes to a service's configuration.
-func ServiceRollback(opts *ServiceRollbackOpts, service string) (
-	stdout string, stderr string, err error) {
+func ServiceRollback(opts *ServiceRollbackOpts, service string) (string, error) {
 	return runCtrCmd(
 		[]string{"service", "rollback"},
 		[]string{service},
@@ -408,6 +425,9 @@ func ServiceRollback(opts *ServiceRollbackOpts, service string) (
 }
 
 type ServiceScaleOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Exit immediately instead of waiting for the service to converge.
 	Detach bool
 
@@ -416,10 +436,9 @@ type ServiceScaleOpts struct {
 }
 
 // Scale one or multiple replicated services.
-func ServiceScale(opts *ServiceScaleOpts, serviceReplicas ...string) (
-	stdout string, stderr string, err error) {
+func ServiceScale(opts *ServiceScaleOpts, serviceReplicas ...string) (string, error) {
 	if len(serviceReplicas) == 0 {
-		return "", "", fmt.Errorf("serviceReplicas must have at least one value")
+		return "", fmt.Errorf("serviceReplicas must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"service", "scale"},
@@ -430,6 +449,9 @@ func ServiceScale(opts *ServiceScaleOpts, serviceReplicas ...string) (
 }
 
 type ServiceUpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Service command args.
 	Args string
 
@@ -705,8 +727,7 @@ type ServiceUpdateOpts struct {
 }
 
 // Update a service.
-func ServiceUpdate(opts *ServiceUpdateOpts, service string) (
-	stdout string, stderr string, err error) {
+func ServiceUpdate(opts *ServiceUpdateOpts, service string) (string, error) {
 	return runCtrCmd(
 		[]string{"service", "update"},
 		[]string{service},

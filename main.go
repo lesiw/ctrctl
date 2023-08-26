@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -23,13 +24,22 @@ var Verbose bool
 
 var shUnsafe = regexp.MustCompile(`[^\w@%+=:,./-]`)
 
-func runCtrCmd(subcommand []string, args []string, opts interface{}, optpos int) (
-	stdout string, stderr string, err error) {
+type CliError struct {
+	*os.ProcessState
 
+	Stderr string
+}
+
+func (e *CliError) Error() string {
+	return e.ProcessState.String()
+}
+
+func runCtrCmd(subcommand []string, args []string, opts interface{}, optpos int) (string, error) {
 	var strout strings.Builder
 	var strerr strings.Builder
-	cmdargs := append(Cli, subcommand...)
+	var cmd *exec.Cmd
 
+	cmdargs := append(Cli, subcommand...)
 	for i := 0; i < len(args); i++ {
 		if optpos > -1 && i == optpos {
 			if !reflect.ValueOf(opts).IsNil() {
@@ -42,22 +52,44 @@ func runCtrCmd(subcommand []string, args []string, opts interface{}, optpos int)
 		}
 	}
 
-	cmd := exec.Command(cmdargs[0], cmdargs[1:]...)
-	if Verbose {
-		fmt.Fprintf(os.Stderr, "+ %s\n", shJoin(cmdargs))
-		cmd.Stdout = io.MultiWriter(&strout, os.Stdout)
-		cmd.Stderr = io.MultiWriter(&strout, os.Stderr)
-	} else {
-		cmd.Stdout = &strout
-		cmd.Stderr = &strerr
+	if !reflect.ValueOf(opts).IsNil() {
+		var ok bool
+		cmd, ok = reflect.ValueOf(opts).Elem().FieldByName("Cmd").Interface().(*exec.Cmd)
+		if !ok {
+			panic("exec.Cmd failed type assertion")
+		}
 	}
 
-	err = cmd.Run()
+	if cmd == nil {
+		cmd = &exec.Cmd{}
+	}
+	cmd.Path = cmdargs[0]
+	cmd.Args = cmdargs
+	if filepath.Base(cmd.Path) == cmd.Path {
+		lp, err := exec.LookPath(cmd.Path)
+		if lp != "" {
+			cmd.Path = lp
+		}
+		if err != nil {
+			cmd.Err = err
+		}
+	}
 
-	stdout = strings.TrimSpace(strout.String())
-	stderr = strings.TrimSpace(strerr.String())
+	prepareStreams(cmd, &strout, &strerr)
 
-	return
+	if Verbose {
+		fmt.Fprintf(os.Stderr, "+ %s\n", shJoin(cmdargs))
+	}
+
+	err := cmd.Run()
+	if ee, ok := err.(*exec.ExitError); ok {
+		err = &CliError{
+			ProcessState: ee.ProcessState,
+			Stderr:       strings.TrimSpace(strerr.String()),
+		}
+	}
+
+	return strings.TrimSpace(strout.String()), err
 }
 
 func optsToArgs(opts interface{}) []string {
@@ -68,6 +100,10 @@ func optsToArgs(opts interface{}) []string {
 	for i := 0; i < typ.NumField(); i++ {
 		value := val.Field(i)
 		field := typ.Field(i)
+
+		if field.Name == "Cmd" {
+			continue
+		}
 
 		if field.Type.Kind() == reflect.Ptr {
 			if value.IsNil() {
@@ -128,4 +164,19 @@ func shJoin(parts []string) string {
 		quotedParts[i] = shQuote(part)
 	}
 	return strings.Join(quotedParts, " ")
+}
+
+func prepareStreams(cmd *exec.Cmd, outdefault io.Writer, errdefault io.Writer) {
+	if cmd.Stdout == nil {
+		cmd.Stdout = outdefault
+	}
+	if Verbose && cmd.Stdout != os.Stdout {
+		cmd.Stdout = io.MultiWriter(cmd.Stdout, os.Stdout)
+	}
+	if cmd.Stderr == nil {
+		cmd.Stderr = errdefault
+	}
+	if Verbose && cmd.Stderr != os.Stderr {
+		cmd.Stderr = io.MultiWriter(cmd.Stderr, os.Stderr)
+	}
 }

@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type StackConfigOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Path to a Compose file, or `-` to read from stdin.
 	ComposeFile string
 
@@ -17,8 +23,7 @@ type StackConfigOpts struct {
 }
 
 // Outputs the final config file, after doing merges and interpolations.
-func StackConfig(opts *StackConfigOpts) (
-	stdout string, stderr string, err error) {
+func StackConfig(opts *StackConfigOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"stack", "config"},
 		[]string{},
@@ -28,6 +33,9 @@ func StackConfig(opts *StackConfigOpts) (
 }
 
 type StackDeployOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Path to a Compose file, or `-` to read from stdin.
 	ComposeFile string
 
@@ -48,8 +56,7 @@ type StackDeployOpts struct {
 }
 
 // Deploy a new stack or update an existing stack.
-func StackDeploy(opts *StackDeployOpts, stack string) (
-	stdout string, stderr string, err error) {
+func StackDeploy(opts *StackDeployOpts, stack string) (string, error) {
 	return runCtrCmd(
 		[]string{"stack", "deploy"},
 		[]string{stack},
@@ -59,6 +66,9 @@ func StackDeploy(opts *StackDeployOpts, stack string) (
 }
 
 type StackLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'table':            Print output in table format with column headers (default).
 	// 'table TEMPLATE':   Print output in table format using the given Go template.
@@ -75,8 +85,7 @@ type StackLsOpts struct {
 }
 
 // List stacks.
-func StackLs(opts *StackLsOpts) (
-	stdout string, stderr string, err error) {
+func StackLs(opts *StackLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"stack", "ls"},
 		[]string{},
@@ -86,6 +95,9 @@ func StackLs(opts *StackLsOpts) (
 }
 
 type StackPsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -114,8 +126,7 @@ type StackPsOpts struct {
 }
 
 // List the tasks in the stack.
-func StackPs(opts *StackPsOpts, stack string) (
-	stdout string, stderr string, err error) {
+func StackPs(opts *StackPsOpts, stack string) (string, error) {
 	return runCtrCmd(
 		[]string{"stack", "ps"},
 		[]string{stack},
@@ -125,6 +136,9 @@ func StackPs(opts *StackPsOpts, stack string) (
 }
 
 type StackRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -133,10 +147,9 @@ type StackRmOpts struct {
 }
 
 // Remove one or more stacks.
-func StackRm(opts *StackRmOpts, stack ...string) (
-	stdout string, stderr string, err error) {
+func StackRm(opts *StackRmOpts, stack ...string) (string, error) {
 	if len(stack) == 0 {
-		return "", "", fmt.Errorf("stack must have at least one value")
+		return "", fmt.Errorf("stack must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"stack", "rm"},
@@ -147,6 +160,9 @@ func StackRm(opts *StackRmOpts, stack ...string) (
 }
 
 type StackServicesOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Filter output based on conditions provided.
 	Filter string
 
@@ -169,8 +185,7 @@ type StackServicesOpts struct {
 }
 
 // List the services in the stack.
-func StackServices(opts *StackServicesOpts, stack string) (
-	stdout string, stderr string, err error) {
+func StackServices(opts *StackServicesOpts, stack string) (string, error) {
 	return runCtrCmd(
 		[]string{"stack", "services"},
 		[]string{stack},

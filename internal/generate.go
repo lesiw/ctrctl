@@ -76,14 +76,16 @@ var cmdOverrides = map[string]*ctrCliCmd{
 }
 
 var cmdTemplate = `type {{ .FuncName }}Opts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 {{ .OptsStruct }}
 }
 
 // {{ .Short }}
-func {{ .FuncName }}(opts *{{ .FuncName }}Opts{{if .ArgsDefn}}, {{ .ArgsDefn }}{{end}}) (
-	stdout string, stderr string, err error) {
+func {{ .FuncName }}(opts *{{ .FuncName }}Opts{{if .ArgsDefn}}, {{ .ArgsDefn }}{{end}}) (string, error) {
 {{if .VargRequired }}	if len({{ .Varg }}) == 0 {
-		return "", "", fmt.Errorf("{{ .Varg }} must have at least one value")
+		return "", fmt.Errorf("{{ .Varg }} must have at least one value")
 	}
 {{end}}	return runCtrCmd(
 		{{ .Subcommand }},
@@ -109,11 +111,12 @@ func run() error {
 	}
 	defer os.RemoveAll(docsDir)
 
-	err = clearGeneratedFiles()
-	if err != nil {
+	if err := clearGeneratedFiles(); err != nil {
 		return fmt.Errorf("error clearing previously generated files: %w", err)
 	}
-	fetchZip(dockerDocsZip, docsDir)
+	if err := fetchZip(dockerDocsZip, docsDir); err != nil {
+		return fmt.Errorf("error fetching docker docs: %w", err)
+	}
 
 	tmpl, err := template.New("").Parse(cmdTemplate)
 	if err != nil {
@@ -131,7 +134,9 @@ func run() error {
 			return fmt.Errorf("error creating file %s: %w", name+".go", err)
 		}
 		defer out.Close()
-		out.WriteString("package ctrctl\n\n")
+		if _, err := out.WriteString("package ctrctl\n\n"); err != nil {
+			return fmt.Errorf("error writing file %s: %w", name+".go", err)
+		}
 		for _, file := range files {
 			path := filepath.Join(cliDocsDir, file)
 			in, err := os.ReadFile(path)

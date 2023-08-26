@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type PluginCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Compress the context using gzip.
 	Compress bool
 
@@ -11,8 +17,7 @@ type PluginCreateOpts struct {
 }
 
 // Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
-func PluginCreate(opts *PluginCreateOpts, plugin string, pluginDataDir string) (
-	stdout string, stderr string, err error) {
+func PluginCreate(opts *PluginCreateOpts, plugin string, pluginDataDir string) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "create"},
 		[]string{plugin, pluginDataDir},
@@ -22,6 +27,9 @@ func PluginCreate(opts *PluginCreateOpts, plugin string, pluginDataDir string) (
 }
 
 type PluginDisableOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the disable of an active plugin.
 	Force bool
 
@@ -30,8 +38,7 @@ type PluginDisableOpts struct {
 }
 
 // Disable a plugin.
-func PluginDisable(opts *PluginDisableOpts, plugin string) (
-	stdout string, stderr string, err error) {
+func PluginDisable(opts *PluginDisableOpts, plugin string) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "disable"},
 		[]string{plugin},
@@ -41,6 +48,9 @@ func PluginDisable(opts *PluginDisableOpts, plugin string) (
 }
 
 type PluginEnableOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -49,8 +59,7 @@ type PluginEnableOpts struct {
 }
 
 // Enable a plugin.
-func PluginEnable(opts *PluginEnableOpts, plugin string) (
-	stdout string, stderr string, err error) {
+func PluginEnable(opts *PluginEnableOpts, plugin string) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "enable"},
 		[]string{plugin},
@@ -60,6 +69,9 @@ func PluginEnable(opts *PluginEnableOpts, plugin string) (
 }
 
 type PluginInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -71,10 +83,9 @@ type PluginInspectOpts struct {
 }
 
 // Display detailed information on one or more plugins.
-func PluginInspect(opts *PluginInspectOpts, plugin ...string) (
-	stdout string, stderr string, err error) {
+func PluginInspect(opts *PluginInspectOpts, plugin ...string) (string, error) {
 	if len(plugin) == 0 {
-		return "", "", fmt.Errorf("plugin must have at least one value")
+		return "", fmt.Errorf("plugin must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"plugin", "inspect"},
@@ -85,6 +96,9 @@ func PluginInspect(opts *PluginInspectOpts, plugin ...string) (
 }
 
 type PluginInstallOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Local name for plugin.
 	Alias string
 
@@ -102,8 +116,7 @@ type PluginInstallOpts struct {
 }
 
 // Install a plugin.
-func PluginInstall(opts *PluginInstallOpts, plugin string, keyValue ...string) (
-	stdout string, stderr string, err error) {
+func PluginInstall(opts *PluginInstallOpts, plugin string, keyValue ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "install"},
 		append([]string{plugin}, keyValue...),
@@ -113,6 +126,9 @@ func PluginInstall(opts *PluginInstallOpts, plugin string, keyValue ...string) (
 }
 
 type PluginLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Provide filter values (e.g. `enabled=true`).
 	Filter string
 
@@ -135,8 +151,7 @@ type PluginLsOpts struct {
 }
 
 // List plugins.
-func PluginLs(opts *PluginLsOpts) (
-	stdout string, stderr string, err error) {
+func PluginLs(opts *PluginLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "ls"},
 		[]string{},
@@ -146,6 +161,9 @@ func PluginLs(opts *PluginLsOpts) (
 }
 
 type PluginPushOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Skip image signing.
 	DisableContentTrust bool
 
@@ -154,8 +172,7 @@ type PluginPushOpts struct {
 }
 
 // Push a plugin to a registry.
-func PluginPush(opts *PluginPushOpts, pluginTag string) (
-	stdout string, stderr string, err error) {
+func PluginPush(opts *PluginPushOpts, pluginTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "push"},
 		[]string{pluginTag},
@@ -165,6 +182,9 @@ func PluginPush(opts *PluginPushOpts, pluginTag string) (
 }
 
 type PluginRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the removal of an active plugin.
 	Force bool
 
@@ -173,10 +193,9 @@ type PluginRmOpts struct {
 }
 
 // Remove one or more plugins.
-func PluginRm(opts *PluginRmOpts, plugin ...string) (
-	stdout string, stderr string, err error) {
+func PluginRm(opts *PluginRmOpts, plugin ...string) (string, error) {
 	if len(plugin) == 0 {
-		return "", "", fmt.Errorf("plugin must have at least one value")
+		return "", fmt.Errorf("plugin must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"plugin", "rm"},
@@ -187,15 +206,17 @@ func PluginRm(opts *PluginRmOpts, plugin ...string) (
 }
 
 type PluginSetOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Change settings for a plugin.
-func PluginSet(opts *PluginSetOpts, plugin string, keyValue ...string) (
-	stdout string, stderr string, err error) {
+func PluginSet(opts *PluginSetOpts, plugin string, keyValue ...string) (string, error) {
 	if len(keyValue) == 0 {
-		return "", "", fmt.Errorf("keyValue must have at least one value")
+		return "", fmt.Errorf("keyValue must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"plugin", "set"},
@@ -206,6 +227,9 @@ func PluginSet(opts *PluginSetOpts, plugin string, keyValue ...string) (
 }
 
 type PluginUpgradeOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Skip image verification.
 	DisableContentTrust bool
 
@@ -220,8 +244,7 @@ type PluginUpgradeOpts struct {
 }
 
 // Upgrade an existing plugin.
-func PluginUpgrade(opts *PluginUpgradeOpts, plugin string, remote string) (
-	stdout string, stderr string, err error) {
+func PluginUpgrade(opts *PluginUpgradeOpts, plugin string, remote string) (string, error) {
 	return runCtrCmd(
 		[]string{"plugin", "upgrade"},
 		[]string{plugin, remote},

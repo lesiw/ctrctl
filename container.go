@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type ContainerAttachOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Override the key sequence for detaching a container.
 	DetachKeys string
 
@@ -17,8 +23,7 @@ type ContainerAttachOpts struct {
 }
 
 // Attach local standard input, output, and error streams to a running container.
-func ContainerAttach(opts *ContainerAttachOpts, container string) (
-	stdout string, stderr string, err error) {
+func ContainerAttach(opts *ContainerAttachOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "attach"},
 		[]string{container},
@@ -28,6 +33,9 @@ func ContainerAttach(opts *ContainerAttachOpts, container string) (
 }
 
 type ContainerCommitOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Author (e.g., `John Hannibal Smith <hannibal@a-team.com>`).
 	Author string
 
@@ -45,8 +53,7 @@ type ContainerCommitOpts struct {
 }
 
 // Create a new image from a container's changes.
-func ContainerCommit(opts *ContainerCommitOpts, container string, repositoryTag string) (
-	stdout string, stderr string, err error) {
+func ContainerCommit(opts *ContainerCommitOpts, container string, repositoryTag string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "commit"},
 		[]string{container, repositoryTag},
@@ -56,6 +63,9 @@ func ContainerCommit(opts *ContainerCommitOpts, container string, repositoryTag 
 }
 
 type ContainerCpOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Archive mode (copy all uid/gid information).
 	Archive bool
 
@@ -70,8 +80,7 @@ type ContainerCpOpts struct {
 }
 
 // Copy files/folders between a container and the local filesystem.
-func ContainerCp(opts *ContainerCpOpts, srcpath string, dstpath string) (
-	stdout string, stderr string, err error) {
+func ContainerCp(opts *ContainerCpOpts, srcpath string, dstpath string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "cp"},
 		[]string{srcpath, dstpath},
@@ -81,6 +90,9 @@ func ContainerCp(opts *ContainerCpOpts, srcpath string, dstpath string) (
 }
 
 type ContainerCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (host:ip).
 	AddHost string
 
@@ -393,8 +405,7 @@ type ContainerCreateOpts struct {
 }
 
 // Create a new container.
-func ContainerCreate(opts *ContainerCreateOpts, image string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func ContainerCreate(opts *ContainerCreateOpts, image string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "create"},
 		append([]string{image, command}, arg...),
@@ -404,13 +415,15 @@ func ContainerCreate(opts *ContainerCreateOpts, image string, command string, ar
 }
 
 type ContainerDiffOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Inspect changes to files or directories on a container's filesystem.
-func ContainerDiff(opts *ContainerDiffOpts, container string) (
-	stdout string, stderr string, err error) {
+func ContainerDiff(opts *ContainerDiffOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "diff"},
 		[]string{container},
@@ -420,6 +433,9 @@ func ContainerDiff(opts *ContainerDiffOpts, container string) (
 }
 
 type ContainerExecOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Detached mode: run command in the background.
 	Detach bool
 
@@ -452,8 +468,7 @@ type ContainerExecOpts struct {
 }
 
 // Execute a command in a running container.
-func ContainerExec(opts *ContainerExecOpts, container string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func ContainerExec(opts *ContainerExecOpts, container string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "exec"},
 		append([]string{container, command}, arg...),
@@ -463,6 +478,9 @@ func ContainerExec(opts *ContainerExecOpts, container string, command string, ar
 }
 
 type ContainerExportOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -471,8 +489,7 @@ type ContainerExportOpts struct {
 }
 
 // Export a container's filesystem as a tar archive.
-func ContainerExport(opts *ContainerExportOpts, container string) (
-	stdout string, stderr string, err error) {
+func ContainerExport(opts *ContainerExportOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "export"},
 		[]string{container},
@@ -482,6 +499,9 @@ func ContainerExport(opts *ContainerExportOpts, container string) (
 }
 
 type ContainerInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -496,10 +516,9 @@ type ContainerInspectOpts struct {
 }
 
 // Display detailed information on one or more containers.
-func ContainerInspect(opts *ContainerInspectOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerInspect(opts *ContainerInspectOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "inspect"},
@@ -510,6 +529,9 @@ func ContainerInspect(opts *ContainerInspectOpts, container ...string) (
 }
 
 type ContainerKillOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -518,10 +540,9 @@ type ContainerKillOpts struct {
 }
 
 // Kill one or more running containers.
-func ContainerKill(opts *ContainerKillOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerKill(opts *ContainerKillOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "kill"},
@@ -532,6 +553,9 @@ func ContainerKill(opts *ContainerKillOpts, container ...string) (
 }
 
 type ContainerLogsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show extra details provided to logs.
 	Details bool
 
@@ -555,8 +579,7 @@ type ContainerLogsOpts struct {
 }
 
 // Fetch the logs of a container.
-func ContainerLogs(opts *ContainerLogsOpts, container string) (
-	stdout string, stderr string, err error) {
+func ContainerLogs(opts *ContainerLogsOpts, container string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "logs"},
 		[]string{container},
@@ -566,6 +589,9 @@ func ContainerLogs(opts *ContainerLogsOpts, container string) (
 }
 
 type ContainerLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show all containers (default shows just running).
 	All bool
 
@@ -600,8 +626,7 @@ type ContainerLsOpts struct {
 }
 
 // List containers.
-func ContainerLs(opts *ContainerLsOpts) (
-	stdout string, stderr string, err error) {
+func ContainerLs(opts *ContainerLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "ls"},
 		[]string{},
@@ -611,15 +636,17 @@ func ContainerLs(opts *ContainerLsOpts) (
 }
 
 type ContainerPauseOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Pause all processes within one or more containers.
-func ContainerPause(opts *ContainerPauseOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerPause(opts *ContainerPauseOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "pause"},
@@ -630,13 +657,15 @@ func ContainerPause(opts *ContainerPauseOpts, container ...string) (
 }
 
 type ContainerPortOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // List port mappings or a specific mapping for the container.
-func ContainerPort(opts *ContainerPortOpts, container string, privatePortProto string) (
-	stdout string, stderr string, err error) {
+func ContainerPort(opts *ContainerPortOpts, container string, privatePortProto string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "port"},
 		[]string{container, privatePortProto},
@@ -646,6 +675,9 @@ func ContainerPort(opts *ContainerPortOpts, container string, privatePortProto s
 }
 
 type ContainerPruneOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Provide filter values (e.g. `until=<timestamp>`).
 	Filter string
 
@@ -657,8 +689,7 @@ type ContainerPruneOpts struct {
 }
 
 // Remove all stopped containers.
-func ContainerPrune(opts *ContainerPruneOpts) (
-	stdout string, stderr string, err error) {
+func ContainerPrune(opts *ContainerPruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "prune"},
 		[]string{},
@@ -668,13 +699,15 @@ func ContainerPrune(opts *ContainerPruneOpts) (
 }
 
 type ContainerRenameOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Rename a container.
-func ContainerRename(opts *ContainerRenameOpts, container string, newName string) (
-	stdout string, stderr string, err error) {
+func ContainerRename(opts *ContainerRenameOpts, container string, newName string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "rename"},
 		[]string{container, newName},
@@ -684,6 +717,9 @@ func ContainerRename(opts *ContainerRenameOpts, container string, newName string
 }
 
 type ContainerRestartOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -695,10 +731,9 @@ type ContainerRestartOpts struct {
 }
 
 // Restart one or more containers.
-func ContainerRestart(opts *ContainerRestartOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerRestart(opts *ContainerRestartOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "restart"},
@@ -709,6 +744,9 @@ func ContainerRestart(opts *ContainerRestartOpts, container ...string) (
 }
 
 type ContainerRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the removal of a running container (uses SIGKILL).
 	Force bool
 
@@ -723,10 +761,9 @@ type ContainerRmOpts struct {
 }
 
 // Remove one or more containers.
-func ContainerRm(opts *ContainerRmOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerRm(opts *ContainerRmOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "rm"},
@@ -737,6 +774,9 @@ func ContainerRm(opts *ContainerRmOpts, container ...string) (
 }
 
 type ContainerRunOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Add a custom host-to-IP mapping (host:ip).
 	AddHost string
 
@@ -1058,8 +1098,7 @@ type ContainerRunOpts struct {
 }
 
 // Create and run a new container from an image.
-func ContainerRun(opts *ContainerRunOpts, image string, command string, arg ...string) (
-	stdout string, stderr string, err error) {
+func ContainerRun(opts *ContainerRunOpts, image string, command string, arg ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "run"},
 		append([]string{image, command}, arg...),
@@ -1069,6 +1108,9 @@ func ContainerRun(opts *ContainerRunOpts, image string, command string, arg ...s
 }
 
 type ContainerStartOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Attach STDOUT/STDERR and forward signals.
 	Attach bool
 
@@ -1089,10 +1131,9 @@ type ContainerStartOpts struct {
 }
 
 // Start one or more stopped containers.
-func ContainerStart(opts *ContainerStartOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerStart(opts *ContainerStartOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "start"},
@@ -1103,6 +1144,9 @@ func ContainerStart(opts *ContainerStartOpts, container ...string) (
 }
 
 type ContainerStatsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Show all containers (default shows just running).
 	All bool
 
@@ -1125,8 +1169,7 @@ type ContainerStatsOpts struct {
 }
 
 // Display a live stream of container(s) resource usage statistics.
-func ContainerStats(opts *ContainerStatsOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerStats(opts *ContainerStatsOpts, container ...string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "stats"},
 		container,
@@ -1136,6 +1179,9 @@ func ContainerStats(opts *ContainerStatsOpts, container ...string) (
 }
 
 type ContainerStopOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -1147,10 +1193,9 @@ type ContainerStopOpts struct {
 }
 
 // Stop one or more running containers.
-func ContainerStop(opts *ContainerStopOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerStop(opts *ContainerStopOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "stop"},
@@ -1161,13 +1206,15 @@ func ContainerStop(opts *ContainerStopOpts, container ...string) (
 }
 
 type ContainerTopOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Display the running processes of a container.
-func ContainerTop(opts *ContainerTopOpts, container string, psOptions string) (
-	stdout string, stderr string, err error) {
+func ContainerTop(opts *ContainerTopOpts, container string, psOptions string) (string, error) {
 	return runCtrCmd(
 		[]string{"container", "top"},
 		[]string{container, psOptions},
@@ -1177,15 +1224,17 @@ func ContainerTop(opts *ContainerTopOpts, container string, psOptions string) (
 }
 
 type ContainerUnpauseOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Unpause all processes within one or more containers.
-func ContainerUnpause(opts *ContainerUnpauseOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerUnpause(opts *ContainerUnpauseOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "unpause"},
@@ -1196,6 +1245,9 @@ func ContainerUnpause(opts *ContainerUnpauseOpts, container ...string) (
 }
 
 type ContainerUpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0).
 	BlkioWeight string
 
@@ -1246,10 +1298,9 @@ type ContainerUpdateOpts struct {
 }
 
 // Update configuration of one or more containers.
-func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "update"},
@@ -1260,15 +1311,17 @@ func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (
 }
 
 type ContainerWaitOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Block until one or more containers stop, then print their exit codes.
-func ContainerWait(opts *ContainerWaitOpts, container ...string) (
-	stdout string, stderr string, err error) {
+func ContainerWait(opts *ContainerWaitOpts, container ...string) (string, error) {
 	if len(container) == 0 {
-		return "", "", fmt.Errorf("container must have at least one value")
+		return "", fmt.Errorf("container must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"container", "wait"},

@@ -1,8 +1,14 @@
 package ctrctl
 
-import "fmt"
+import (
+	"fmt"
+	"os/exec"
+)
 
 type ContextCreateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Default orchestrator for stack operations to use with this context (`swarm`, `kubernetes`, `all`).
 	DefaultStackOrchestrator string
 
@@ -23,8 +29,7 @@ type ContextCreateOpts struct {
 }
 
 // Create a context.
-func ContextCreate(opts *ContextCreateOpts, context string) (
-	stdout string, stderr string, err error) {
+func ContextCreate(opts *ContextCreateOpts, context string) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "create"},
 		[]string{context},
@@ -34,6 +39,9 @@ func ContextCreate(opts *ContextCreateOpts, context string) (
 }
 
 type ContextExportOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 
@@ -42,8 +50,7 @@ type ContextExportOpts struct {
 }
 
 // Export a context to a tar archive FILE or a tar stream on STDOUT.
-func ContextExport(opts *ContextExportOpts, context string, file string) (
-	stdout string, stderr string, err error) {
+func ContextExport(opts *ContextExportOpts, context string, file string) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "export"},
 		[]string{context, file},
@@ -53,13 +60,15 @@ func ContextExport(opts *ContextExportOpts, context string, file string) (
 }
 
 type ContextImportOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Import a context from a tar or zip file.
-func ContextImport(opts *ContextImportOpts, context string, file string) (
-	stdout string, stderr string, err error) {
+func ContextImport(opts *ContextImportOpts, context string, file string) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "import"},
 		[]string{context, file},
@@ -69,6 +78,9 @@ func ContextImport(opts *ContextImportOpts, context string, file string) (
 }
 
 type ContextInspectOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'json':             Print in JSON format.
 	// 'TEMPLATE':         Print output using the given Go template.
@@ -80,10 +92,9 @@ type ContextInspectOpts struct {
 }
 
 // Display detailed information on one or more contexts.
-func ContextInspect(opts *ContextInspectOpts, context ...string) (
-	stdout string, stderr string, err error) {
+func ContextInspect(opts *ContextInspectOpts, context ...string) (string, error) {
 	if len(context) == 0 {
-		return "", "", fmt.Errorf("context must have at least one value")
+		return "", fmt.Errorf("context must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"context", "inspect"},
@@ -94,6 +105,9 @@ func ContextInspect(opts *ContextInspectOpts, context ...string) (
 }
 
 type ContextLsOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Format output using a custom template:.
 	// 'table':            Print output in table format with column headers (default).
 	// 'table TEMPLATE':   Print output in table format using the given Go template.
@@ -110,8 +124,7 @@ type ContextLsOpts struct {
 }
 
 // List contexts.
-func ContextLs(opts *ContextLsOpts) (
-	stdout string, stderr string, err error) {
+func ContextLs(opts *ContextLsOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "ls"},
 		[]string{},
@@ -121,6 +134,9 @@ func ContextLs(opts *ContextLsOpts) (
 }
 
 type ContextRmOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Force the removal of a context in use.
 	Force bool
 
@@ -129,10 +145,9 @@ type ContextRmOpts struct {
 }
 
 // Remove one or more contexts.
-func ContextRm(opts *ContextRmOpts, context ...string) (
-	stdout string, stderr string, err error) {
+func ContextRm(opts *ContextRmOpts, context ...string) (string, error) {
 	if len(context) == 0 {
-		return "", "", fmt.Errorf("context must have at least one value")
+		return "", fmt.Errorf("context must have at least one value")
 	}
 	return runCtrCmd(
 		[]string{"context", "rm"},
@@ -143,13 +158,15 @@ func ContextRm(opts *ContextRmOpts, context ...string) (
 }
 
 type ContextShowOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Print the name of the current context.
-func ContextShow(opts *ContextShowOpts) (
-	stdout string, stderr string, err error) {
+func ContextShow(opts *ContextShowOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "show"},
 		[]string{},
@@ -159,6 +176,9 @@ func ContextShow(opts *ContextShowOpts) (
 }
 
 type ContextUpdateOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Default orchestrator for stack operations to use with this context (swarm|kubernetes|all).
 	DefaultStackOrchestrator string
 
@@ -176,8 +196,7 @@ type ContextUpdateOpts struct {
 }
 
 // Update a context.
-func ContextUpdate(opts *ContextUpdateOpts, context string) (
-	stdout string, stderr string, err error) {
+func ContextUpdate(opts *ContextUpdateOpts, context string) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "update"},
 		[]string{context},
@@ -187,13 +206,15 @@ func ContextUpdate(opts *ContextUpdateOpts, context string) (
 }
 
 type ContextUseOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
 	// Print usage.
 	Help bool
 }
 
 // Set the current docker context.
-func ContextUse(opts *ContextUseOpts, context string) (
-	stdout string, stderr string, err error) {
+func ContextUse(opts *ContextUseOpts, context string) (string, error) {
 	return runCtrCmd(
 		[]string{"context", "use"},
 		[]string{context},
