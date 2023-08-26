@@ -15,7 +15,7 @@ func main() {
     ctrctl.Cli = []string{"docker"} // or {"podman"}, or {"lima", "nerdctl"}...
     ctrctl.Verbose = true           // useful for debugging
 
-    id, _, err := ctrctl.ContainerRun(
+    id, err := ctrctl.ContainerRun(
         &ctrctl.ContainerRunOpts{
             Detach: true,
             Tty:    true,
@@ -27,12 +27,12 @@ func main() {
         panic(err)
     }
 
-    _, _, err = ctrctl.ContainerExec(nil, id, "echo", "Hello from alpine!")
+    _, err = ctrctl.ContainerExec(nil, id, "echo", "Hello from alpine!")
     if err != nil {
         panic(err)
     }
 
-    _, _, err = ctrctl.ContainerRm(&ctrctl.ContainerRmOpts{Force: true}, id)
+    _, err = ctrctl.ContainerRm(&ctrctl.ContainerRmOpts{Force: true}, id)
     if err != nil {
         panic(err)
     }
