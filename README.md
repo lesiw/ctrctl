@@ -2,7 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/lesiw/ctrctl.svg)](https://pkg.go.dev/github.com/lesiw/ctrctl)
 
-Package `ctrctl` provides a wrapper around container CLIs.
+Package `ctrctl` wraps container CLIs.
 
 ## Example
 

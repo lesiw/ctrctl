@@ -1,6 +1,6 @@
 //go:generate go run internal/generate.go
 
-// Package ctrctl provides a wrapper around container CLI commands.
+// Package ctrctl wraps container CLIs.
 package ctrctl
 
 import (
