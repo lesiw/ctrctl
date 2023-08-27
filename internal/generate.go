@@ -587,7 +587,7 @@ func underscore(s string) string {
 }
 
 func ensureDot(s string) string {
-	if strings.HasSuffix(s, ".") {
+	if strings.HasSuffix(s, ".") || strings.HasSuffix(s, ":") {
 		return s
 	}
 	return s + "."
