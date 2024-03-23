@@ -31,7 +31,11 @@ type CliError struct {
 }
 
 func (e *CliError) Error() string {
-	return e.ProcessState.String()
+	if e.Stderr != "" {
+		return e.Stderr
+	} else {
+		return e.ProcessState.String()
+	}
 }
 
 func runCtrCmd(subcommand []string, args []string, opts interface{}, optpos int) (string, error) {
