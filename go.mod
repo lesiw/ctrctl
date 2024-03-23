@@ -1,4 +1,4 @@
-module github.com/lesiw/ctrctl
+module lesiw.io/ctrctl
 
 go 1.21.0
 
