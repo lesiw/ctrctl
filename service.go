@@ -66,6 +66,9 @@ type ServiceCreateOpts struct {
 	// Consecutive failures needed to report unhealthy.
 	HealthRetries *int
 
+	// Time between running the check during the start period (ms|s|m|h).
+	HealthStartInterval string
+
 	// Start period for the container to initialize before counting retries towards unstable (ms|s|m|h).
 	HealthStartPeriod string
 
@@ -538,6 +541,9 @@ type ServiceUpdateOpts struct {
 
 	// Consecutive failures needed to report unhealthy.
 	HealthRetries *int
+
+	// Time between running the check during the start period (ms|s|m|h).
+	HealthStartInterval string
 
 	// Start period for the container to initialize before counting retries towards unstable (ms|s|m|h).
 	HealthStartPeriod string

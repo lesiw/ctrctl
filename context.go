@@ -9,9 +9,6 @@ type ContextCreateOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
 
-	// Default orchestrator for stack operations to use with this context (`swarm`, `kubernetes`, `all`).
-	DefaultStackOrchestrator string
-
 	// Description of the context.
 	Description string
 
@@ -23,9 +20,6 @@ type ContextCreateOpts struct {
 
 	// Print usage.
 	Help bool
-
-	// set the kubernetes endpoint.
-	Kubernetes string
 }
 
 // Create a context.
@@ -44,9 +38,6 @@ type ContextExportOpts struct {
 
 	// Print usage.
 	Help bool
-
-	// Export as a kubeconfig file.
-	Kubeconfig bool
 }
 
 // Export a context to a tar archive FILE or a tar stream on STDOUT.
@@ -179,9 +170,6 @@ type ContextUpdateOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
 
-	// Default orchestrator for stack operations to use with this context (swarm|kubernetes|all).
-	DefaultStackOrchestrator string
-
 	// Description of the context.
 	Description string
 
@@ -190,9 +178,6 @@ type ContextUpdateOpts struct {
 
 	// Print usage.
 	Help bool
-
-	// set the kubernetes endpoint.
-	Kubernetes string
 }
 
 // Update a context.

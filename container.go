@@ -220,6 +220,9 @@ type ContainerCreateOpts struct {
 	// Consecutive failures needed to report unhealthy.
 	HealthRetries *int
 
+	// Time between running the check during the start period (ms|s|m|h) (default 0s).
+	HealthStartInterval string
+
 	// Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s).
 	HealthStartPeriod string
 
@@ -909,6 +912,9 @@ type ContainerRunOpts struct {
 
 	// Consecutive failures needed to report unhealthy.
 	HealthRetries *int
+
+	// Time between running the check during the start period (ms|s|m|h) (default 0s).
+	HealthStartInterval string
 
 	// Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s).
 	HealthStartPeriod string

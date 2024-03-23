@@ -56,7 +56,10 @@ type SystemEventsOpts struct {
 	// Filter output based on conditions provided.
 	Filter string
 
-	// Format the output using the given Go template.
+	// Format output using a custom template:
+	// 'json':             Print in JSON format.
+	// 'TEMPLATE':         Print output using the given Go template.
+	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
 	// Print usage.
@@ -119,7 +122,7 @@ type SystemPruneOpts struct {
 	// Print usage.
 	Help bool
 
-	// Prune volumes.
+	// Prune anonymous volumes.
 	Volumes bool
 }
 

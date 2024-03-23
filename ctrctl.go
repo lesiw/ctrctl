@@ -93,7 +93,7 @@ type BuildOpts struct {
 	// Images to consider as cache sources.
 	CacheFrom string
 
-	// Optional parent cgroup for the container.
+	// Set the parent cgroup for the `RUN` instructions during build.
 	CgroupParent string
 
 	// Compress the build context using gzip.
@@ -466,6 +466,9 @@ type CreateOpts struct {
 	// Consecutive failures needed to report unhealthy.
 	HealthRetries *int
 
+	// Time between running the check during the start period (ms|s|m|h) (default 0s).
+	HealthStartInterval string
+
 	// Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s).
 	HealthStartPeriod string
 
@@ -685,7 +688,10 @@ type EventsOpts struct {
 	// Filter output based on conditions provided.
 	Filter string
 
-	// Format the output using the given Go template.
+	// Format output using a custom template:
+	// 'json':             Print in JSON format.
+	// 'TEMPLATE':         Print output using the given Go template.
+	// Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates.
 	Format string
 
 	// Print usage.
@@ -1534,6 +1540,9 @@ type RunOpts struct {
 
 	// Consecutive failures needed to report unhealthy.
 	HealthRetries *int
+
+	// Time between running the check during the start period (ms|s|m|h) (default 0s).
+	HealthStartInterval string
 
 	// Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s).
 	HealthStartPeriod string

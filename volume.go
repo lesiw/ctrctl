@@ -144,7 +144,7 @@ type VolumePruneOpts struct {
 	Help bool
 }
 
-// Remove all unused local volumes.
+// Remove unused local volumes.
 func VolumePrune(opts *VolumePruneOpts) (string, error) {
 	return runCtrCmd(
 		[]string{"volume", "prune"},

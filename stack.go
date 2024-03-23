@@ -39,6 +39,9 @@ type StackDeployOpts struct {
 	// Path to a Compose file, or `-` to read from stdin.
 	ComposeFile string
 
+	// Exit immediately instead of waiting for the stack services to converge.
+	Detach bool
+
 	// Print usage.
 	Help bool
 
@@ -47,6 +50,9 @@ type StackDeployOpts struct {
 
 	// Prune services that are no longer referenced.
 	Prune bool
+
+	// Suppress progress output.
+	Quiet bool
 
 	// Query the registry to resolve image digest and supported platforms (`always`, `changed`, `never`).
 	ResolveImage string
@@ -138,6 +144,9 @@ func StackPs(opts *StackPsOpts, stack string) (string, error) {
 type StackRmOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
+
+	// Do not wait for stack removal.
+	Detach bool
 
 	// Print usage.
 	Help bool

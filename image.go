@@ -18,7 +18,7 @@ type ImageBuildOpts struct {
 	// Images to consider as cache sources.
 	CacheFrom string
 
-	// Optional parent cgroup for the container.
+	// Set the parent cgroup for the `RUN` instructions during build.
 	CgroupParent string
 
 	// Compress the build context using gzip.
