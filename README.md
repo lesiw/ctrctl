@@ -1,6 +1,6 @@
 # ctrctl
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/lesiw/ctrctl.svg)](https://pkg.go.dev/github.com/lesiw/ctrctl)
+[![Go Reference](https://pkg.go.dev/badge/lesiw.io/ctrctl.svg)](https://pkg.go.dev/lesiw.io/ctrctl)
 
 Package `ctrctl` wraps container CLIs.
 
@@ -9,7 +9,7 @@ Package `ctrctl` wraps container CLIs.
 ```go
 package main
 
-import "github.com/lesiw/ctrctl"
+import "lesiw.io/ctrctl"
 
 func main() {
     ctrctl.Cli = []string{"docker"} // or {"podman"}, or {"lima", "nerdctl"}...
@@ -104,7 +104,7 @@ import (
     "os"
     "os/exec"
 
-    "github.com/lesiw/ctrctl"
+    "lesiw.io/ctrctl"
 )
 
 func main() {
