@@ -344,6 +344,7 @@ func (cmd *ctrCliCmd) parseUsage(usage string) {
 	var subFinished bool
 	var nextUpper bool
 	arg := &ctrCliArg{}
+	usage = strings.ReplaceAll(usage, " | ", "|")
 	for _, r := range usage {
 		if r != '.' {
 			dots = 0

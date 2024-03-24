@@ -104,10 +104,10 @@ type ImageBuildOpts struct {
 }
 
 // Build an image from a Dockerfile.
-func ImageBuild(opts *ImageBuildOpts, path string, url string) (string, error) {
+func ImageBuild(opts *ImageBuildOpts, pathUrl string) (string, error) {
 	return runCtrCmd(
 		[]string{"image", "build"},
-		[]string{path, url},
+		[]string{pathUrl},
 		opts,
 		0,
 	)
