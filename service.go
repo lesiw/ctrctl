@@ -10,19 +10,19 @@ type ServiceCreateOpts struct {
 	Cmd *exec.Cmd
 
 	// Add Linux capabilities.
-	CapAdd string
+	CapAdd []string
 
 	// Drop Linux capabilities.
-	CapDrop string
+	CapDrop []string
 
 	// Specify configurations to expose to the service.
 	Config string
 
 	// Placement constraints.
-	Constraint string
+	Constraint []string
 
 	// Container labels.
-	ContainerLabel string
+	ContainerLabel []string
 
 	// Credential spec for managed service account (Windows only).
 	CredentialSpec string
@@ -31,13 +31,13 @@ type ServiceCreateOpts struct {
 	Detach bool
 
 	// Set custom DNS servers.
-	Dns string
+	Dns []string
 
 	// Set DNS options.
-	DnsOption string
+	DnsOption []string
 
 	// Set custom DNS search domains.
-	DnsSearch string
+	DnsSearch []string
 
 	// Endpoint mode (vip or dnsrr).
 	EndpointMode string
@@ -46,16 +46,16 @@ type ServiceCreateOpts struct {
 	Entrypoint string
 
 	// Set environment variables.
-	Env string
+	Env []string
 
 	// Read in a file of environment variables.
-	EnvFile string
+	EnvFile []string
 
 	// User defined resources.
-	GenericResource string
+	GenericResource []string
 
 	// Set one or more supplementary user groups for the container.
-	Group string
+	Group []string
 
 	// Command to run to check health.
 	HealthCmd string
@@ -79,7 +79,7 @@ type ServiceCreateOpts struct {
 	Help bool
 
 	// Set one or more custom host-to-IP mappings (host:ip).
-	Host string
+	Host []string
 
 	// Container hostname.
 	Hostname string
@@ -91,7 +91,7 @@ type ServiceCreateOpts struct {
 	Isolation string
 
 	// Service labels.
-	Label string
+	Label []string
 
 	// Limit CPUs.
 	LimitCpu string
@@ -106,7 +106,7 @@ type ServiceCreateOpts struct {
 	LogDriver string
 
 	// Logging driver options.
-	LogOpt string
+	LogOpt []string
 
 	// Number of job tasks to run concurrently (default equal to --replicas).
 	MaxConcurrent string
@@ -193,7 +193,7 @@ type ServiceCreateOpts struct {
 	StopSignal string
 
 	// Sysctl options.
-	Sysctl string
+	Sysctl []string
 
 	// Allocate a pseudo-TTY.
 	Tty bool
@@ -459,28 +459,28 @@ type ServiceUpdateOpts struct {
 	Args string
 
 	// Add Linux capabilities.
-	CapAdd string
+	CapAdd []string
 
 	// Drop Linux capabilities.
-	CapDrop string
+	CapDrop []string
 
 	// Add or update a config file on a service.
 	ConfigAdd string
 
 	// Remove a configuration file.
-	ConfigRm string
+	ConfigRm []string
 
 	// Add or update a placement constraint.
-	ConstraintAdd string
+	ConstraintAdd []string
 
 	// Remove a constraint.
-	ConstraintRm string
+	ConstraintRm []string
 
 	// Add or update a container label.
-	ContainerLabelAdd string
+	ContainerLabelAdd []string
 
 	// Remove a container label by its key.
-	ContainerLabelRm string
+	ContainerLabelRm []string
 
 	// Credential spec for managed service account (Windows only).
 	CredentialSpec string
@@ -489,22 +489,22 @@ type ServiceUpdateOpts struct {
 	Detach bool
 
 	// Add or update a custom DNS server.
-	DnsAdd string
+	DnsAdd []string
 
 	// Add or update a DNS option.
-	DnsOptionAdd string
+	DnsOptionAdd []string
 
 	// Remove a DNS option.
-	DnsOptionRm string
+	DnsOptionRm []string
 
 	// Remove a custom DNS server.
-	DnsRm string
+	DnsRm []string
 
 	// Add or update a custom DNS search domain.
-	DnsSearchAdd string
+	DnsSearchAdd []string
 
 	// Remove a DNS search domain.
-	DnsSearchRm string
+	DnsSearchRm []string
 
 	// Endpoint mode (vip or dnsrr).
 	EndpointMode string
@@ -513,25 +513,25 @@ type ServiceUpdateOpts struct {
 	Entrypoint string
 
 	// Add or update an environment variable.
-	EnvAdd string
+	EnvAdd []string
 
 	// Remove an environment variable.
-	EnvRm string
+	EnvRm []string
 
 	// Force update even if no changes require it.
 	Force bool
 
 	// Add a Generic resource.
-	GenericResourceAdd string
+	GenericResourceAdd []string
 
 	// Remove a Generic resource.
-	GenericResourceRm string
+	GenericResourceRm []string
 
 	// Add an additional supplementary user group to the container.
-	GroupAdd string
+	GroupAdd []string
 
 	// Remove a previously added supplementary user group from the container.
-	GroupRm string
+	GroupRm []string
 
 	// Command to run to check health.
 	HealthCmd string
@@ -555,10 +555,10 @@ type ServiceUpdateOpts struct {
 	Help bool
 
 	// Add a custom host-to-IP mapping (`host:ip`).
-	HostAdd string
+	HostAdd []string
 
 	// Remove a custom host-to-IP mapping (`host:ip`).
-	HostRm string
+	HostRm []string
 
 	// Container hostname.
 	Hostname string
@@ -573,10 +573,10 @@ type ServiceUpdateOpts struct {
 	Isolation string
 
 	// Add or update a service label.
-	LabelAdd string
+	LabelAdd []string
 
 	// Remove a label by its key.
-	LabelRm string
+	LabelRm []string
 
 	// Limit CPUs.
 	LimitCpu string
@@ -591,7 +591,7 @@ type ServiceUpdateOpts struct {
 	LogDriver string
 
 	// Logging driver options.
-	LogOpt string
+	LogOpt []string
 
 	// Number of job tasks to run concurrently (default equal to --replicas).
 	MaxConcurrent string
@@ -600,13 +600,13 @@ type ServiceUpdateOpts struct {
 	MountAdd string
 
 	// Remove a mount by its target path.
-	MountRm string
+	MountRm []string
 
 	// Add a network.
 	NetworkAdd string
 
 	// Remove a network.
-	NetworkRm string
+	NetworkRm []string
 
 	// Disable any container-specified HEALTHCHECK.
 	NoHealthcheck bool
@@ -681,7 +681,7 @@ type ServiceUpdateOpts struct {
 	SecretAdd string
 
 	// Remove a secret.
-	SecretRm string
+	SecretRm []string
 
 	// Time to wait before force killing a container (ns|us|ms|s|m|h).
 	StopGracePeriod string
@@ -690,10 +690,10 @@ type ServiceUpdateOpts struct {
 	StopSignal string
 
 	// Add or update a Sysctl option.
-	SysctlAdd string
+	SysctlAdd []string
 
 	// Remove a Sysctl option.
-	SysctlRm string
+	SysctlRm []string
 
 	// Allocate a pseudo-TTY.
 	Tty bool
@@ -702,7 +702,7 @@ type ServiceUpdateOpts struct {
 	UlimitAdd string
 
 	// Remove a ulimit option.
-	UlimitRm string
+	UlimitRm []string
 
 	// Delay between updates (ns|us|ms|s|m|h).
 	UpdateDelay string

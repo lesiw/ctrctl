@@ -10,10 +10,10 @@ type ImageBuildOpts struct {
 	Cmd *exec.Cmd
 
 	// Add a custom host-to-IP mapping (`host:ip`).
-	AddHost string
+	AddHost []string
 
 	// Set build-time variables.
-	BuildArg string
+	BuildArg []string
 
 	// Images to consider as cache sources.
 	CacheFrom string
@@ -58,7 +58,7 @@ type ImageBuildOpts struct {
 	Isolation string
 
 	// Set metadata for an image.
-	Label string
+	Label []string
 
 	// Memory limit.
 	Memory string
@@ -94,7 +94,7 @@ type ImageBuildOpts struct {
 	Squash bool
 
 	// Name and optionally a tag in the `name:tag` format.
-	Tag string
+	Tag []string
 
 	// Set the target build stage to build.
 	Target string
@@ -153,7 +153,7 @@ type ImageImportOpts struct {
 	Cmd *exec.Cmd
 
 	// Apply Dockerfile instruction to the created image.
-	Change string
+	Change []string
 
 	// Print usage.
 	Help bool

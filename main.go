@@ -122,13 +122,19 @@ func optsToArgs(opts interface{}) []string {
 		if field.Type.Kind() == reflect.Bool && !value.Bool() {
 			continue
 		}
-		result = append(result, fieldToFlag(field.Name))
-
-		switch field.Type.Kind() {
-		case reflect.Int:
-			result = append(result, strconv.FormatInt(value.Int(), 10))
-		case reflect.String:
-			result = append(result, value.String())
+		if field.Type.Kind() == reflect.Slice {
+			for j := 0; j < value.Len(); j++ {
+				str := value.Index(j)
+				result = append(result, fieldToFlag(field.Name), str.String())
+			}
+		} else {
+			result = append(result, fieldToFlag(field.Name))
+			switch field.Type.Kind() {
+			case reflect.Int:
+				result = append(result, strconv.FormatInt(value.Int(), 10))
+			case reflect.String:
+				result = append(result, value.String())
+			}
 		}
 	}
 

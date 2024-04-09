@@ -13,7 +13,7 @@ type ConfigCreateOpts struct {
 	Help bool
 
 	// Config labels.
-	Label string
+	Label []string
 
 	// Template driver.
 	TemplateDriver string

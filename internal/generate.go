@@ -556,6 +556,8 @@ func (o *ctrCliOpt) structType() string {
 		return "bool"
 	case "int":
 		return "*int"
+	case "list":
+		return "[]string"
 	default:
 		return "string"
 	}
