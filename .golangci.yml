@@ -1,0 +1,23 @@
+linters:
+  enable:
+    - errname
+    - errcheck
+    - gocheckcompilerdirectives
+    - gocyclo
+    - makezero
+    - godot
+    - unparam
+    - unused
+
+linters-settings:
+  gocyclo:
+    min-complexity: 15
+  lll:
+    tab-width: 4
+    line-length: 79
+
+issues:
+  exclude-rules:
+    - linters:
+        - errcheck
+      source: "defer "
