@@ -10,10 +10,7 @@ import (
 	"lesiw.io/ops"
 )
 
-type Ops struct {
-	Bump func()
-	golib.Ops
-}
+type Ops struct{ golib.Ops }
 
 var Runner = sys.Runner()
 
@@ -21,9 +18,7 @@ func main() {
 	if len(os.Args) < 2 {
 		os.Args = append(os.Args, "check")
 	}
-	op := Ops{}
-	op.Bump = op.Ops.Bump
-	ops.Handle(op)
+	ops.Handle(Ops{})
 }
 
 func (op Ops) Update() {

@@ -16,6 +16,10 @@ import (
 
 var uniq = make(map[string]int)
 
+var bump func()
+
+func (Ops) Bump() { bump() }
+
 type testCdr struct {
 	cmd        [][]string
 	gitChanged bool
@@ -48,9 +52,8 @@ func TestUpdate(t *testing.T) {
 	golang.Runner = func() *cmdio.Runner { return Runner }
 	git.Runner = Runner
 
-	op := Ops{}
-	op.Bump = func() { Runner.MustRun("bump") }
-	op.Update()
+	bump = func() { Runner.MustRun("bump") }
+	Ops{}.Update()
 
 	expected := [][]string{
 		{"which", "goimports"},
@@ -77,9 +80,8 @@ func TestNoChange(t *testing.T) {
 	golang.Runner = func() *cmdio.Runner { return Runner }
 	git.Runner = Runner
 
-	op := Ops{}
-	op.Bump = func() { Runner.MustRun("bump") }
-	op.Update()
+	bump = func() { Runner.MustRun("bump") }
+	Ops{}.Update()
 
 	expected := [][]string{
 		{"which", "goimports"},
@@ -100,9 +102,8 @@ func TestGitUserExists(t *testing.T) {
 	golang.Runner = func() *cmdio.Runner { return Runner }
 	git.Runner = Runner
 
-	op := Ops{}
-	op.Bump = func() { Runner.MustRun("bump") }
-	op.Update()
+	bump = func() { Runner.MustRun("bump") }
+	Ops{}.Update()
 
 	expected := [][]string{
 		{"which", "goimports"},
