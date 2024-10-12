@@ -1,6 +1,0 @@
-#!/bin/sh
-
-set -e
-
-git tag "$(git describe --abbrev=0 --tags | bump -s 1)"
-git push --tags
