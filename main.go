@@ -19,7 +19,8 @@ import (
 // Cli is the command prefix.
 var Cli = []string{"docker"}
 
-// Verbose mode prints the commands being run and streams their output to the terminal.
+// Verbose mode prints the commands being run and streams their output to the
+// terminal.
 var Verbose bool
 
 var shUnsafe = regexp.MustCompile(`[^\w@%+=:,./-]`)
@@ -38,7 +39,9 @@ func (e *CliError) Error() string {
 	}
 }
 
-func runCtrCmd(subcommand []string, args []string, opts interface{}, optpos int) (string, error) {
+func runCtrCmd(
+	subcommand []string, args []string, opts any, optpos int,
+) (string, error) {
 	var strout strings.Builder
 	var strerr strings.Builder
 	var cmd *exec.Cmd
@@ -58,7 +61,8 @@ func runCtrCmd(subcommand []string, args []string, opts interface{}, optpos int)
 
 	if !reflect.ValueOf(opts).IsNil() {
 		var ok bool
-		cmd, ok = reflect.ValueOf(opts).Elem().FieldByName("Cmd").Interface().(*exec.Cmd)
+		cmd, ok = reflect.ValueOf(opts).Elem().FieldByName("Cmd").
+			Interface().(*exec.Cmd)
 		if !ok {
 			panic("exec.Cmd failed type assertion")
 		}
@@ -176,15 +180,15 @@ func shJoin(parts []string) string {
 	return strings.Join(quotedParts, " ")
 }
 
-func prepareStreams(cmd *exec.Cmd, outdefault io.Writer, errdefault io.Writer) {
+func prepareStreams(cmd *exec.Cmd, out io.Writer, err io.Writer) {
 	if cmd.Stdout == nil {
-		cmd.Stdout = outdefault
+		cmd.Stdout = out
 	}
 	if Verbose && cmd.Stdout != os.Stdout {
 		cmd.Stdout = io.MultiWriter(cmd.Stdout, os.Stdout)
 	}
 	if cmd.Stderr == nil {
-		cmd.Stderr = errdefault
+		cmd.Stderr = err
 	}
 	if Verbose && cmd.Stderr != os.Stderr {
 		cmd.Stderr = io.MultiWriter(cmd.Stderr, os.Stderr)

@@ -4,6 +4,7 @@ linters:
     - errcheck
     - gocheckcompilerdirectives
     - gocyclo
+    - lll
     - makezero
     - godot
     - unparam
