@@ -802,6 +802,9 @@ type HistoryOpts struct {
 	// Don't truncate output.
 	NoTrunc bool
 
+	// Show history for the given platform. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
+
 	// Only show image IDs.
 	Quiet bool
 }
@@ -996,6 +999,9 @@ type LoadOpts struct {
 	// Read from tar archive file, instead of STDIN.
 	Input string
 
+	// Load only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
+
 	// Suppress the load output.
 	Quiet bool
 }
@@ -1017,10 +1023,10 @@ type LoginOpts struct {
 	// Print usage.
 	Help bool
 
-	// Password.
+	// Password or Personal Access Token (PAT).
 	Password string
 
-	// Take the password from stdin.
+	// Take the Password or Personal Access Token (PAT) from stdin.
 	PasswordStdin bool
 
 	// Username.
@@ -1339,8 +1345,11 @@ type RestartOpts struct {
 	// Signal to send to the container.
 	Signal string
 
-	// Seconds to wait before killing the container.
+	// Seconds to wait before killing the container (deprecated: use --timeout).
 	Time *int
+
+	// Seconds to wait before killing the container.
+	Timeout *int
 }
 
 // Restart one or more containers.
@@ -1759,6 +1768,9 @@ type SaveOpts struct {
 
 	// Write to a file, instead of STDOUT.
 	Output string
+
+	// Save only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 }
 
 // Save one or more images to a tar archive (streamed to STDOUT by default).
@@ -1942,8 +1954,11 @@ type StopOpts struct {
 	// Signal to send to the container.
 	Signal string
 
-	// Seconds to wait before killing the container.
+	// Seconds to wait before killing the container (deprecated: use --timeout).
 	Time *int
+
+	// Seconds to wait before killing the container.
+	Timeout *int
 }
 
 // Stop one or more running containers.

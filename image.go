@@ -135,6 +135,9 @@ type ImageHistoryOpts struct {
 	// Don't truncate output.
 	NoTrunc bool
 
+	// Show history for the given platform. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
+
 	// Only show image IDs.
 	Quiet bool
 }
@@ -212,6 +215,9 @@ type ImageLoadOpts struct {
 
 	// Read from tar archive file, instead of STDIN.
 	Input string
+
+	// Load only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 
 	// Suppress the load output.
 	Quiet bool
@@ -396,6 +402,9 @@ type ImageSaveOpts struct {
 
 	// Write to a file, instead of STDOUT.
 	Output string
+
+	// Save only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 }
 
 // Save one or more images to a tar archive (streamed to STDOUT by default).

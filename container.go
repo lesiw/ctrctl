@@ -730,8 +730,11 @@ type ContainerRestartOpts struct {
 	// Signal to send to the container.
 	Signal string
 
-	// Seconds to wait before killing the container.
+	// Seconds to wait before killing the container (deprecated: use --timeout).
 	Time *int
+
+	// Seconds to wait before killing the container.
+	Timeout *int
 }
 
 // Restart one or more containers.
@@ -1195,8 +1198,11 @@ type ContainerStopOpts struct {
 	// Signal to send to the container.
 	Signal string
 
-	// Seconds to wait before killing the container.
+	// Seconds to wait before killing the container (deprecated: use --timeout).
 	Time *int
+
+	// Seconds to wait before killing the container.
+	Timeout *int
 }
 
 // Stop one or more running containers.

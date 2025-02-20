@@ -16,6 +16,9 @@ type NetworkConnectOpts struct {
 	// driver options for the network.
 	DriverOpt string
 
+	// Highest gw-priority provides the default gateway. Accepts positive and negative values.
+	GwPriority *int
+
 	// Print usage.
 	Help bool
 
@@ -82,7 +85,10 @@ type NetworkCreateOpts struct {
 	// Set IPAM driver specific options.
 	IpamOpt string
 
-	// Enable or disable IPv6 networking.
+	// Enable or disable IPv4 address assignment.
+	Ipv4 bool
+
+	// Enable or disable IPv6 address assignment.
 	Ipv6 bool
 
 	// Set metadata on a network.
