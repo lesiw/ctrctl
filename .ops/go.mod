@@ -4,7 +4,7 @@ go 1.23.2
 
 require (
 	github.com/google/go-cmp v0.7.0
-	labs.lesiw.io/ops v0.0.0-20250325013423-2c9c5f966b5a
+	labs.lesiw.io/ops v0.0.0-20250325014511-3dc44402a500
 	lesiw.io/cmdio v0.9.0
 	lesiw.io/ops v0.14.0
 )
