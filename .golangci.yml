@@ -1,24 +1,38 @@
+version: "2"
 linters:
   enable:
     - errname
-    - errcheck
     - gocheckcompilerdirectives
     - gocyclo
+    - godot
     - lll
     - makezero
-    - godot
     - unparam
-    - unused
-
-linters-settings:
-  gocyclo:
-    min-complexity: 15
-  lll:
-    tab-width: 4
-    line-length: 79
-
-issues:
-  exclude-rules:
-    - linters:
-        - errcheck
-      source: "defer "
+  settings:
+    gocyclo:
+      min-complexity: 15
+    lll:
+      line-length: 79
+      tab-width: 4
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - errcheck
+        source: 'defer '
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
