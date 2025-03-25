@@ -56,7 +56,7 @@ func (e *CliError) Error() string {
 	if e.Stderr != "" {
 		return e.Stderr
 	} else {
-		return e.ProcessState.String()
+		return e.String()
 	}
 }
 
