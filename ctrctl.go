@@ -46,6 +46,9 @@ type DockerOpts struct {
 
 // The base command for the Docker CLI.
 func Docker(opts *DockerOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{},
 		[]string{},
@@ -73,6 +76,9 @@ type AttachOpts struct {
 
 // Attach local standard input, output, and error streams to a running container.
 func Attach(opts *AttachOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"attach"},
 		[]string{container},
@@ -181,6 +187,9 @@ type BuildOpts struct {
 
 // Build an image from a Dockerfile.
 func Build(opts *BuildOpts, pathUrl string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"build"},
 		[]string{pathUrl},
@@ -199,6 +208,9 @@ type BuilderOpts struct {
 
 // Manage builds.
 func Builder(opts *BuilderOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"builder"},
 		[]string{},
@@ -217,6 +229,9 @@ type CheckpointOpts struct {
 
 // Manage checkpoints.
 func Checkpoint(opts *CheckpointOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"checkpoint"},
 		[]string{},
@@ -247,6 +262,9 @@ type CommitOpts struct {
 
 // Create a new image from a container's changes.
 func Commit(opts *CommitOpts, container string, repositoryTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"commit"},
 		[]string{container, repositoryTag},
@@ -265,6 +283,9 @@ type ConfigOpts struct {
 
 // Manage Swarm configs.
 func Config(opts *ConfigOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"config"},
 		[]string{},
@@ -283,6 +304,9 @@ type ContainerOpts struct {
 
 // Manage containers.
 func Container(opts *ContainerOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container"},
 		[]string{},
@@ -301,6 +325,9 @@ type ContextOpts struct {
 
 // Manage contexts.
 func Context(opts *ContextOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context"},
 		[]string{},
@@ -328,6 +355,9 @@ type CpOpts struct {
 
 // Copy files/folders between a container and the local filesystem.
 func Cp(opts *CpOpts, srcpath string, dstpath string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"cp"},
 		[]string{srcpath, dstpath},
@@ -656,6 +686,9 @@ type CreateOpts struct {
 
 // Create a new container.
 func Create(opts *CreateOpts, image string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"create"},
 		append([]string{image, command}, arg...),
@@ -674,6 +707,9 @@ type DiffOpts struct {
 
 // Inspect changes to files or directories on a container's filesystem.
 func Diff(opts *DiffOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"diff"},
 		[]string{container},
@@ -707,6 +743,9 @@ type EventsOpts struct {
 
 // Get real time events from the server.
 func Events(opts *EventsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"events"},
 		[]string{},
@@ -752,6 +791,9 @@ type ExecOpts struct {
 
 // Execute a command in a running container.
 func Exec(opts *ExecOpts, container string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"exec"},
 		append([]string{container, command}, arg...),
@@ -773,6 +815,9 @@ type ExportOpts struct {
 
 // Export a container's filesystem as a tar archive.
 func Export(opts *ExportOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"export"},
 		[]string{container},
@@ -811,6 +856,9 @@ type HistoryOpts struct {
 
 // Show the history of an image.
 func History(opts *HistoryOpts, image string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"history"},
 		[]string{image},
@@ -829,6 +877,9 @@ type ImageOpts struct {
 
 // Manage images.
 func Image(opts *ImageOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image"},
 		[]string{},
@@ -873,6 +924,9 @@ type ImagesOpts struct {
 
 // List images.
 func Images(opts *ImagesOpts, repositoryTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"images"},
 		[]string{repositoryTag},
@@ -900,6 +954,9 @@ type ImportOpts struct {
 
 // Import the contents from a tarball to create a filesystem image.
 func Import(opts *ImportOpts, fileUrl string, RepositoryTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"import"},
 		[]string{fileUrl, RepositoryTag},
@@ -924,6 +981,9 @@ type InfoOpts struct {
 
 // Display system-wide information.
 func Info(opts *InfoOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"info"},
 		[]string{},
@@ -954,6 +1014,9 @@ type InspectOpts struct {
 
 // Return low-level information on Docker objects.
 func Inspect(opts *InspectOpts, nameId ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(nameId) == 0 {
 		return "", fmt.Errorf("nameId must have at least one value")
 	}
@@ -978,6 +1041,9 @@ type KillOpts struct {
 
 // Kill one or more running containers.
 func Kill(opts *KillOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1008,6 +1074,9 @@ type LoadOpts struct {
 
 // Load an image from a tar archive or STDIN.
 func Load(opts *LoadOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"load"},
 		[]string{},
@@ -1035,6 +1104,9 @@ type LoginOpts struct {
 
 // Authenticate to a registry.
 func Login(opts *LoginOpts, server string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"login"},
 		[]string{server},
@@ -1053,6 +1125,9 @@ type LogoutOpts struct {
 
 // Log out from a registry.
 func Logout(opts *LogoutOpts, server string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"logout"},
 		[]string{server},
@@ -1089,6 +1164,9 @@ type LogsOpts struct {
 
 // Fetch the logs of a container.
 func Logs(opts *LogsOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"logs"},
 		[]string{container},
@@ -1107,6 +1185,9 @@ type ManifestOpts struct {
 
 // Manage Docker image manifests and manifest lists.
 func Manifest(opts *ManifestOpts, command string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"manifest"},
 		[]string{command},
@@ -1125,6 +1206,9 @@ type NetworkOpts struct {
 
 // Manage networks.
 func Network(opts *NetworkOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"network"},
 		[]string{},
@@ -1143,6 +1227,9 @@ type NodeOpts struct {
 
 // Manage Swarm nodes.
 func Node(opts *NodeOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"node"},
 		[]string{},
@@ -1161,6 +1248,9 @@ type PauseOpts struct {
 
 // Pause all processes within one or more containers.
 func Pause(opts *PauseOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1182,6 +1272,9 @@ type PluginOpts struct {
 
 // Manage plugins.
 func Plugin(opts *PluginOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin"},
 		[]string{},
@@ -1200,6 +1293,9 @@ type PortOpts struct {
 
 // List port mappings or a specific mapping for the container.
 func Port(opts *PortOpts, container string, privatePortProto string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"port"},
 		[]string{container, privatePortProto},
@@ -1247,6 +1343,9 @@ type PsOpts struct {
 
 // List containers.
 func Ps(opts *PsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"ps"},
 		[]string{},
@@ -1277,6 +1376,9 @@ type PullOpts struct {
 
 // Download an image from a registry.
 func Pull(opts *PullOpts, nameTagDigest string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"pull"},
 		[]string{nameTagDigest},
@@ -1309,6 +1411,9 @@ type PushOpts struct {
 
 // Upload an image to a registry.
 func Push(opts *PushOpts, nameTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"push"},
 		[]string{nameTag},
@@ -1327,6 +1432,9 @@ type RenameOpts struct {
 
 // Rename a container.
 func Rename(opts *RenameOpts, container string, newName string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"rename"},
 		[]string{container, newName},
@@ -1354,6 +1462,9 @@ type RestartOpts struct {
 
 // Restart one or more containers.
 func Restart(opts *RestartOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1384,6 +1495,9 @@ type RmOpts struct {
 
 // Remove one or more containers.
 func Rm(opts *RmOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1411,6 +1525,9 @@ type RmiOpts struct {
 
 // Remove one or more images.
 func Rmi(opts *RmiOpts, image ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(image) == 0 {
 		return "", fmt.Errorf("image must have at least one value")
 	}
@@ -1751,6 +1868,9 @@ type RunOpts struct {
 
 // Create and run a new container from an image.
 func Run(opts *RunOpts, image string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"run"},
 		append([]string{image, command}, arg...),
@@ -1775,6 +1895,9 @@ type SaveOpts struct {
 
 // Save one or more images to a tar archive (streamed to STDOUT by default).
 func Save(opts *SaveOpts, image ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(image) == 0 {
 		return "", fmt.Errorf("image must have at least one value")
 	}
@@ -1808,6 +1931,9 @@ type SearchOpts struct {
 
 // Search Docker Hub for images.
 func Search(opts *SearchOpts, term string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"search"},
 		[]string{term},
@@ -1826,6 +1952,9 @@ type SecretOpts struct {
 
 // Manage Swarm secrets.
 func Secret(opts *SecretOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"secret"},
 		[]string{},
@@ -1844,6 +1973,9 @@ type ServiceOpts struct {
 
 // Manage Swarm services.
 func Service(opts *ServiceOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"service"},
 		[]string{},
@@ -1865,6 +1997,9 @@ type StackOpts struct {
 
 // Manage Swarm stacks.
 func Stack(opts *StackOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stack"},
 		[]string{},
@@ -1898,6 +2033,9 @@ type StartOpts struct {
 
 // Start one or more stopped containers.
 func Start(opts *StartOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1936,6 +2074,9 @@ type StatsOpts struct {
 
 // Display a live stream of container(s) resource usage statistics.
 func Stats(opts *StatsOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stats"},
 		container,
@@ -1963,6 +2104,9 @@ type StopOpts struct {
 
 // Stop one or more running containers.
 func Stop(opts *StopOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1984,6 +2128,9 @@ type SwarmOpts struct {
 
 // Manage Swarm.
 func Swarm(opts *SwarmOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm"},
 		[]string{},
@@ -2002,6 +2149,9 @@ type SystemOpts struct {
 
 // Manage Docker.
 func System(opts *SystemOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"system"},
 		[]string{},
@@ -2020,6 +2170,9 @@ type TagOpts struct {
 
 // Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
 func Tag(opts *TagOpts, sourceImageTag string, targetImageTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"tag"},
 		[]string{sourceImageTag, targetImageTag},
@@ -2038,6 +2191,9 @@ type TopOpts struct {
 
 // Display the running processes of a container.
 func Top(opts *TopOpts, container string, psOptions string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"top"},
 		[]string{container, psOptions},
@@ -2056,6 +2212,9 @@ type TrustOpts struct {
 
 // Manage trust on Docker images.
 func Trust(opts *TrustOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust"},
 		[]string{},
@@ -2074,6 +2233,9 @@ type UnpauseOpts struct {
 
 // Unpause all processes within one or more containers.
 func Unpause(opts *UnpauseOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -2140,6 +2302,9 @@ type UpdateOpts struct {
 
 // Update configuration of one or more containers.
 func Update(opts *UpdateOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -2167,6 +2332,9 @@ type VersionOpts struct {
 
 // Show the Docker version information.
 func Version(opts *VersionOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"version"},
 		[]string{},
@@ -2185,6 +2353,9 @@ type VolumeOpts struct {
 
 // Manage volumes.
 func Volume(opts *VolumeOpts, command string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"volume"},
 		[]string{command},
@@ -2203,6 +2374,9 @@ type WaitOpts struct {
 
 // Block until one or more containers stop, then print their exit codes.
 func Wait(opts *WaitOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}

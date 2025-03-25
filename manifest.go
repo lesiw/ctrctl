@@ -31,6 +31,9 @@ type ManifestAnnotateOpts struct {
 
 // Add additional information to a local image manifest.
 func ManifestAnnotate(opts *ManifestAnnotateOpts, manifestList string, manifest string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"manifest", "annotate"},
 		[]string{manifestList, manifest},
@@ -55,6 +58,9 @@ type ManifestCreateOpts struct {
 
 // Create a local manifest list for annotating and pushing to a registry.
 func ManifestCreate(opts *ManifestCreateOpts, manifestList string, manifest ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(manifest) == 0 {
 		return "", fmt.Errorf("manifest must have at least one value")
 	}
@@ -82,6 +88,9 @@ type ManifestInspectOpts struct {
 
 // Display an image manifest, or manifest list.
 func ManifestInspect(opts *ManifestInspectOpts, manifestList string, manifest string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"manifest", "inspect"},
 		[]string{manifestList, manifest},
@@ -106,6 +115,9 @@ type ManifestPushOpts struct {
 
 // Push a manifest list to a repository.
 func ManifestPush(opts *ManifestPushOpts, manifestList string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"manifest", "push"},
 		[]string{manifestList},
@@ -124,6 +136,9 @@ type ManifestRmOpts struct {
 
 // Delete one or more manifest lists from local storage.
 func ManifestRm(opts *ManifestRmOpts, manifestList ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(manifestList) == 0 {
 		return "", fmt.Errorf("manifestList must have at least one value")
 	}

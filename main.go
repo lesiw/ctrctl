@@ -13,11 +13,32 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"unicode"
 )
 
 // Cli is the command prefix.
-var Cli = []string{"docker"}
+var Cli []string
+
+var clis = [...][]string{
+	{"docker"},
+	{"podman"},
+	{"nerdctl"},
+	{"lima", "nerdctl"},
+}
+
+var findCli = sync.OnceValue(func() error {
+	if Cli != nil {
+		return nil
+	}
+	for _, cli := range clis {
+		if _, err := exec.LookPath(cli[0]); err == nil {
+			Cli = cli
+			return nil
+		}
+	}
+	return fmt.Errorf("no container cli found. searched: %+v", clis)
+})
 
 // Verbose mode prints the commands being run and streams their output to the
 // terminal.

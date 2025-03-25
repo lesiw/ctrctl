@@ -19,6 +19,9 @@ type PluginCreateOpts struct {
 
 // Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
 func PluginCreate(opts *PluginCreateOpts, plugin string, pluginDataDir string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "create"},
 		[]string{plugin, pluginDataDir},
@@ -40,6 +43,9 @@ type PluginDisableOpts struct {
 
 // Disable a plugin.
 func PluginDisable(opts *PluginDisableOpts, plugin string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "disable"},
 		[]string{plugin},
@@ -61,6 +67,9 @@ type PluginEnableOpts struct {
 
 // Enable a plugin.
 func PluginEnable(opts *PluginEnableOpts, plugin string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "enable"},
 		[]string{plugin},
@@ -85,6 +94,9 @@ type PluginInspectOpts struct {
 
 // Display detailed information on one or more plugins.
 func PluginInspect(opts *PluginInspectOpts, plugin ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(plugin) == 0 {
 		return "", fmt.Errorf("plugin must have at least one value")
 	}
@@ -118,6 +130,9 @@ type PluginInstallOpts struct {
 
 // Install a plugin.
 func PluginInstall(opts *PluginInstallOpts, plugin string, keyValue ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "install"},
 		append([]string{plugin}, keyValue...),
@@ -153,6 +168,9 @@ type PluginLsOpts struct {
 
 // List plugins.
 func PluginLs(opts *PluginLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "ls"},
 		[]string{},
@@ -174,6 +192,9 @@ type PluginPushOpts struct {
 
 // Push a plugin to a registry.
 func PluginPush(opts *PluginPushOpts, pluginTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "push"},
 		[]string{pluginTag},
@@ -195,6 +216,9 @@ type PluginRmOpts struct {
 
 // Remove one or more plugins.
 func PluginRm(opts *PluginRmOpts, plugin ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(plugin) == 0 {
 		return "", fmt.Errorf("plugin must have at least one value")
 	}
@@ -216,6 +240,9 @@ type PluginSetOpts struct {
 
 // Change settings for a plugin.
 func PluginSet(opts *PluginSetOpts, plugin string, keyValue ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(keyValue) == 0 {
 		return "", fmt.Errorf("keyValue must have at least one value")
 	}
@@ -246,6 +273,9 @@ type PluginUpgradeOpts struct {
 
 // Upgrade an existing plugin.
 func PluginUpgrade(opts *PluginUpgradeOpts, plugin string, remote string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"plugin", "upgrade"},
 		[]string{plugin, remote},

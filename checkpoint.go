@@ -19,6 +19,9 @@ type CheckpointCreateOpts struct {
 
 // Create a checkpoint from a running container.
 func CheckpointCreate(opts *CheckpointCreateOpts, container string, checkpoint string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"checkpoint", "create"},
 		[]string{container, checkpoint},
@@ -40,6 +43,9 @@ type CheckpointLsOpts struct {
 
 // List checkpoints for a container.
 func CheckpointLs(opts *CheckpointLsOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"checkpoint", "ls"},
 		[]string{container},
@@ -61,6 +67,9 @@ type CheckpointRmOpts struct {
 
 // Remove a checkpoint.
 func CheckpointRm(opts *CheckpointRmOpts, container string, checkpoint string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"checkpoint", "rm"},
 		[]string{container, checkpoint},

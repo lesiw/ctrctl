@@ -25,6 +25,9 @@ type ContextCreateOpts struct {
 
 // Create a context.
 func ContextCreate(opts *ContextCreateOpts, context string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "create"},
 		[]string{context},
@@ -43,6 +46,9 @@ type ContextExportOpts struct {
 
 // Export a context to a tar archive FILE or a tar stream on STDOUT.
 func ContextExport(opts *ContextExportOpts, context string, file string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "export"},
 		[]string{context, file},
@@ -61,6 +67,9 @@ type ContextImportOpts struct {
 
 // Import a context from a tar or zip file.
 func ContextImport(opts *ContextImportOpts, context string, file string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "import"},
 		[]string{context, file},
@@ -85,6 +94,9 @@ type ContextInspectOpts struct {
 
 // Display detailed information on one or more contexts.
 func ContextInspect(opts *ContextInspectOpts, context ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(context) == 0 {
 		return "", fmt.Errorf("context must have at least one value")
 	}
@@ -117,6 +129,9 @@ type ContextLsOpts struct {
 
 // List contexts.
 func ContextLs(opts *ContextLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "ls"},
 		[]string{},
@@ -138,6 +153,9 @@ type ContextRmOpts struct {
 
 // Remove one or more contexts.
 func ContextRm(opts *ContextRmOpts, context ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(context) == 0 {
 		return "", fmt.Errorf("context must have at least one value")
 	}
@@ -159,6 +177,9 @@ type ContextShowOpts struct {
 
 // Print the name of the current context.
 func ContextShow(opts *ContextShowOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "show"},
 		[]string{},
@@ -183,6 +204,9 @@ type ContextUpdateOpts struct {
 
 // Update a context.
 func ContextUpdate(opts *ContextUpdateOpts, context string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "update"},
 		[]string{context},
@@ -201,6 +225,9 @@ type ContextUseOpts struct {
 
 // Set the current docker context.
 func ContextUse(opts *ContextUseOpts, context string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"context", "use"},
 		[]string{context},

@@ -37,6 +37,9 @@ type NetworkConnectOpts struct {
 
 // Connect a container to a network.
 func NetworkConnect(opts *NetworkConnectOpts, network string, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"network", "connect"},
 		[]string{network, container},
@@ -106,6 +109,9 @@ type NetworkCreateOpts struct {
 
 // Create a network.
 func NetworkCreate(opts *NetworkCreateOpts, network string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"network", "create"},
 		[]string{network},
@@ -127,6 +133,9 @@ type NetworkDisconnectOpts struct {
 
 // Disconnect a container from a network.
 func NetworkDisconnect(opts *NetworkDisconnectOpts, network string, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"network", "disconnect"},
 		[]string{network, container},
@@ -154,6 +163,9 @@ type NetworkInspectOpts struct {
 
 // Display detailed information on one or more networks.
 func NetworkInspect(opts *NetworkInspectOpts, network ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(network) == 0 {
 		return "", fmt.Errorf("network must have at least one value")
 	}
@@ -192,6 +204,9 @@ type NetworkLsOpts struct {
 
 // List networks.
 func NetworkLs(opts *NetworkLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"network", "ls"},
 		[]string{},
@@ -216,6 +231,9 @@ type NetworkPruneOpts struct {
 
 // Remove all unused networks.
 func NetworkPrune(opts *NetworkPruneOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"network", "prune"},
 		[]string{},
@@ -237,6 +255,9 @@ type NetworkRmOpts struct {
 
 // Remove one or more networks.
 func NetworkRm(opts *NetworkRmOpts, network ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(network) == 0 {
 		return "", fmt.Errorf("network must have at least one value")
 	}

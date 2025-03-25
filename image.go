@@ -106,6 +106,9 @@ type ImageBuildOpts struct {
 
 // Build an image from a Dockerfile.
 func ImageBuild(opts *ImageBuildOpts, pathUrl string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "build"},
 		[]string{pathUrl},
@@ -144,6 +147,9 @@ type ImageHistoryOpts struct {
 
 // Show the history of an image.
 func ImageHistory(opts *ImageHistoryOpts, image string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "history"},
 		[]string{image},
@@ -171,6 +177,9 @@ type ImageImportOpts struct {
 
 // Import the contents from a tarball to create a filesystem image.
 func ImageImport(opts *ImageImportOpts, fileUrl string, RepositoryTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "import"},
 		[]string{fileUrl, RepositoryTag},
@@ -195,6 +204,9 @@ type ImageInspectOpts struct {
 
 // Display detailed information on one or more images.
 func ImageInspect(opts *ImageInspectOpts, image ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(image) == 0 {
 		return "", fmt.Errorf("image must have at least one value")
 	}
@@ -225,6 +237,9 @@ type ImageLoadOpts struct {
 
 // Load an image from a tar archive or STDIN.
 func ImageLoad(opts *ImageLoadOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "load"},
 		[]string{},
@@ -269,6 +284,9 @@ type ImageLsOpts struct {
 
 // List images.
 func ImageLs(opts *ImageLsOpts, repositoryTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "ls"},
 		[]string{repositoryTag},
@@ -296,6 +314,9 @@ type ImagePruneOpts struct {
 
 // Remove unused images.
 func ImagePrune(opts *ImagePruneOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "prune"},
 		[]string{},
@@ -326,6 +347,9 @@ type ImagePullOpts struct {
 
 // Download an image from a registry.
 func ImagePull(opts *ImagePullOpts, nameTagDigest string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "pull"},
 		[]string{nameTagDigest},
@@ -358,6 +382,9 @@ type ImagePushOpts struct {
 
 // Upload an image to a registry.
 func ImagePush(opts *ImagePushOpts, nameTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "push"},
 		[]string{nameTag},
@@ -382,6 +409,9 @@ type ImageRmOpts struct {
 
 // Remove one or more images.
 func ImageRm(opts *ImageRmOpts, image ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(image) == 0 {
 		return "", fmt.Errorf("image must have at least one value")
 	}
@@ -409,6 +439,9 @@ type ImageSaveOpts struct {
 
 // Save one or more images to a tar archive (streamed to STDOUT by default).
 func ImageSave(opts *ImageSaveOpts, image ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(image) == 0 {
 		return "", fmt.Errorf("image must have at least one value")
 	}
@@ -430,6 +463,9 @@ type ImageTagOpts struct {
 
 // Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
 func ImageTag(opts *ImageTagOpts, sourceImageTag string, targetImageTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"image", "tag"},
 		[]string{sourceImageTag, targetImageTag},

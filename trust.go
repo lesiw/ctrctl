@@ -19,6 +19,9 @@ type TrustInspectOpts struct {
 
 // Return low-level information about keys and signatures.
 func TrustInspect(opts *TrustInspectOpts, imageTag ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(imageTag) == 0 {
 		return "", fmt.Errorf("imageTag must have at least one value")
 	}
@@ -40,6 +43,9 @@ type TrustKeyOpts struct {
 
 // Manage keys for signing Docker images.
 func TrustKey(opts *TrustKeyOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust", "key"},
 		[]string{},
@@ -61,6 +67,9 @@ type TrustKeyGenerateOpts struct {
 
 // Generate and load a signing key-pair.
 func TrustKeyGenerate(opts *TrustKeyGenerateOpts, name string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust", "key", "generate"},
 		[]string{name},
@@ -82,6 +91,9 @@ type TrustKeyLoadOpts struct {
 
 // Load a private key file for signing.
 func TrustKeyLoad(opts *TrustKeyLoadOpts, keyfile string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust", "key", "load"},
 		[]string{keyfile},
@@ -103,6 +115,9 @@ type TrustRevokeOpts struct {
 
 // Remove trust for an image.
 func TrustRevoke(opts *TrustRevokeOpts, imageTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust", "revoke"},
 		[]string{imageTag},
@@ -124,6 +139,9 @@ type TrustSignOpts struct {
 
 // Sign an image.
 func TrustSign(opts *TrustSignOpts, imageTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust", "sign"},
 		[]string{imageTag},
@@ -142,6 +160,9 @@ type TrustSignerOpts struct {
 
 // Manage entities who can sign Docker images.
 func TrustSigner(opts *TrustSignerOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"trust", "signer"},
 		[]string{},
@@ -163,6 +184,9 @@ type TrustSignerAddOpts struct {
 
 // Add a signer.
 func TrustSignerAdd(opts *TrustSignerAddOpts, name string, repository ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(repository) == 0 {
 		return "", fmt.Errorf("repository must have at least one value")
 	}
@@ -187,6 +211,9 @@ type TrustSignerRemoveOpts struct {
 
 // Remove a signer.
 func TrustSignerRemove(opts *TrustSignerRemoveOpts, name string, repository ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(repository) == 0 {
 		return "", fmt.Errorf("repository must have at least one value")
 	}

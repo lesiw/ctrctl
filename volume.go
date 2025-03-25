@@ -58,6 +58,9 @@ type VolumeCreateOpts struct {
 
 // Create a volume.
 func VolumeCreate(opts *VolumeCreateOpts, volume string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"volume", "create"},
 		[]string{volume},
@@ -82,6 +85,9 @@ type VolumeInspectOpts struct {
 
 // Display detailed information on one or more volumes.
 func VolumeInspect(opts *VolumeInspectOpts, volume ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(volume) == 0 {
 		return "", fmt.Errorf("volume must have at least one value")
 	}
@@ -120,6 +126,9 @@ type VolumeLsOpts struct {
 
 // List volumes.
 func VolumeLs(opts *VolumeLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"volume", "ls"},
 		[]string{},
@@ -147,6 +156,9 @@ type VolumePruneOpts struct {
 
 // Remove unused local volumes.
 func VolumePrune(opts *VolumePruneOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"volume", "prune"},
 		[]string{},
@@ -168,6 +180,9 @@ type VolumeRmOpts struct {
 
 // Remove one or more volumes.
 func VolumeRm(opts *VolumeRmOpts, volume ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(volume) == 0 {
 		return "", fmt.Errorf("volume must have at least one value")
 	}
@@ -192,6 +207,9 @@ type VolumeUpdateOpts struct {
 
 // Update a volume (cluster volumes only).
 func VolumeUpdate(opts *VolumeUpdateOpts, volume string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"volume", "update"},
 		[]string{volume},

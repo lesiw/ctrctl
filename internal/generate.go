@@ -85,6 +85,9 @@ const cmdTemplate = `type {{ .FuncName }}Opts struct {
 
 // {{ .Short }}
 func {{ .FuncName }}(opts *{{ .FuncName }}Opts{{if .ArgsDefn}}, {{ .ArgsDefn }}{{end}}) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 {{if .VargRequired }}	if len({{ .Varg }}) == 0 {
 		return "", fmt.Errorf("{{ .Varg }} must have at least one value")
 	}

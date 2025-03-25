@@ -25,6 +25,9 @@ type SecretCreateOpts struct {
 
 // Create a secret from a file or STDIN as content.
 func SecretCreate(opts *SecretCreateOpts, secret string, file string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"secret", "create"},
 		[]string{secret, file},
@@ -52,6 +55,9 @@ type SecretInspectOpts struct {
 
 // Display detailed information on one or more secrets.
 func SecretInspect(opts *SecretInspectOpts, secret ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(secret) == 0 {
 		return "", fmt.Errorf("secret must have at least one value")
 	}
@@ -87,6 +93,9 @@ type SecretLsOpts struct {
 
 // List secrets.
 func SecretLs(opts *SecretLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"secret", "ls"},
 		[]string{},
@@ -105,6 +114,9 @@ type SecretRmOpts struct {
 
 // Remove one or more secrets.
 func SecretRm(opts *SecretRmOpts, secret ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(secret) == 0 {
 		return "", fmt.Errorf("secret must have at least one value")
 	}

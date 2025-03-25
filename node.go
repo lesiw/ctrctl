@@ -16,6 +16,9 @@ type NodeDemoteOpts struct {
 
 // Demote one or more nodes from manager in the swarm.
 func NodeDemote(opts *NodeDemoteOpts, node ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(node) == 0 {
 		return "", fmt.Errorf("node must have at least one value")
 	}
@@ -46,6 +49,9 @@ type NodeInspectOpts struct {
 
 // Display detailed information on one or more nodes.
 func NodeInspect(opts *NodeInspectOpts, selfNode string, node ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"node", "inspect"},
 		append([]string{selfNode}, node...),
@@ -78,6 +84,9 @@ type NodeLsOpts struct {
 
 // List nodes in the swarm.
 func NodeLs(opts *NodeLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"node", "ls"},
 		[]string{},
@@ -96,6 +105,9 @@ type NodePromoteOpts struct {
 
 // Promote one or more nodes to manager in the swarm.
 func NodePromote(opts *NodePromoteOpts, node ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(node) == 0 {
 		return "", fmt.Errorf("node must have at least one value")
 	}
@@ -132,6 +144,9 @@ type NodePsOpts struct {
 
 // List tasks running on one or more nodes, defaults to current node.
 func NodePs(opts *NodePsOpts, node ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"node", "ps"},
 		node,
@@ -153,6 +168,9 @@ type NodeRmOpts struct {
 
 // Remove one or more nodes from the swarm.
 func NodeRm(opts *NodeRmOpts, node ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(node) == 0 {
 		return "", fmt.Errorf("node must have at least one value")
 	}
@@ -186,6 +204,9 @@ type NodeUpdateOpts struct {
 
 // Update a node.
 func NodeUpdate(opts *NodeUpdateOpts, node string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"node", "update"},
 		[]string{node},

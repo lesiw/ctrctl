@@ -24,6 +24,9 @@ type SystemDfOpts struct {
 
 // Show docker disk usage.
 func SystemDf(opts *SystemDfOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"system", "df"},
 		[]string{},
@@ -42,6 +45,9 @@ type SystemDialStdioOpts struct {
 
 // Proxy the stdio stream to the daemon connection. Should not be invoked manually.
 func SystemDialStdio(opts *SystemDialStdioOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"system", "dial-stdio"},
 		[]string{},
@@ -75,6 +81,9 @@ type SystemEventsOpts struct {
 
 // Get real time events from the server.
 func SystemEvents(opts *SystemEventsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"system", "events"},
 		[]string{},
@@ -99,6 +108,9 @@ type SystemInfoOpts struct {
 
 // Display system-wide information.
 func SystemInfo(opts *SystemInfoOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"system", "info"},
 		[]string{},
@@ -129,6 +141,9 @@ type SystemPruneOpts struct {
 
 // Remove unused data.
 func SystemPrune(opts *SystemPruneOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"system", "prune"},
 		[]string{},

@@ -235,6 +235,9 @@ type ServiceCreateOpts struct {
 
 // Create a new service.
 func ServiceCreate(opts *ServiceCreateOpts, image string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"service", "create"},
 		append([]string{image, command}, arg...),
@@ -262,6 +265,9 @@ type ServiceInspectOpts struct {
 
 // Display detailed information on one or more services.
 func ServiceInspect(opts *ServiceInspectOpts, service ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(service) == 0 {
 		return "", fmt.Errorf("service must have at least one value")
 	}
@@ -310,6 +316,9 @@ type ServiceLogsOpts struct {
 
 // Fetch the logs of a service or task.
 func ServiceLogs(opts *ServiceLogsOpts, serviceTask string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"service", "logs"},
 		[]string{serviceTask},
@@ -342,6 +351,9 @@ type ServiceLsOpts struct {
 
 // List services.
 func ServiceLs(opts *ServiceLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"service", "ls"},
 		[]string{},
@@ -375,6 +387,9 @@ type ServicePsOpts struct {
 
 // List the tasks of one or more services.
 func ServicePs(opts *ServicePsOpts, service ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(service) == 0 {
 		return "", fmt.Errorf("service must have at least one value")
 	}
@@ -396,6 +411,9 @@ type ServiceRmOpts struct {
 
 // Remove one or more services.
 func ServiceRm(opts *ServiceRmOpts, service ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(service) == 0 {
 		return "", fmt.Errorf("service must have at least one value")
 	}
@@ -423,6 +441,9 @@ type ServiceRollbackOpts struct {
 
 // Revert changes to a service's configuration.
 func ServiceRollback(opts *ServiceRollbackOpts, service string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"service", "rollback"},
 		[]string{service},
@@ -444,6 +465,9 @@ type ServiceScaleOpts struct {
 
 // Scale one or multiple replicated services.
 func ServiceScale(opts *ServiceScaleOpts, serviceReplicas ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(serviceReplicas) == 0 {
 		return "", fmt.Errorf("serviceReplicas must have at least one value")
 	}
@@ -741,6 +765,9 @@ type ServiceUpdateOpts struct {
 
 // Update a service.
 func ServiceUpdate(opts *ServiceUpdateOpts, service string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"service", "update"},
 		[]string{service},

@@ -103,6 +103,9 @@ type BuilderBuildOpts struct {
 
 // Build an image from a Dockerfile.
 func BuilderBuild(opts *BuilderBuildOpts, pathUrl string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"builder", "build"},
 		[]string{pathUrl},
@@ -133,6 +136,9 @@ type BuilderPruneOpts struct {
 
 // Remove build cache.
 func BuilderPrune(opts *BuilderPruneOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"builder", "prune"},
 		[]string{},

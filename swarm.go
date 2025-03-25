@@ -34,6 +34,9 @@ type SwarmCaOpts struct {
 
 // Display and rotate the root CA.
 func SwarmCa(opts *SwarmCaOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "ca"},
 		[]string{},
@@ -97,6 +100,9 @@ type SwarmInitOpts struct {
 
 // Initialize a swarm.
 func SwarmInit(opts *SwarmInitOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "init"},
 		[]string{},
@@ -121,6 +127,9 @@ type SwarmJoinTokenOpts struct {
 
 // Manage join tokens.
 func SwarmJoinToken(opts *SwarmJoinTokenOpts, WorkerManager string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "join-token"},
 		[]string{WorkerManager},
@@ -154,6 +163,9 @@ type SwarmJoinOpts struct {
 
 // Join a swarm as a node and/or manager.
 func SwarmJoin(opts *SwarmJoinOpts, hostPort string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "join"},
 		[]string{hostPort},
@@ -175,6 +187,9 @@ type SwarmLeaveOpts struct {
 
 // Leave the swarm.
 func SwarmLeave(opts *SwarmLeaveOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "leave"},
 		[]string{},
@@ -199,6 +214,9 @@ type SwarmUnlockKeyOpts struct {
 
 // Manage the unlock key.
 func SwarmUnlockKey(opts *SwarmUnlockKeyOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "unlock-key"},
 		[]string{},
@@ -217,6 +235,9 @@ type SwarmUnlockOpts struct {
 
 // Unlock swarm.
 func SwarmUnlock(opts *SwarmUnlockOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "unlock"},
 		[]string{},
@@ -256,6 +277,9 @@ type SwarmUpdateOpts struct {
 
 // Update the swarm.
 func SwarmUpdate(opts *SwarmUpdateOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"swarm", "update"},
 		[]string{},

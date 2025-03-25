@@ -25,6 +25,9 @@ type ContainerAttachOpts struct {
 
 // Attach local standard input, output, and error streams to a running container.
 func ContainerAttach(opts *ContainerAttachOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "attach"},
 		[]string{container},
@@ -55,6 +58,9 @@ type ContainerCommitOpts struct {
 
 // Create a new image from a container's changes.
 func ContainerCommit(opts *ContainerCommitOpts, container string, repositoryTag string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "commit"},
 		[]string{container, repositoryTag},
@@ -82,6 +88,9 @@ type ContainerCpOpts struct {
 
 // Copy files/folders between a container and the local filesystem.
 func ContainerCp(opts *ContainerCpOpts, srcpath string, dstpath string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "cp"},
 		[]string{srcpath, dstpath},
@@ -410,6 +419,9 @@ type ContainerCreateOpts struct {
 
 // Create a new container.
 func ContainerCreate(opts *ContainerCreateOpts, image string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "create"},
 		append([]string{image, command}, arg...),
@@ -428,6 +440,9 @@ type ContainerDiffOpts struct {
 
 // Inspect changes to files or directories on a container's filesystem.
 func ContainerDiff(opts *ContainerDiffOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "diff"},
 		[]string{container},
@@ -473,6 +488,9 @@ type ContainerExecOpts struct {
 
 // Execute a command in a running container.
 func ContainerExec(opts *ContainerExecOpts, container string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "exec"},
 		append([]string{container, command}, arg...),
@@ -494,6 +512,9 @@ type ContainerExportOpts struct {
 
 // Export a container's filesystem as a tar archive.
 func ContainerExport(opts *ContainerExportOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "export"},
 		[]string{container},
@@ -521,6 +542,9 @@ type ContainerInspectOpts struct {
 
 // Display detailed information on one or more containers.
 func ContainerInspect(opts *ContainerInspectOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -545,6 +569,9 @@ type ContainerKillOpts struct {
 
 // Kill one or more running containers.
 func ContainerKill(opts *ContainerKillOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -584,6 +611,9 @@ type ContainerLogsOpts struct {
 
 // Fetch the logs of a container.
 func ContainerLogs(opts *ContainerLogsOpts, container string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "logs"},
 		[]string{container},
@@ -631,6 +661,9 @@ type ContainerLsOpts struct {
 
 // List containers.
 func ContainerLs(opts *ContainerLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "ls"},
 		[]string{},
@@ -649,6 +682,9 @@ type ContainerPauseOpts struct {
 
 // Pause all processes within one or more containers.
 func ContainerPause(opts *ContainerPauseOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -670,6 +706,9 @@ type ContainerPortOpts struct {
 
 // List port mappings or a specific mapping for the container.
 func ContainerPort(opts *ContainerPortOpts, container string, privatePortProto string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "port"},
 		[]string{container, privatePortProto},
@@ -694,6 +733,9 @@ type ContainerPruneOpts struct {
 
 // Remove all stopped containers.
 func ContainerPrune(opts *ContainerPruneOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "prune"},
 		[]string{},
@@ -712,6 +754,9 @@ type ContainerRenameOpts struct {
 
 // Rename a container.
 func ContainerRename(opts *ContainerRenameOpts, container string, newName string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "rename"},
 		[]string{container, newName},
@@ -739,6 +784,9 @@ type ContainerRestartOpts struct {
 
 // Restart one or more containers.
 func ContainerRestart(opts *ContainerRestartOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -769,6 +817,9 @@ type ContainerRmOpts struct {
 
 // Remove one or more containers.
 func ContainerRm(opts *ContainerRmOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1109,6 +1160,9 @@ type ContainerRunOpts struct {
 
 // Create and run a new container from an image.
 func ContainerRun(opts *ContainerRunOpts, image string, command string, arg ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "run"},
 		append([]string{image, command}, arg...),
@@ -1142,6 +1196,9 @@ type ContainerStartOpts struct {
 
 // Start one or more stopped containers.
 func ContainerStart(opts *ContainerStartOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1180,6 +1237,9 @@ type ContainerStatsOpts struct {
 
 // Display a live stream of container(s) resource usage statistics.
 func ContainerStats(opts *ContainerStatsOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "stats"},
 		container,
@@ -1207,6 +1267,9 @@ type ContainerStopOpts struct {
 
 // Stop one or more running containers.
 func ContainerStop(opts *ContainerStopOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1228,6 +1291,9 @@ type ContainerTopOpts struct {
 
 // Display the running processes of a container.
 func ContainerTop(opts *ContainerTopOpts, container string, psOptions string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"container", "top"},
 		[]string{container, psOptions},
@@ -1246,6 +1312,9 @@ type ContainerUnpauseOpts struct {
 
 // Unpause all processes within one or more containers.
 func ContainerUnpause(opts *ContainerUnpauseOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1312,6 +1381,9 @@ type ContainerUpdateOpts struct {
 
 // Update configuration of one or more containers.
 func ContainerUpdate(opts *ContainerUpdateOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}
@@ -1333,6 +1405,9 @@ type ContainerWaitOpts struct {
 
 // Block until one or more containers stop, then print their exit codes.
 func ContainerWait(opts *ContainerWaitOpts, container ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(container) == 0 {
 		return "", fmt.Errorf("container must have at least one value")
 	}

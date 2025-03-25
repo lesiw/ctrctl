@@ -25,6 +25,9 @@ type StackConfigOpts struct {
 
 // Outputs the final config file, after doing merges and interpolations.
 func StackConfig(opts *StackConfigOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stack", "config"},
 		[]string{},
@@ -64,6 +67,9 @@ type StackDeployOpts struct {
 
 // Deploy a new stack or update an existing stack.
 func StackDeploy(opts *StackDeployOpts, stack string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stack", "deploy"},
 		[]string{stack},
@@ -93,6 +99,9 @@ type StackLsOpts struct {
 
 // List stacks.
 func StackLs(opts *StackLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stack", "ls"},
 		[]string{},
@@ -134,6 +143,9 @@ type StackPsOpts struct {
 
 // List the tasks in the stack.
 func StackPs(opts *StackPsOpts, stack string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stack", "ps"},
 		[]string{stack},
@@ -158,6 +170,9 @@ type StackRmOpts struct {
 
 // Remove one or more stacks.
 func StackRm(opts *StackRmOpts, stack ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(stack) == 0 {
 		return "", fmt.Errorf("stack must have at least one value")
 	}
@@ -196,6 +211,9 @@ type StackServicesOpts struct {
 
 // List the services in the stack.
 func StackServices(opts *StackServicesOpts, stack string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"stack", "services"},
 		[]string{stack},

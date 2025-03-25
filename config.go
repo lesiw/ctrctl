@@ -22,6 +22,9 @@ type ConfigCreateOpts struct {
 
 // Create a config from a file or STDIN.
 func ConfigCreate(opts *ConfigCreateOpts, config string, file string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"config", "create"},
 		[]string{config, file},
@@ -49,6 +52,9 @@ type ConfigInspectOpts struct {
 
 // Display detailed information on one or more configs.
 func ConfigInspect(opts *ConfigInspectOpts, config ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(config) == 0 {
 		return "", fmt.Errorf("config must have at least one value")
 	}
@@ -84,6 +90,9 @@ type ConfigLsOpts struct {
 
 // List configs.
 func ConfigLs(opts *ConfigLsOpts) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	return runCtrCmd(
 		[]string{"config", "ls"},
 		[]string{},
@@ -102,6 +111,9 @@ type ConfigRmOpts struct {
 
 // Remove one or more configs.
 func ConfigRm(opts *ConfigRmOpts, config ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
 	if len(config) == 0 {
 		return "", fmt.Errorf("config must have at least one value")
 	}
