@@ -200,6 +200,11 @@ type ImageInspectOpts struct {
 
 	// Print usage.
 	Help bool
+
+	// Inspect a specific platform of the multi-platform image.
+	// If the image or the server is not multi-platform capable, the command will error out if the platform does not match.
+	// 'os[/arch[/variant]]': Explicit platform (eg. linux/amd64).
+	Platform string
 }
 
 // Display detailed information on one or more images.
@@ -405,6 +410,9 @@ type ImageRmOpts struct {
 
 	// Do not delete untagged parents.
 	NoPrune bool
+
+	// Remove only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 }
 
 // Remove one or more images.

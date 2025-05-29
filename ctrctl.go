@@ -87,6 +87,27 @@ func Attach(opts *AttachOpts, container string) (string, error) {
 	)
 }
 
+type BakeOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
+	// Print usage.
+	Help bool
+}
+
+// Build from a file.
+func Bake(opts *BakeOpts, target ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
+	return runCtrCmd(
+		[]string{"bake"},
+		target,
+		opts,
+		0,
+	)
+}
+
 type BuildOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
@@ -662,6 +683,9 @@ type CreateOpts struct {
 	// Ulimit options.
 	Ulimit string
 
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
+
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string
 
@@ -1008,7 +1032,7 @@ type InspectOpts struct {
 	// Display total file sizes if the type is container.
 	Size bool
 
-	// Return JSON for specified type.
+	// Only inspect objects of the given type.
 	Type string
 }
 
@@ -1521,6 +1545,9 @@ type RmiOpts struct {
 
 	// Do not delete untagged parents.
 	NoPrune bool
+
+	// Remove only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 }
 
 // Remove one or more images.
@@ -1843,6 +1870,9 @@ type RunOpts struct {
 
 	// Ulimit options.
 	Ulimit string
+
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
 
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string

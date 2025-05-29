@@ -395,6 +395,9 @@ type ContainerCreateOpts struct {
 	// Ulimit options.
 	Ulimit string
 
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
+
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string
 
@@ -1135,6 +1138,9 @@ type ContainerRunOpts struct {
 
 	// Ulimit options.
 	Ulimit string
+
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
 
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string
