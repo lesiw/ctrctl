@@ -40,7 +40,7 @@ type ImageBuildOpts struct {
 	// MEMs in which to allow execution (0-3, 0,1).
 	CpusetMems string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Name of the Dockerfile (Default is `PATH/Dockerfile`).
@@ -200,6 +200,11 @@ type ImageInspectOpts struct {
 
 	// Print usage.
 	Help bool
+
+	// Inspect a specific platform of the multi-platform image.
+	// If the image or the server is not multi-platform capable, the command will error out if the platform does not match.
+	// 'os[/arch[/variant]]': Explicit platform (eg. linux/amd64).
+	Platform string
 }
 
 // Display detailed information on one or more images.
@@ -228,7 +233,7 @@ type ImageLoadOpts struct {
 	// Read from tar archive file, instead of STDIN.
 	Input string
 
-	// Load only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	// Load only the given platform(s). Formatted as a comma-separated list of `os[/arch[/variant]]` (e.g., `linux/amd64,linux/arm64/v8`).
 	Platform string
 
 	// Suppress the load output.
@@ -252,7 +257,7 @@ type ImageLsOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
 
-	// Show all images (default hides intermediate images).
+	// Show all images (default hides intermediate and dangling images).
 	All bool
 
 	// Show digests.
@@ -332,7 +337,7 @@ type ImagePullOpts struct {
 	// Download all tagged images in the repository.
 	AllTags bool
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Print usage.
@@ -365,7 +370,7 @@ type ImagePushOpts struct {
 	// Push all tags of an image to the repository.
 	AllTags bool
 
-	// Skip image signing.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Print usage.
@@ -405,6 +410,9 @@ type ImageRmOpts struct {
 
 	// Do not delete untagged parents.
 	NoPrune bool
+
+	// Remove only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 }
 
 // Remove one or more images.
@@ -433,7 +441,7 @@ type ImageSaveOpts struct {
 	// Write to a file, instead of STDOUT.
 	Output string
 
-	// Save only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	// Save only the given platform(s). Formatted as a comma-separated list of `os[/arch[/variant]]` (e.g., `linux/amd64,linux/arm64/v8`).
 	Platform string
 }
 

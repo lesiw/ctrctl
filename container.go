@@ -52,7 +52,10 @@ type ContainerCommitOpts struct {
 	// Commit message.
 	Message string
 
-	// Pause container during commit.
+	// Disable pausing container during commit.
+	NoPause bool
+
+	// Pause container during commit (deprecated: use --no-pause instead).
 	Pause bool
 }
 
@@ -185,7 +188,7 @@ type ContainerCreateOpts struct {
 	// Limit write rate (IO per second) to a device.
 	DeviceWriteIops []string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Set custom DNS servers.
@@ -269,7 +272,7 @@ type ContainerCreateOpts struct {
 	// Container isolation technology.
 	Isolation string
 
-	// Kernel memory limit.
+	// Kernel memory limit (deprecated).
 	KernelMemory string
 
 	// Set meta data on a container.
@@ -394,6 +397,9 @@ type ContainerCreateOpts struct {
 
 	// Ulimit options.
 	Ulimit string
+
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
 
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string
@@ -923,7 +929,7 @@ type ContainerRunOpts struct {
 	// Limit write rate (IO per second) to a device.
 	DeviceWriteIops []string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Set custom DNS servers.
@@ -1007,7 +1013,7 @@ type ContainerRunOpts struct {
 	// Container isolation technology.
 	Isolation string
 
-	// Kernel memory limit.
+	// Kernel memory limit (deprecated).
 	KernelMemory string
 
 	// Set meta data on a container.
@@ -1135,6 +1141,9 @@ type ContainerRunOpts struct {
 
 	// Ulimit options.
 	Ulimit string
+
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
 
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string

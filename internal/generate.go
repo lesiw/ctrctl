@@ -75,7 +75,6 @@ var cmdOverrides = map[string]*ctrCliCmd{
 	},
 }
 
-//nolint:lll
 const cmdTemplate = `type {{ .FuncName }}Opts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
@@ -84,7 +83,10 @@ const cmdTemplate = `type {{ .FuncName }}Opts struct {
 }
 
 // {{ .Short }}
-func {{ .FuncName }}(opts *{{ .FuncName }}Opts{{if .ArgsDefn}}, {{ .ArgsDefn }}{{end}}) (string, error) {
+` + "func {{ .FuncName }}" +
+	`(opts *{{ .FuncName }}Opts` +
+	`{{if .ArgsDefn}}, {{ .ArgsDefn }}{{end}}` +
+	`) (string, error) {
 	if err := findCli(); err != nil {
 		return "", err
 	}
@@ -162,7 +164,11 @@ func run() error {
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("error running gofmt: %w", err)
 	}
-	cmd = exec.Command("goimports", "-w", ".")
+	cmd = exec.Command(
+		"go", "run",
+		"golang.org/x/tools/cmd/goimports@v0.39.0",
+		"-w", ".",
+	)
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("error running goimports: %w", err)
 	}
@@ -222,7 +228,7 @@ func outfilemap(path string) (map[string][]string, error) {
 	return result, nil
 }
 
-func fetchZip(url string, dir string) error {
+func fetchZip(url, dir string) error {
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
@@ -276,8 +282,12 @@ func extractZip(archive *zip.Reader, dir string) error {
 			return fmt.Errorf("error copying file (%s): %w", f.Name, err)
 		}
 
-		file.Close()
-		freader.Close()
+		if err := file.Close(); err != nil {
+			return fmt.Errorf("error closing file (%s): %w", f.Name, err)
+		}
+		if err := freader.Close(); err != nil {
+			return fmt.Errorf("error closing reader (%s): %w", f.Name, err)
+		}
 	}
 	return nil
 }
@@ -351,7 +361,6 @@ func cmdFromDefinition(buf []byte) (*ctrCliCmd, error) {
 	return cmd, nil
 }
 
-//nolint:gocyclo
 func (cmd *ctrCliCmd) parseUsage(usage string) {
 	var word []rune
 	var depth int
@@ -598,7 +607,7 @@ func ensureDot(s string) string {
 	return s + "."
 }
 
-func overrideStruct(src, dst interface{}) {
+func overrideStruct(src, dst any) {
 	srcv := reflect.ValueOf(src).Elem()
 	dstv := reflect.ValueOf(dst).Elem()
 

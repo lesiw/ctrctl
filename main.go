@@ -61,7 +61,7 @@ func (e *CliError) Error() string {
 }
 
 func runCtrCmd(
-	subcommand []string, args []string, opts any, optpos int,
+	subcommand, args []string, opts any, optpos int,
 ) (string, error) {
 	var strout strings.Builder
 	var strerr strings.Builder
@@ -121,7 +121,7 @@ func runCtrCmd(
 	return strings.TrimSpace(strout.String()), err
 }
 
-func optsToArgs(opts interface{}) []string {
+func optsToArgs(opts any) []string {
 	result := []string{}
 	val := reflect.ValueOf(opts).Elem()
 	typ := val.Type()
@@ -201,7 +201,7 @@ func shJoin(parts []string) string {
 	return strings.Join(quotedParts, " ")
 }
 
-func prepareStreams(cmd *exec.Cmd, out io.Writer, err io.Writer) {
+func prepareStreams(cmd *exec.Cmd, out, err io.Writer) {
 	if cmd.Stdout == nil {
 		cmd.Stdout = out
 	}

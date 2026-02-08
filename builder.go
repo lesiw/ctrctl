@@ -37,7 +37,7 @@ type BuilderBuildOpts struct {
 	// MEMs in which to allow execution (0-3, 0,1).
 	CpusetMems string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Name of the Dockerfile (Default is `PATH/Dockerfile`).

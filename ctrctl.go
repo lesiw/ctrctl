@@ -23,7 +23,7 @@ type DockerOpts struct {
 	Help bool
 
 	// Daemon socket to connect to.
-	Host []string
+	Host string
 
 	// Set the logging level (`debug`, `info`, `warn`, `error`, `fatal`).
 	LogLevel string
@@ -87,6 +87,27 @@ func Attach(opts *AttachOpts, container string) (string, error) {
 	)
 }
 
+type BakeOpts struct {
+	// Base exec.Cmd.
+	Cmd *exec.Cmd
+
+	// Print usage.
+	Help bool
+}
+
+// Build from a file.
+func Bake(opts *BakeOpts, target ...string) (string, error) {
+	if err := findCli(); err != nil {
+		return "", err
+	}
+	return runCtrCmd(
+		[]string{"bake"},
+		target,
+		opts,
+		0,
+	)
+}
+
 type BuildOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
@@ -121,7 +142,7 @@ type BuildOpts struct {
 	// MEMs in which to allow execution (0-3, 0,1).
 	CpusetMems string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Name of the Dockerfile (Default is `PATH/Dockerfile`).
@@ -256,7 +277,10 @@ type CommitOpts struct {
 	// Commit message.
 	Message string
 
-	// Pause container during commit.
+	// Disable pausing container during commit.
+	NoPause bool
+
+	// Pause container during commit (deprecated: use --no-pause instead).
 	Pause bool
 }
 
@@ -452,7 +476,7 @@ type CreateOpts struct {
 	// Limit write rate (IO per second) to a device.
 	DeviceWriteIops []string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Set custom DNS servers.
@@ -536,7 +560,7 @@ type CreateOpts struct {
 	// Container isolation technology.
 	Isolation string
 
-	// Kernel memory limit.
+	// Kernel memory limit (deprecated).
 	KernelMemory string
 
 	// Set meta data on a container.
@@ -661,6 +685,9 @@ type CreateOpts struct {
 
 	// Ulimit options.
 	Ulimit string
+
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
 
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string
@@ -892,7 +919,7 @@ type ImagesOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
 
-	// Show all images (default hides intermediate images).
+	// Show all images (default hides intermediate and dangling images).
 	All bool
 
 	// Show digests.
@@ -1008,7 +1035,7 @@ type InspectOpts struct {
 	// Display total file sizes if the type is container.
 	Size bool
 
-	// Return JSON for specified type.
+	// Only inspect objects of the given type.
 	Type string
 }
 
@@ -1065,7 +1092,7 @@ type LoadOpts struct {
 	// Read from tar archive file, instead of STDIN.
 	Input string
 
-	// Load only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	// Load only the given platform(s). Formatted as a comma-separated list of `os[/arch[/variant]]` (e.g., `linux/amd64,linux/arm64/v8`).
 	Platform string
 
 	// Suppress the load output.
@@ -1361,7 +1388,7 @@ type PullOpts struct {
 	// Download all tagged images in the repository.
 	AllTags bool
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Print usage.
@@ -1394,7 +1421,7 @@ type PushOpts struct {
 	// Push all tags of an image to the repository.
 	AllTags bool
 
-	// Skip image signing.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Print usage.
@@ -1521,6 +1548,9 @@ type RmiOpts struct {
 
 	// Do not delete untagged parents.
 	NoPrune bool
+
+	// Remove only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	Platform string
 }
 
 // Remove one or more images.
@@ -1631,7 +1661,7 @@ type RunOpts struct {
 	// Limit write rate (IO per second) to a device.
 	DeviceWriteIops []string
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Set custom DNS servers.
@@ -1715,7 +1745,7 @@ type RunOpts struct {
 	// Container isolation technology.
 	Isolation string
 
-	// Kernel memory limit.
+	// Kernel memory limit (deprecated).
 	KernelMemory string
 
 	// Set meta data on a container.
@@ -1844,6 +1874,9 @@ type RunOpts struct {
 	// Ulimit options.
 	Ulimit string
 
+	// Bind mount Docker API socket and required auth.
+	UseApiSocket bool
+
 	// Username or UID (format: <name|uid>[:<group|gid>]).
 	User string
 
@@ -1889,7 +1922,7 @@ type SaveOpts struct {
 	// Write to a file, instead of STDOUT.
 	Output string
 
-	// Save only the given platform variant. Formatted as `os[/arch[/variant]]` (e.g., `linux/amd64`).
+	// Save only the given platform(s). Formatted as a comma-separated list of `os[/arch[/variant]]` (e.g., `linux/amd64,linux/arm64/v8`).
 	Platform string
 }
 

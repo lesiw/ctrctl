@@ -118,7 +118,7 @@ type PluginInstallOpts struct {
 	// Do not enable the plugin on install.
 	Disable bool
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Grant all permissions necessary to run the plugin.
@@ -183,7 +183,7 @@ type PluginPushOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
 
-	// Skip image signing.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Print usage.
@@ -258,7 +258,7 @@ type PluginUpgradeOpts struct {
 	// Base exec.Cmd.
 	Cmd *exec.Cmd
 
-	// Skip image verification.
+	// Skip image verification (deprecated).
 	DisableContentTrust bool
 
 	// Grant all permissions necessary to run the plugin.

@@ -112,6 +112,12 @@ type ServiceCreateOpts struct {
 	// Number of job tasks to run concurrently (default equal to --replicas).
 	MaxConcurrent string
 
+	// Swap Bytes (-1 for unlimited).
+	MemorySwap string
+
+	// Tune memory swappiness (0-100), -1 to reset to default.
+	MemorySwappiness string
+
 	// Service mode (`replicated`, `global`, `replicated-job`, `global-job`).
 	Mode string
 
@@ -623,6 +629,12 @@ type ServiceUpdateOpts struct {
 
 	// Number of job tasks to run concurrently (default equal to --replicas).
 	MaxConcurrent string
+
+	// Swap Bytes (-1 for unlimited).
+	MemorySwap string
+
+	// Tune memory swappiness (0-100), -1 to reset to default.
+	MemorySwappiness string
 
 	// Add or update a mount on a service.
 	MountAdd string
